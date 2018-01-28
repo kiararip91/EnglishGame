@@ -51,7 +51,7 @@ import android.widget.Toast;
 
 /**
  * @author chiararipanti
- * @date 04/05/2013
+ * date 04/05/2013
  */
 public class MainActivity extends Activity {
     Boolean suono;

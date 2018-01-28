@@ -1,9 +1,10 @@
 package com.chiararipanti.itranslate.db;
 
-
-
+/**
+ * @author chiararipanti
+ * date 04/05/2013
+ */
 public class QuizTraduzione {
-	int tipo;
 	String text;
 	String correctAnswer;
 	
@@ -12,13 +13,6 @@ public class QuizTraduzione {
     	this.text=text;
     	this.correctAnswer=correctAnswer;  
     }
-	
-	public int getTipo() {
-		return tipo;
-	}
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
-	}
 	
 	public String getText() {
 		return text;
@@ -29,8 +23,5 @@ public class QuizTraduzione {
 	
 	public String getCorrectAnswer() {
 		return correctAnswer;
-	}
-	public void setCorrectAnswer(String correctAnswer) {
-		this.correctAnswer = correctAnswer;
 	}
 }

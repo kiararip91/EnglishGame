@@ -1,7 +1,10 @@
 package com.chiararipanti.itranslate.db;
 
 import java.util.ArrayList;
-
+/**
+ * @author chiararipanti
+ * date 04/05/2013
+ */
 public class Quiz {
 	int tipo;
 	String text;
@@ -14,14 +17,7 @@ public class Quiz {
     	this.correctAnswer=correctAnswer;  
     	this._alternative=alternative;
     }
-	
-	public int getTipo() {
-		return tipo;
-	}
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
-	}
-	
+
 	public String getText() {
 		return text;
 	}
@@ -32,15 +28,9 @@ public class Quiz {
 	public ArrayList<String> get_alternative() {
 		return _alternative;
 	}
-	public void set_alternative(ArrayList<String> _alternative) {
-		this._alternative = _alternative;
-	}
 	
 	public String getCorrectAnswer() {
 		return correctAnswer;
-	}
-	public void setCorrectAnswer(String correctAnswer) {
-		this.correctAnswer = correctAnswer;
 	}
 }
 

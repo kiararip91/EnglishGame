@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+/**
+ * @author chiararipanti
+ * date 04/05/2013
+ */
 public class AlertDialogManager {
     Boolean ok;
     /**
@@ -44,7 +48,6 @@ public class AlertDialogManager {
 
         //Visualizzazione della finestra di dialogo
         alertDialog.show();
-        return;
 
     }
 }

@@ -11,7 +11,7 @@ import com.google.firebase.messaging.RemoteMessage;
  */
 /**
  * @author chiararipanti
- * @date 04/05/2013
+ * date 04/05/2013
  */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
