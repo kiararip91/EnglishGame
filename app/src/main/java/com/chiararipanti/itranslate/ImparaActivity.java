@@ -38,10 +38,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class ImparaActivity extends Activity {
-
-
-
+    /**
+     * Declaring variables
+     */
     String categoria;
     ArrayList<Vocabolo> vocaboli;
     int prossimo;

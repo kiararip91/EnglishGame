@@ -34,6 +34,11 @@ import android.widget.Toast;
  *  - Ottimizza bunner App
  *  - Rivedi Codice
  */
+
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class StartActivity extends Activity {
 
     /**

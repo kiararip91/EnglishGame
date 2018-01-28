@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class ImparaargomentiActivity extends Activity {
     Button principianteb;
     Button baseb;
@@ -52,14 +56,8 @@ public class ImparaargomentiActivity extends Activity {
         ActionBar actionBar = getActionBar();
         if(actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
-
-        //suono_button=(ImageButton)(findViewById(R.id.suono));
         session = new SessionManager(getApplicationContext());
-	    /*suono=session.getSuono();
-	    if(suono)
-	    	suono_button.setImageResource(R.drawable.sound);
-	    else
-	    	suono_button.setImageResource(R.drawable.no_sound);*/
+
 
 
 

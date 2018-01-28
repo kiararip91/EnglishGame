@@ -26,8 +26,15 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class QuizTraduzioneActivity extends Activity {
 
+    /**
+     * Declaring Variables
+     */
     MediaPlayer wrongSound;
     MediaPlayer correctSound;
     SessionManager session;

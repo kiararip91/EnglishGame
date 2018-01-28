@@ -35,6 +35,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class MusicaActivity extends Activity {
     ArrayList<Canzone> canzoni;
     int prossimo;

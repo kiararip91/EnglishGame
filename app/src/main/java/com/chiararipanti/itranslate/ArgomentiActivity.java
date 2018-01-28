@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 /**
  * @author chiararipanti
+ * @date 04/05/2013
  */
 public class ArgomentiActivity extends Activity {
 

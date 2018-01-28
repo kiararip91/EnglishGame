@@ -128,5 +128,9 @@
     <string name="sound">Sound</string>
     <string name="ok">OK</string>
     <string name="edit_pref">Edit settings</string>
+    <string name="sound_on">Sound ON</string>
+    <string name="sound_off">Sound OFF</string>
+    <string name="vibration_on">Vibration ON</string>
+    <string name="vibration_off">Vibration OFF</string>
 
 </resources>

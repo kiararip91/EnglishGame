@@ -22,8 +22,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -49,6 +49,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class MainActivity extends Activity {
     Boolean suono;
     Boolean vibra;
@@ -84,14 +88,12 @@ public class MainActivity extends Activity {
     boolean seconda_riga;
     int numeroAiuti;
     int numeroSoluzioni;
-    String sfondo_lettera;
 
     //array nel quale memorizzo gli identificatori delle lettere premuti
     ArrayList<Integer> premuti;
     Vocabolo voc;
     SessionManager session;
     ArrayList<String> parola_selezionata;
-    final String tag="mioLog";
     Vibrator vibrator;
     ArrayList<Vocabolo> vocaboli;
     int prossimo;
@@ -107,15 +109,7 @@ public class MainActivity extends Activity {
     boolean ascoltata;
     String lingua;
 
-
-
-    //*************************variabili per in-app purchase*************************************+
-    // Does the user have the premium upgrade?
-    boolean mIsPremium = false;
-    // (arbitrary) request code for the purchase flow
-    static final int RC_REQUEST = 10001;
-    //************************* fine in-app purchase*************************************+
-
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,26 +119,29 @@ public class MainActivity extends Activity {
         overSound = MediaPlayer.create(this, R.raw.over);
         ascoltata=false;
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        prossimo=0;
-        alertDialog=new AlertDialogManager();
-        settingDialog=new AlertDialogManager();
-        Intent intent=getIntent();
+        prossimo = 0;
+        alertDialog = new AlertDialogManager();
+        settingDialog = new AlertDialogManager();
+        Intent intent = getIntent();
         categoria=intent.getStringExtra("categoria");
-        mySwitch = (Switch) findViewById(R.id.switchForActionBar);
-        connectivityManager=new MyConnectivityManager(getApplicationContext());
+        mySwitch = findViewById(R.id.switchForActionBar);
+        connectivityManager = new MyConnectivityManager(getApplicationContext());
         session = new SessionManager(getApplicationContext());
         suono=session.getSuono();
         vibra=session.getVibrazione();
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        if(actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
         display= getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        rapporto=(int)size.x/9;
-        seconda_riga=false;
-        lingua=Locale.getDefault().getLanguage() ;
-        numeroAiuti=0;
-        numeroSoluzioni=0;
+        rapporto = size.x /9;
+        seconda_riga = false;
+        lingua = Locale.getDefault().getLanguage() ;
+        numeroAiuti = 0;
+        numeroSoluzioni = 0;
 
         //****************inserimento bunner pubblicitario***************************
         //create adView
@@ -162,7 +159,7 @@ public class MainActivity extends Activity {
         adView.loadAd(adRequest);
         //******************  FINE  bunner pubblicitario***************************
 
-        lb=new HashMap<Integer,Button>();
+        lb=new HashMap<>();
         record=session.getRecord(categoria);
         ll = findViewById(R.id.linearLayout1);
         ll1 = findViewById(R.id.linearletter);
@@ -174,7 +171,7 @@ public class MainActivity extends Activity {
         linear_gameover = findViewById(R.id.linearGameover);
         linear_gameover.setVisibility(View.GONE);
         linear_content = findViewById(R.id.contentLayout);
-        livello_tv = (TextView) findViewById(R.id.level);
+        livello_tv = findViewById(R.id.level);
         frase_tv = findViewById(R.id.frasetext);
         parola_inglese = findViewById(R.id.parola_inglese);
         punteggio = findViewById(R.id.punteggio);
@@ -183,13 +180,13 @@ public class MainActivity extends Activity {
         record_tv = findViewById(R.id.record);
         record_tv.setText(getString(R.string.tuo_record1)+" "+record);
         aiuto = findViewById(R.id.aiuto);
-        soluzione=findViewById(R.id.soluzione);
-        ascaudio=findViewById(R.id.audio);
+        soluzione = findViewById(R.id.soluzione);
+        ascaudio = findViewById(R.id.audio);
         fine = findViewById(R.id.fine);
-        fraseb=findViewById(R.id.frase);
+        fraseb = findViewById(R.id.frase);
         punti=0;
         err=0;
-        premuti=new ArrayList<Integer>();
+        premuti=new ArrayList<>();
         livello_tv.setText(getString(R.string.livello)+": "+intent.getStringExtra("categoria1"));
         frase_tv.setText("");
         if(connectivityManager.check())
@@ -229,8 +226,8 @@ public class MainActivity extends Activity {
             ll.setLayoutParams(layoutParams);
             Switch sbSound;
             sbSound = new Switch(this);
-            sbSound.setTextOn("Sound ON");
-            sbSound.setTextOff("Sound OFF");
+            sbSound.setTextOn(getString(R.string.sound_on));
+            sbSound.setTextOff(getString(R.string.sound_off));
 
             if(suono)
                 sbSound.setChecked(true);
@@ -249,8 +246,8 @@ public class MainActivity extends Activity {
 
             Switch sbVibra;
             sbVibra = new Switch(this);
-            sbVibra.setTextOn("Vibration ON");
-            sbVibra.setTextOff("Vibration OFF");
+            sbVibra.setTextOn(getString(R.string.vibration_on));
+            sbVibra.setTextOff(getString(R.string.vibration_off));
 
             if(vibra)
                 sbVibra.setChecked(true);
@@ -277,7 +274,6 @@ public class MainActivity extends Activity {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    return;
                 }
             });
             alertDialog = builder.create();
@@ -538,7 +534,7 @@ public class MainActivity extends Activity {
                             }else{
                                 black.setBackground(getResources().getDrawable(R.drawable.black));
 
-                                int ripristina=premuti.get(indice);
+                                int ripristina = premuti.get(indice);
 
                                 for (int i=0;i<premuti.size(); i++){
                                     premutiLog+=", "+premuti.get(i);
@@ -555,7 +551,7 @@ public class MainActivity extends Activity {
                                 premutiLog="";
                                 Button b=lb.get(ripristina);
                                 b.setClickable(true);
-                                String sfondo_lettera=sostituisciSpecialChar(parola_selezionata.get(indice).toString().charAt(0));
+                                String sfondo_lettera = sostituisciSpecialChar(parola_selezionata.get(indice).charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                                 b.setBackground(getResources().getDrawable(w));
                                 parola_selezionata.remove(indice);
@@ -624,6 +620,7 @@ public class MainActivity extends Activity {
 
             //click lettera random
             img.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("SetTextI18n")
                 public void onClick(View v) {
                     int numero_lettera=parola_selezionata.size();
 
@@ -666,9 +663,8 @@ public class MainActivity extends Activity {
                         img.setBackground(getResources().getDrawable(R.drawable.black));
                         String da_convalidare="";
 
-                        for(int i=0; i<parola_selezionata.size(); i++){
-                            da_convalidare=da_convalidare+(parola_selezionata.get(i));
-                        }
+                        for(int i=0; i<parola_selezionata.size(); i++)
+                            da_convalidare=da_convalidare + (parola_selezionata.get(i));
 
                         if(italiano.equalsIgnoreCase(da_convalidare)){
                             black_button.setClickable(false);
@@ -685,9 +681,6 @@ public class MainActivity extends Activity {
                             premutiLog="";
                         }
                         else{
-                            //Log.v("sbagliata","sbagliata");
-                            //Log.v("PAROLA s",da_convalidare);
-
                             err=err+1;
 
                             //GAME OVER
@@ -724,15 +717,7 @@ public class MainActivity extends Activity {
                             premutiLog+=", "+premuti.get(i);
                         }
                         premutiLog="";
-
                     }
-
-                    else if(numero_lettera==italiano.length())
-                    {
-                        //non fare niente
-                    }
-
-
                 }
             });
 
@@ -750,7 +735,7 @@ public class MainActivity extends Activity {
         //ordino la lista di chiavi in maniera casuale
         Collections.shuffle(keys);
         //creo una nuova hashmap
-        HashMap<Integer, Button> lettereCasuali=new HashMap <Integer, Button>();
+        HashMap<Integer, Button> lettereCasuali=new HashMap<>();
         int num=0;
 
         for (Object o : keys) {
@@ -763,13 +748,11 @@ public class MainActivity extends Activity {
             num++;
         }
         parola_inglese.setText(voc.getInglese());
-        return;
     }
 
-    public void next(View view)
-    {
+    public void next(View view){
         ascoltata=false;
-        premuti=new ArrayList<Integer>();
+        premuti=new ArrayList<>();
         seconda_riga=false;
         soluzione.setClickable(true);
         aiuto.setClickable(true);
@@ -778,10 +761,8 @@ public class MainActivity extends Activity {
 
         if(prossimo<20)
             voc=vocaboli.get(prossimo);
-        else
-        {
-            if(connectivityManager.check())
-            {
+        else{
+            if(connectivityManager.check()){
                 GetVocaboliFromDB getVocaboli=new GetVocaboliFromDB(this,categoria);
                 getVocaboli.execute();
                 try {
@@ -797,10 +778,8 @@ public class MainActivity extends Activity {
                 }
 
             }
-            else
-            {
+            else{
                 alertDialog.showAlertDialog(MainActivity.this, getString(R.string.attenzione), getString(R.string.attiva_connessione), true);
-
             }
 
         }
@@ -814,8 +793,9 @@ public class MainActivity extends Activity {
                 MainActivity.this);
         alertD.setTitle(getString(R.string.soluzione));
         alertD.setMessage(getString(R.string.soluzione_msg));
-        alertD.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alertD.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -841,7 +821,7 @@ public class MainActivity extends Activity {
                     }
                 }
                 err++;
-                errori.setText(getString(R.string.errori)+" "+err);
+                errori.setText(getString(R.string.errori) + " " + err);
                 linear_right.setVisibility(View.VISIBLE);
                 ll1.setVisibility(View.GONE);
                 ll2.setVisibility(View.GONE);
@@ -875,6 +855,7 @@ public class MainActivity extends Activity {
             alertD.setMessage(getString(R.string.aiuto_msg));
             alertD.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -887,31 +868,28 @@ public class MainActivity extends Activity {
                     String[] arr=italiano.toLowerCase().split("(?!^)");
 
                     //calcolo il numero di lettere da mostrare nell'aiuto
-                    int lunghezza_tot=italiano.length();
-                    int lettere_da_mostrare=(int)lunghezza_tot/3;
-                    //Log.v("numero lettere da mostrare",lettere_da_mostrare+"");
+                    int lunghezza_tot = italiano.length();
+                    int lettere_da_mostrare = lunghezza_tot/3;
 
                     String sottostringa=italiano.substring(0, lettere_da_mostrare);
-                    //Log.v("sottoatringa",sottostringa);
                     //sottostringa.
                     if(sottostringa.matches(".*\\s+.*"))
                     {
-                        int new_lettere_da_mostrare=sottostringa.indexOf(" ");
                         AlertDialogManager alertD=new AlertDialogManager();
                         alertD.showAlertDialog(MainActivity.this, "Help", getString(R.string.prime_lettere)+sottostringa, false);
                     }
                     else
                     {
                         //reset delle lettere inserite dall utente
-                        parola_selezionata=new ArrayList<String>();
-                        premuti=new ArrayList<Integer>();
+                        parola_selezionata = new ArrayList<>();
+                        premuti = new ArrayList<>();
 
                         //riprisino i background dei bottoni eventualmente premuti dall'utente
                         for(int i=0; i<lunghezza_tot; i++)
                         {
                             //ripristino caselle cliccabili
                             Button b=lb.get(i);
-                            String sfondo_lettera=sostituisciSpecialChar(arr[i].charAt(0));
+                            String sfondo_lettera = sostituisciSpecialChar(arr[i].charAt(0));
                             int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             b.setBackground(getResources().getDrawable(j));
                             b.setClickable(true);
@@ -922,8 +900,6 @@ public class MainActivity extends Activity {
                         }
 
                         String randomLetters = getString(R.string.alfabeto);
-                        Random rnd = new Random();
-
 
                         for(int i=lunghezza_tot; i<16; i++)
                         {
@@ -991,9 +967,9 @@ public class MainActivity extends Activity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     public void restart(View view)
     {
-        //caricamento.show();
         premuti=new ArrayList<Integer>();
         punti=0;
         err=0;
@@ -1006,6 +982,7 @@ public class MainActivity extends Activity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     public boolean nuovoRecord(float punti)
     {
         record=session.getRecord(categoria);
@@ -1090,20 +1067,14 @@ public class MainActivity extends Activity {
 
                 }
                 catch (SecurityException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                    return;
                 } catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                    return;
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                    return;
                 }
             }
             else

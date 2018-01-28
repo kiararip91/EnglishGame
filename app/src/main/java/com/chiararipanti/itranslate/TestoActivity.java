@@ -1,18 +1,13 @@
 package com.chiararipanti.itranslate;
 
 import java.io.IOException;
-
-
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +22,15 @@ import android.content.Intent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class TestoActivity extends Activity {
 
+    /**
+     * Declaring Variables
+     */
     String url;
     TextView it_tv;
     TextView eng_tv;

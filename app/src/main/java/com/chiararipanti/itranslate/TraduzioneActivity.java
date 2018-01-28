@@ -32,8 +32,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class TraduzioneActivity extends Activity {
 
+    /**
+     * Declaring Variables
+     */
     String categoria;
     ArrayList<Vocabolo> vocaboli;
     int prossimo;

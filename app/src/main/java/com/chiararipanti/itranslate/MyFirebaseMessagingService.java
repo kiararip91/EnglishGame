@@ -9,6 +9,10 @@ import com.google.firebase.messaging.RemoteMessage;
 /**
  * TODO: Customizza il logo della notifica
  */
+/**
+ * @author chiararipanti
+ * @date 04/05/2013
+ */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
     @Override
