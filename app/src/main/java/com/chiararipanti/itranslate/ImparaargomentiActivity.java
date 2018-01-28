@@ -30,24 +30,19 @@ public class ImparaargomentiActivity extends Activity {
     String action;
     SessionManager session;
 
-    //****************variabili per il bunner pubblicitario***************************
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imparaargomenti);
 
-        principianteb=(Button) findViewById(R.id.principiante);
-        baseb=(Button) findViewById(R.id.base);
-        intermediob=(Button) findViewById(R.id.intermedio);
-        espertob=(Button) findViewById(R.id.esperto);
-        animalib=(Button) findViewById(R.id.animali);
-        viaggib=(Button) findViewById(R.id.viaggi);
-        vitab=(Button) findViewById(R.id.vita_quotidiana);
-        cibob=(Button) findViewById(R.id.cibo);
+        principianteb = findViewById(R.id.principiante);
+        baseb = findViewById(R.id.base);
+        intermediob = findViewById(R.id.intermedio);
+        espertob = findViewById(R.id.esperto);
+        animalib = findViewById(R.id.animali);
+        viaggib = findViewById(R.id.viaggi);
+        vitab = findViewById(R.id.vita_quotidiana);
+        cibob = findViewById(R.id.cibo);
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
 
@@ -55,7 +50,8 @@ public class ImparaargomentiActivity extends Activity {
         action=intent.getStringExtra("action");
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if(actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
         //suono_button=(ImageButton)(findViewById(R.id.suono));
         session = new SessionManager(getApplicationContext());
@@ -69,11 +65,11 @@ public class ImparaargomentiActivity extends Activity {
 
         //****************inserimento bunner pubblicitario***************************
         //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout = findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
