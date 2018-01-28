@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "313659978534",
+    "firebase_url": "https://englishgame-itranslate.firebaseio.com",
+    "project_id": "englishgame-itranslate",
+    "storage_bucket": "englishgame-itranslate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313659978534:android:782bcacfb7152e97",
+        "android_client_info": {
+          "package_name": "com.chiararipanti.itranslate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313659978534-6pvk2509je4eleh39qqtjotopj1aeltq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY5FclgRhQ5Ko6ZZKOMpIwnlZR7OpSgW4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

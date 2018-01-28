@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "itranslate.chiararipanti.com"
+        applicationId "com.chiararipanti.itranslate"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 43
@@ -28,4 +28,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.google.android.gms:play-services-ads:11.8.0'
     compile 'org.jsoup:jsoup:1.11.1'
+    //FireBase auth
+    compile 'com.google.firebase:firebase-auth:11.8.0'
+    //FireBase push
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
+    //FireBase DataBase
+    compile 'com.google.firebase:firebase-database:11.8.0'
 }
+//firebase configuration
+apply plugin: 'com.google.gms.google-services'
