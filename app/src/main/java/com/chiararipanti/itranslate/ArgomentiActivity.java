@@ -77,9 +77,6 @@ public class ArgomentiActivity extends Activity {
         ActionBar actionBar = getActionBar();
 
         if (actionBar == null) {
-            /*
-      Declaring Variables
-     */
             String TAG = "ArgomentiActivity";
             Log.w(TAG, "Action Bar null");
         } else {

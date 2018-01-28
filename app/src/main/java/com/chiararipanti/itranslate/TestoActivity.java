@@ -17,7 +17,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -42,19 +41,12 @@ public class TestoActivity extends Activity {
     ProgressDialog caricamento;
     AlertDialog.Builder alertDialog;
 
-    //****************variabili per il bunner pubblicitario***************************
-    /** The log tag. */
-    //private static final String LOG_TAG = "BannerAdListener";
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testo);
-        it_tv=(TextView) findViewById(R.id.it_tv);
-        eng_tv=(TextView) findViewById(R.id.eng_tv);
+        it_tv = findViewById(R.id.it_tv);
+        eng_tv = findViewById(R.id.eng_tv);
         testo_italiano="";
         testo_inglese="";
         Intent intent=getIntent();
@@ -67,7 +59,14 @@ public class TestoActivity extends Activity {
         caricamento.setMessage(getString(R.string.caricamento));
         caricamento.show();
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        if(actionBar == null){
+            String LOG = "TestoActivity";
+            Log.e(LOG, "ActionBar null");
+        }else{
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
 
         alertDialog = new AlertDialog.Builder(
                 TestoActivity.this);
@@ -88,11 +87,11 @@ public class TestoActivity extends Activity {
 
         //****************inserimento bunner pubblicitario***************************
         //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout = findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -124,7 +123,7 @@ public class TestoActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class GetTesto extends AsyncTask<Void, Void, Void> {
+    protected class GetTesto extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -137,14 +136,14 @@ public class TestoActivity extends Activity {
                 Elements p=ing.select("p");
 
                 for(Element elem : p){
-                    testo_italiano+=elem.text().toString()+"\n";
+                    testo_italiano = testo_italiano + elem.text().toString() + "\n";
                 }
 
                 it = document.select("div[class=translation]");
-                Elements p2=it.select("p");
+                Elements p2 = it.select("p");
 
                 for(Element elem : p2){
-                    testo_inglese+=elem.text().toString()+"\n";
+                    testo_inglese = testo_inglese + elem.text().toString() + "\n";
                 }
 
             } catch (IOException e) {

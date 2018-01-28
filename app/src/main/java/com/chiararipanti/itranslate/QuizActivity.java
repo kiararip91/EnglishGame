@@ -22,7 +22,6 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,12 +54,6 @@ public class QuizActivity extends Activity {
     Button b4;
     AlertDialog.Builder alertBuilder;
 
-
-    //****************variabili per il bunner pubblicitario***************************
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,32 +62,34 @@ public class QuizActivity extends Activity {
         correctSound = MediaPlayer.create(this, R.raw.correct);
         session = new SessionManager(getApplicationContext());
         suono=session.getSuono();
-        text=(TextView)findViewById(R.id.text);
-        b1=(Button)findViewById(R.id.b1);
-        b2=(Button)findViewById(R.id.b2);
-        b3=(Button)findViewById(R.id.b3);
-        b4=(Button)findViewById(R.id.b4);
-        prop=(TextView)findViewById(R.id.prop);
-        alertBuilder=new AlertDialog.Builder(QuizActivity.this);
-        score=0;
+        text = findViewById(R.id.text);
+        b1 = findViewById(R.id.b1);
+        b2 = findViewById(R.id.b2);
+        b3 = findViewById(R.id.b3);
+        b4 = findViewById(R.id.b4);
+        prop = findViewById(R.id.prop);
+        alertBuilder = new AlertDialog.Builder(QuizActivity.this);
+        score = 0;
         connectivityManager=new MyConnectivityManager(getApplicationContext());
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        if(actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
         Intent intent=getIntent();
         tipoQuiz=intent.getIntExtra("quiz",0);
-        quizTot=0;
-        quizNow=1;
+        quizTot = 0;
+        quizNow = 1;
 
         populateQuiz(tipoQuiz);
 
 
         //****************inserimento bunner pubblicitario***************************
-        //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout = findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -131,7 +126,7 @@ public class QuizActivity extends Activity {
             ll.setLayoutParams(layoutParams);
             Switch sbSound;
             sbSound = new Switch(this);
-            sbSound.setText("Sound");
+            sbSound.setText(R.string.sound);
 
             if(suono)
                 sbSound.setChecked(true);
@@ -156,9 +151,7 @@ public class QuizActivity extends Activity {
             builder.setTitle("Edit settings");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    return;
-                }
+                public void onClick(DialogInterface dialog, int which) {}
             });
             alertDialog = builder.create();
 
@@ -180,12 +173,12 @@ public class QuizActivity extends Activity {
         }
         quiz=quizs.get(prossimo);
         quizTot=quizs.size();
-        prop.setText(quizNow+"\\"+quizTot);
+        prop.setText(quizNow + "\\" + quizTot);
         impostaQuiz();
     }
 
     public void impostaQuiz(){
-        prop.setText(quizNow+"\\"+quizTot);
+        prop.setText(quizNow + "\\" + quizTot);
         text.setText(quiz.getText());
         ArrayList<String> alt=quiz.get_alternative();
         alt.add(quiz.getCorrectAnswer());

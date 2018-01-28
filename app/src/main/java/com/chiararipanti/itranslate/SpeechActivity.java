@@ -12,6 +12,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,7 +24,6 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,7 +37,6 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     private TextView level_tv;
     private TextView txtText;
     private TextView txtSpeechInput;
-    private ImageButton btnSpeak1;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     String sent;
     AlertDialog ad;
@@ -48,40 +47,37 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     MyConnectivityManager connectivityManager;
     AlertDialog.Builder alertChangeLevel;
 
-    //****************variabili per il bunner pubblicitario***************************
-    /** The log tag. */
-    //private static final String LOG_TAG = "BannerAdListener";
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
-
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        if(actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         tts = new TextToSpeech(this, this);
-        audio = (ImageButton) findViewById(R.id.audio);
-        level_tv = (TextView) findViewById(R.id.level1);
-        level_tv.setText(getString(R.string.livello)+": "+getString(R.string.principiante));
+        audio = findViewById(R.id.audio);
+        level_tv = findViewById(R.id.level1);
+        level_tv.setText(getString(R.string.livello) + ": " + getString(R.string.principiante));
         livello=1;
-        txtText = (TextView) findViewById(R.id.txtText);
-        txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
-        btnSpeak1 = (ImageButton) findViewById(R.id.btnSpeak1);
-        sentences=new ArrayList<String>();
+        txtText = findViewById(R.id.txtText);
+        txtSpeechInput = findViewById(R.id.txtSpeechInput);
+        ImageButton btnSpeak1 = findViewById(R.id.btnSpeak1);
+        sentences= new ArrayList<>();
         alertDialog=new AlertDialogManager();
         prossimo=0;
         connectivityManager=new MyConnectivityManager(getApplicationContext());
 
 
         //****************inserimento bunner pubblicitario***************************
-        //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout = findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -238,6 +234,7 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
         alertChangeLevel = new AlertDialog.Builder(SpeechActivity.this);
         alertChangeLevel.setTitle(getString(R.string.livello));
         alertChangeLevel.setItems(R.array.level_array, new DialogInterface.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             public void onClick(DialogInterface dialog, int which) {
                 livello=which+1;
                 if(livello==1)

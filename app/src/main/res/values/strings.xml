@@ -125,5 +125,8 @@
     <string name="title_activity_testo">TestoActivity</string>
     <string name="title_activity_musica">MusicaActivity</string>
     <string name="title_activity_speech">SpeechActivity</string>
+    <string name="sound">Sound</string>
+    <string name="ok">OK</string>
+    <string name="edit_pref">Edit settings</string>
 
 </resources>

@@ -50,7 +50,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-    AlertDialog.Builder my_alert;;
     Boolean suono;
     Boolean vibra;
     LinearLayout ll;
@@ -76,9 +75,6 @@ public class MainActivity extends Activity {
     Character letteraPrecedente;
     HashMap<Integer,Button> lb;
     Switch mySwitch;
-    String parola;
-    int indiceMax;
-    int k;
     String premutiLog="";
     float record;
     float punti;
@@ -120,17 +116,6 @@ public class MainActivity extends Activity {
     static final int RC_REQUEST = 10001;
     //************************* fine in-app purchase*************************************+
 
-
-    //****************variabili per il bunner pubblicitario***************************
-
-    /** The log tag. */
-    private static final String LOG_TAG = "BannerAdListener";
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +148,7 @@ public class MainActivity extends Activity {
 
         //****************inserimento bunner pubblicitario***************************
         //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
@@ -179,29 +164,29 @@ public class MainActivity extends Activity {
 
         lb=new HashMap<Integer,Button>();
         record=session.getRecord(categoria);
-        ll = (LinearLayout) findViewById(R.id.linearLayout1);
-        ll1 = (LinearLayout) findViewById(R.id.linearletter);
-        ll2 = (LinearLayout) findViewById(R.id.linearletter2);
-        ll_black = (LinearLayout) findViewById(R.id.black);
-        ll_black2 = (LinearLayout) findViewById(R.id.black2);
-        linear_right = (LinearLayout) findViewById(R.id.linearRight);
+        ll = findViewById(R.id.linearLayout1);
+        ll1 = findViewById(R.id.linearletter);
+        ll2 = findViewById(R.id.linearletter2);
+        ll_black = findViewById(R.id.black);
+        ll_black2 = findViewById(R.id.black2);
+        linear_right = findViewById(R.id.linearRight);
         linear_right.setVisibility(View.GONE);
-        linear_gameover = (LinearLayout) findViewById(R.id.linearGameover);
+        linear_gameover = findViewById(R.id.linearGameover);
         linear_gameover.setVisibility(View.GONE);
-        linear_content = (LinearLayout) findViewById(R.id.contentLayout);
+        linear_content = findViewById(R.id.contentLayout);
         livello_tv = (TextView) findViewById(R.id.level);
-        frase_tv = (TextView) findViewById(R.id.frasetext);
-        parola_inglese = (TextView) findViewById(R.id.parola_inglese);
-        punteggio = (TextView) findViewById(R.id.punteggio);
-        traduci = (TextView) findViewById(R.id.traduci);
-        errori = (TextView) findViewById(R.id.errori);
-        record_tv = (TextView) findViewById(R.id.record);
+        frase_tv = findViewById(R.id.frasetext);
+        parola_inglese = findViewById(R.id.parola_inglese);
+        punteggio = findViewById(R.id.punteggio);
+        traduci = findViewById(R.id.traduci);
+        errori = findViewById(R.id.errori);
+        record_tv = findViewById(R.id.record);
         record_tv.setText(getString(R.string.tuo_record1)+" "+record);
-        aiuto=(ImageButton) findViewById(R.id.aiuto);
-        soluzione=(ImageButton) findViewById(R.id.soluzione);
-        ascaudio=(ImageButton) findViewById(R.id.audio);
-        fine=(Button) findViewById(R.id.fine);
-        fraseb=(ImageButton) findViewById(R.id.frase);
+        aiuto = findViewById(R.id.aiuto);
+        soluzione=findViewById(R.id.soluzione);
+        ascaudio=findViewById(R.id.audio);
+        fine = findViewById(R.id.fine);
+        fraseb=findViewById(R.id.frase);
         punti=0;
         err=0;
         premuti=new ArrayList<Integer>();
@@ -1107,19 +1092,16 @@ public class MainActivity extends Activity {
                 catch (SecurityException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                    Log.v(LOG_TAG, "catch2");
                     Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
                     return;
                 } catch (IllegalStateException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                    Log.v(LOG_TAG, "catch3");
                     Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
                     return;
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                    Log.v(LOG_TAG, "catch4");
                     Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
                     return;
                 }

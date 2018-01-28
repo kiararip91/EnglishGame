@@ -13,6 +13,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,11 +50,6 @@ public class MusicaActivity extends Activity {
     SessionManager session;
     Boolean suono;
 
-    //****************variabili per il bunner pubblicitario***************************
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,24 +60,30 @@ public class MusicaActivity extends Activity {
         session = new SessionManager(getApplicationContext());
         suono=session.getSuono();
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if(actionBar == null){
+            String TAG = "MusicaActivity";
+            Log.e(TAG, "action bar null");
+        }else{
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         connectivityManager=new MyConnectivityManager(getApplicationContext());
 
-        titolo=(TextView)findViewById(R.id.titolo);
-        b1=(Button)findViewById(R.id.b1);
-        b2=(Button)findViewById(R.id.b2);
-        b3=(Button)findViewById(R.id.b3);
-        b4=(Button)findViewById(R.id.b4);
+        titolo = findViewById(R.id.titolo);
+        b1 = findViewById(R.id.b1);
+        b2 = findViewById(R.id.b2);
+        b3 = findViewById(R.id.b3);
+        b4 = findViewById(R.id.b4);
         prossimo=0;
 
 
         //****************inserimento bunner pubblicitario***************************
         //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout =  findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -123,7 +125,7 @@ public class MusicaActivity extends Activity {
             ll.setLayoutParams(layoutParams);
             Switch sbSound;
             sbSound = new Switch(this);
-            sbSound.setText("Sound");
+            sbSound.setText(R.string.sound);
 
             if(suono)
                 sbSound.setChecked(true);
@@ -146,10 +148,10 @@ public class MusicaActivity extends Activity {
             builder = new AlertDialog.Builder(this);
             builder.setView(ll);
             builder.setTitle("Edit settings");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    return;
+                    //return;
                 }
             });
             alertDialog = builder.create();
@@ -176,6 +178,7 @@ public class MusicaActivity extends Activity {
         impostaCanzone();
     }
 
+    @SuppressLint("SetTextI18n")
     public void impostaCanzone(){
         titolo.setText(song.getTitolo()+" - "+song.getAutore());
         ArrayList<String> alt=song.getAlternative();

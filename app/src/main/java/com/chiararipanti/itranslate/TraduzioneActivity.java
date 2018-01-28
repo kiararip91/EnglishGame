@@ -14,10 +14,12 @@ import com.google.android.gms.ads.AdView;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,43 +47,42 @@ public class TraduzioneActivity extends Activity {
     MediaPlayer wrongSound;
     MediaPlayer correctSound;
     SessionManager session;
-    Boolean suono;
-
-    //****************variabili per il bunner pubblicitario***************************
-    /** The log tag. */
-    //private static final String LOG_TAG = "BannerAdListener";
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
+    Boolean suono = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traduzione);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        if(actionBar == null){
+            String LOG = "TraduzioneActivity";
+            Log.e(LOG, "Action bar null");
+        }else{
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         wrongSound = MediaPlayer.create(this, R.raw.wrong);
         correctSound = MediaPlayer.create(this, R.raw.correct);
         session = new SessionManager(getApplicationContext());
-        suono=session.getSuono();
-        imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
-        parola_it=(TextView) findViewById(R.id.parola_italiano);
-        parola_ing=(EditText) findViewById(R.id.traduzione);
+        suono = session.getSuono();
+        imm = (InputMethodManager)getSystemService(this.getApplicationContext().INPUT_METHOD_SERVICE);
+        parola_it = findViewById(R.id.parola_italiano);
+        parola_ing = findViewById(R.id.traduzione);
         connectivityManager=new MyConnectivityManager(getApplicationContext());
         Intent intent=getIntent();
         categoria=intent.getStringExtra("categoria");
         prossimo=0;
-        help=(TextView) findViewById(R.id.help);
-        livello=(TextView) findViewById(R.id.level);
+        help = findViewById(R.id.help);
+        livello = findViewById(R.id.level);
         livello.setText(intent.getStringExtra("categoria1"));
 
         //****************inserimento bunner pubblicitario***************************
-        //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout = findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -120,7 +121,13 @@ public class TraduzioneActivity extends Activity {
         parola_ing.setText("");
         help.setVisibility(View.GONE);
         View view = this.getCurrentFocus();
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if(imm == null){
+            String TAG = "TraduzioneActivity";
+            Log.e(TAG, "imm null");
+        }else if (view != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
     }
 
     @Override
@@ -147,7 +154,7 @@ public class TraduzioneActivity extends Activity {
             ll.setLayoutParams(layoutParams);
             Switch sbSound;
             sbSound = new Switch(this);
-            sbSound.setText("Sound");
+            sbSound.setText(R.string.sound);
 
             if(suono)
                 sbSound.setChecked(true);
@@ -170,10 +177,9 @@ public class TraduzioneActivity extends Activity {
             builder = new AlertDialog.Builder(this);
             builder.setView(ll);
             builder.setTitle("Edit settings");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    return;
                 }
             });
             alertDialog = builder.create();
@@ -236,9 +242,9 @@ public class TraduzioneActivity extends Activity {
         String aiuto=voc.getInglese().substring(0, 2)+" ";
         for(int i=2; i<lunghezza; i++){
             if(Character.isWhitespace(voc.getInglese().charAt(i)))
-                aiuto+=" ";
+                aiuto = aiuto.concat(" ");
             else
-                aiuto+="_ ";
+                aiuto = aiuto.concat("_ ");
         }
 
         help.setText(aiuto);

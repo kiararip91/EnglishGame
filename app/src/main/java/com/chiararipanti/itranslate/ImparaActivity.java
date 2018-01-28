@@ -29,7 +29,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -49,7 +48,6 @@ public class ImparaActivity extends Activity {
     Vocabolo voc;
     MyConnectivityManager connectivityManager;
     AlertDialogManager alertDialog;
-    String TAG="StartActivity";
     ImageButton ascolta;
     Button next;
     TextView parola_italiano_tv;
@@ -62,18 +60,12 @@ public class ImparaActivity extends Activity {
 
     Context mcontext;
 
-    //****************variabili per il bunner pubblicitario***************************
-    /** The log tag. */
-    //private static final String LOG_TAG = "BannerAdListener";
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
+    String TAG = "StartActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_impara);
-        Log.v(TAG,"0");
 
         Intent intent=getIntent();
         categoria=intent.getStringExtra("categoria");
@@ -82,29 +74,32 @@ public class ImparaActivity extends Activity {
         sol=false;
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if(actionBar == null){
+            Log.e(TAG, "Action bar null");
+        }else{
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
         alertDialog=new AlertDialogManager();
         mcontext=getApplicationContext();
 
-        ascolta=(ImageButton)(findViewById(R.id.audio));
-        next=(Button)(findViewById(R.id.next));
-        parola_italiano_tv=(TextView) findViewById(R.id.parola_italiano);
+        ascolta = (findViewById(R.id.audio));
+        next = (findViewById(R.id.next));
+        parola_italiano_tv = findViewById(R.id.parola_italiano);
         parola_italiano_tv.setVisibility(View.GONE);
-        parola_inglese_tv=(TextView) findViewById(R.id.parola_inglese);
-        frase_tv=(TextView) findViewById(R.id.frase);
-        livello=(TextView) findViewById(R.id.level);
+        parola_inglese_tv = findViewById(R.id.parola_inglese);
+        frase_tv = findViewById(R.id.frase);
+        livello = findViewById(R.id.level);
         livello.setText(intent.getStringExtra("categoria1"));
-
 
         //****************inserimento bunner pubblicitario***************************
         //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout =  findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -117,14 +112,13 @@ public class ImparaActivity extends Activity {
         adView.loadAd(adRequest);
         //******************  FINE  bunner pubblicitario***************************
 
-        if(connectivityManager.check())
-        {
+        if(connectivityManager.check()){
             getVocaboli();
             impostaParola();
         }
-        else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-
+        else {
+            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -211,7 +205,7 @@ public class ImparaActivity extends Activity {
             if(!sol)
             {
                 sol=true;
-                next.setText("Next");
+                next.setText(getString(R.string.next));
                 parola_italiano_tv.setVisibility(View.VISIBLE);
 
             }

@@ -18,10 +18,6 @@ import android.widget.Toast;
 public class QuizLivelliActivity extends Activity {
 
     MyConnectivityManager connectivityManager;
-    //****************variabili per il bunner pubblicitario***************************
-    /** The view to show the ad. */
-    private AdView adView;
-    //********************fine bunner pubblicitario******************************
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +26,12 @@ public class QuizLivelliActivity extends Activity {
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        if(actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
         //****************inserimento bunner pubblicitario***************************
-        //create adView
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
@@ -63,16 +60,6 @@ public class QuizLivelliActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void pvu(View view){
-        if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 1);
-            startActivity(p);
-        }else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void verbs(View view){
@@ -253,7 +240,7 @@ public class QuizLivelliActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
-    public void vocabulary(View view){
+    private void vocabulary(View view){
         if(connectivityManager.check()){
             Intent p;
             p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
@@ -263,7 +250,7 @@ public class QuizLivelliActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
-    public void families(View view){
+    private void families(View view){
         if(connectivityManager.check()){
             Intent p;
             p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
@@ -273,7 +260,7 @@ public class QuizLivelliActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
-    public void clothes(View view){
+    private void clothes(View view){
         if(connectivityManager.check()){
             Intent p;
             p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
@@ -283,7 +270,7 @@ public class QuizLivelliActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
-    public void animals(View view){
+    private void animals(View view){
         if(connectivityManager.check()){
             Intent p;
             p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
@@ -293,7 +280,7 @@ public class QuizLivelliActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
-    public void food_vocabulary(View view){
+    private void food_vocabulary(View view){
         if(connectivityManager.check()){
             Intent p;
             p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
@@ -303,7 +290,7 @@ public class QuizLivelliActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
-    public void relative_pronouns(View view){
+    private void relative_pronouns(View view){
         if(connectivityManager.check()){
             Intent p;
             p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
