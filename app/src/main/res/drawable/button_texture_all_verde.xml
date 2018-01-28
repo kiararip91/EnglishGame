@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/texture_v" >
+       <corners
+            android:radius = "0dp"/>
+    </item>
+    <item android:drawable="@drawable/button_texture_v" />
+</layer-list>

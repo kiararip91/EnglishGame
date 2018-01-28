@@ -1,0 +1,427 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.chiararipanti.itranslate.ArgomentiActivity" >
+
+<ScrollView 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:layout_above="@+id/footer">
+
+     <LinearLayout
+			        android:id="@+id/linearLayout"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="20dp"
+			        android:orientation="vertical" >
+
+	<LinearLayout
+			        android:id="@+id/linearLayout1"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_margin="0dp"
+			        android:orientation="vertical">
+			        
+	
+	
+	<TableLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginBottom="5dp"
+			        android:background="@drawable/shape"
+			        android:layout_marginLeft="10dp"
+			        android:layout_marginRight="10dp"
+			        android:layout_marginTop="5dp"
+			        android:padding="1dip" >
+				        
+	    <TableRow
+			            android:layout_marginLeft="10dp"
+			        	android:layout_marginRight="10dp"
+			        	android:layout_marginTop="7dp"
+			        	android:layout_marginBottom="0dp"
+			        	>
+
+			<LinearLayout
+			         android:orientation="vertical"
+			         android:layout_width="0dp"
+					android:layout_weight=".50"
+					android:layout_margin="3dp"
+					android:background="@drawable/shape7">
+						<Button
+						    android:id="@+id/principiante"
+						    android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+						    android:text="@string/principiante"
+						    android:drawableTop="@drawable/principiante"
+						    android:background="@null"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="16sp"
+				        	android:textColor="#000000"
+						    android:gravity="center"
+						    android:onClick="principiante"/>
+						  <TextView 
+						    android:id="@+id/partite_giocate_p"
+						    android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+						    android:text="@string/partite"
+						    android:layout_marginTop="5dp"
+						    android:layout_marginBottom="3dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	
+						    
+						<TextView 
+						    android:id="@+id/record_p"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:text="@string/record"
+						    android:layout_marginBottom="5dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	 	
+		    </LinearLayout>
+		    
+			<LinearLayout
+				         android:orientation="vertical"
+				         android:layout_width="0dp"
+						android:layout_weight=".50"
+						android:layout_margin="3dp"
+						android:background="@drawable/shape7">
+							<Button
+							    android:id="@+id/base"
+							    android:layout_width="match_parent"
+							    android:background="@null"
+							    android:layout_height="wrap_content"
+					        	android:drawableTop="@drawable/base"
+							    android:text="@string/base"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="16sp"
+					        	android:textColor="#000000"
+							    android:gravity="center"
+							    android:onClick="base"/>
+							  <TextView 
+							    android:id="@+id/partite_giocate_b"
+							     android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/partite"
+							    android:layout_marginTop="4dp"
+							    android:layout_marginBottom="3dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />	
+							    
+							<TextView 
+							    android:id="@+id/record_b"
+							     android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/record"
+							    android:layout_marginBottom="5dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />
+				</LinearLayout>	
+		</TableRow>
+		
+	    <TableRow
+			            android:layout_marginLeft="10dp"
+			        	android:layout_marginRight="10dp"
+			        	android:layout_marginTop="7dp"
+			        	android:layout_marginBottom="0dp"
+			        	>
+
+			<LinearLayout
+			         android:orientation="vertical"
+			         android:layout_width="0dp"
+					android:layout_weight=".50"
+					android:layout_margin="3dp"
+					android:background="@drawable/shape7">
+						<Button
+						    android:id="@+id/intermedio"
+						    android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+						    android:text="@string/intermedio"
+						    android:drawableTop="@drawable/intermedio"
+						    android:background="@null"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="16sp"
+				        	android:textColor="#000000"
+						    android:gravity="center"
+						    android:onClick="intermedio"/>
+						  <TextView 
+						    android:id="@+id/partite_giocate_i"
+						    android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+						    android:text="@string/partite"
+						    android:layout_marginTop="5dp"
+						    android:layout_marginBottom="3dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	
+						    
+						<TextView 
+						    android:id="@+id/record_i"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:text="@string/record"
+						    android:layout_marginBottom="5dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	 	
+		    </LinearLayout>
+		    
+			<LinearLayout
+				         android:orientation="vertical"
+				         android:layout_width="0dp"
+						android:layout_weight=".50"
+						android:layout_margin="3dp"
+						android:background="@drawable/shape7">
+							<Button
+							    android:id="@+id/esperto"
+							    android:layout_width="match_parent"
+							    android:background="@null"
+							    android:layout_height="wrap_content"
+					        	android:drawableTop="@drawable/esperto"
+							    android:text="@string/esperto"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="16sp"
+					        	android:textColor="#000000"
+							    android:gravity="center"
+							    android:onClick="esperto"/>
+							  <TextView 
+							    android:id="@+id/partite_giocate_e"
+							     android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/partite"
+							    android:layout_marginTop="4dp"
+							    android:layout_marginBottom="3dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />	
+							    
+							<TextView 
+							    android:id="@+id/record_e"
+							     android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/record"
+							    android:layout_marginBottom="5dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />
+				</LinearLayout>	
+		</TableRow>
+		
+	    
+		<TableRow
+			            android:layout_marginLeft="10dp"
+			        	android:layout_marginRight="10dp"
+			        	android:layout_marginTop="7dp"
+			        	android:layout_marginBottom="0dp"
+			        	>
+
+			<LinearLayout
+			         android:orientation="vertical"
+			         android:layout_width="0dp"
+					android:layout_weight=".50"
+					android:layout_margin="3dp"
+					android:background="@drawable/shape7">
+						<Button
+						    android:id="@+id/vita_quotidiana"
+						    android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+						    android:text="@string/vita_quotidiana"
+						    android:drawableTop="@drawable/vita"
+						    android:background="@null"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="16sp"
+				        	android:textColor="#000000"
+						    android:gravity="center"
+						    android:onClick="vitaquotidiana"/>
+						  <TextView 
+						    android:id="@+id/partite_giocate_vq"
+						    android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+						    android:text="@string/partite"
+						    android:layout_marginTop="5dp"
+						    android:layout_marginBottom="3dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	
+						    
+						<TextView 
+						    android:id="@+id/record_vq"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:text="@string/record"
+						    android:layout_marginBottom="5dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	 	
+		    </LinearLayout>
+		    
+			<LinearLayout
+				         android:orientation="vertical"
+				         android:layout_width="0dp"
+						android:layout_weight=".50"
+						android:layout_margin="3dp"
+						android:background="@drawable/shape7">
+							<Button
+							    android:id="@+id/animali"
+							    android:layout_width="match_parent"
+							    android:background="@null"
+							    android:layout_height="wrap_content"
+					        	android:drawableTop="@drawable/animali"
+							    android:text="@string/animali"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="16sp"
+					        	android:textColor="#000000"
+							    android:gravity="center"
+							    android:onClick="animali"/>
+							  <TextView 
+							    android:id="@+id/partite_giocate_a"
+							     android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/partite"
+							    android:layout_marginTop="4dp"
+							    android:layout_marginBottom="3dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />	
+							    
+							<TextView 
+							    android:id="@+id/record_a"
+							     android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/record"
+							    android:layout_marginBottom="5dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />
+				</LinearLayout>	
+		</TableRow>
+		<TableRow
+			            android:layout_marginLeft="10dp"
+			        	android:layout_marginRight="10dp"
+			        	android:layout_marginTop="7dp"
+			        	android:layout_marginBottom="0dp"
+			        	>
+
+			 <LinearLayout
+			         android:orientation="vertical"
+			         android:layout_width="0dp"
+					android:layout_weight=".50"
+					android:layout_margin="3dp"
+					android:background="@drawable/shape7">
+		
+		
+	
+						<Button
+						    android:id="@+id/viaggi"
+						    android:layout_width="match_parent"
+						    android:background="@null"
+						    android:layout_height="wrap_content"
+						    android:text="@string/viaggi"
+						    android:drawableTop="@drawable/viaggi"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="16sp"
+						    android:layout_marginBottom="6dp"
+				        	android:textColor="#000000"
+						    android:gravity="center"
+						    android:onClick="viaggi"/>
+						<TextView 
+						    android:id="@+id/partite_giocate_v"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:text="@string/partite"
+						    android:layout_marginTop="5dp"
+						    android:layout_marginBottom="3dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	
+						    
+						<TextView 
+						    android:id="@+id/record_v"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:text="@string/record"
+						    android:layout_marginBottom="5dp"
+						    android:gravity="center"
+						    android:fontFamily="sans-serif-condensed"
+						    android:textSize="13sp"
+						    />	 	
+			</LinearLayout>
+
+		    
+			<LinearLayout
+				         android:orientation="vertical"
+				         android:layout_width="0dp"
+						android:layout_weight=".50"
+						android:layout_margin="3dp"
+						android:background="@drawable/shape7">
+							<Button
+							    android:id="@+id/cibo"
+							    android:layout_width="match_parent"
+							    android:background="@null"
+							    android:layout_height="wrap_content"
+							    android:text="@string/cibo"
+							    android:drawableTop="@drawable/cibo"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="16sp"
+					        	android:textColor="#000000"
+							    android:gravity="center"
+							    android:onClick="cibo"/>
+							<TextView 
+							    android:id="@+id/partite_giocate_c"
+							    android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/partite"
+							    android:layout_marginTop="5dp"
+						    	android:layout_marginBottom="3dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />	
+							    
+							<TextView 
+							    android:id="@+id/record_c"
+							    android:layout_width="match_parent"
+							    android:layout_height="wrap_content"
+							    android:text="@string/record"
+							    android:layout_marginBottom="10dp"
+							    android:gravity="center"
+							    android:fontFamily="sans-serif-condensed"
+							    android:textSize="13sp"
+							    />	 	
+					</LinearLayout>	
+		</TableRow>
+</TableLayout>
+
+         </LinearLayout>
+  
+</LinearLayout>
+ </ScrollView>
+ 
+<RelativeLayout
+    android:id="@+id/footer"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+ </RelativeLayout>
+
+</RelativeLayout>

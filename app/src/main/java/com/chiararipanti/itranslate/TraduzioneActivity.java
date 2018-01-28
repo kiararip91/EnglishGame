@@ -1,0 +1,247 @@
+package com.chiararipanti.itranslate;
+
+import java.util.ArrayList;
+
+import java.util.concurrent.ExecutionException;
+import com.chiararipanti.itranslate.db.Vocabolo;
+import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
+import com.chiararipanti.itranslate.util.MyConnectivityManager;
+import com.chiararipanti.itranslate.util.SessionManager;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class TraduzioneActivity extends Activity {
+
+    String categoria;
+    ArrayList<Vocabolo> vocaboli;
+    int prossimo;
+    Vocabolo voc;
+    EditText parola_ing;
+    TextView parola_it;
+    TextView livello;
+    TextView help;
+    InputMethodManager imm;
+    MyConnectivityManager connectivityManager;
+    MediaPlayer wrongSound;
+    MediaPlayer correctSound;
+    SessionManager session;
+    Boolean suono;
+
+    //****************variabili per il bunner pubblicitario***************************
+    /** The log tag. */
+    //private static final String LOG_TAG = "BannerAdListener";
+    /** The view to show the ad. */
+    private AdView adView;
+    //********************fine bunner pubblicitario******************************
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_traduzione);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        wrongSound = MediaPlayer.create(this, R.raw.wrong);
+        correctSound = MediaPlayer.create(this, R.raw.correct);
+        session = new SessionManager(getApplicationContext());
+        suono=session.getSuono();
+        imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+        parola_it=(TextView) findViewById(R.id.parola_italiano);
+        parola_ing=(EditText) findViewById(R.id.traduzione);
+        connectivityManager=new MyConnectivityManager(getApplicationContext());
+        Intent intent=getIntent();
+        categoria=intent.getStringExtra("categoria");
+        prossimo=0;
+        help=(TextView) findViewById(R.id.help);
+        livello=(TextView) findViewById(R.id.level);
+        livello.setText(intent.getStringExtra("categoria1"));
+
+        //****************inserimento bunner pubblicitario***************************
+        //create adView
+        adView = new AdView(this);
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setAdUnitId(getString(R.string.unit_id));
+        // Add the AdView to the view hierarchy.
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        layout.addView(adView);
+
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device.
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
+                .build();
+        // Start loading the ad in the background.
+        adView.loadAd(adRequest);
+        //******************  FINE  bunner pubblicitario***************************
+
+        if(connectivityManager.check()){
+            getVocaboli();
+            impostaParola();
+        }else
+            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
+    }
+
+    public void getVocaboli(){
+        //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
+        GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,categoria);
+        try {
+            getvocTask.execute();
+            vocaboli=getvocTask.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        voc=vocaboli.get(prossimo);
+    }
+
+    public void impostaParola(){
+        parola_it.setText(voc.getLingua_nativa());
+        parola_ing.setText("");
+        help.setVisibility(View.GONE);
+        View view = this.getCurrentFocus();
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent intent=new Intent(this,StartActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_settings) {
+            LinearLayout ll = new LinearLayout(this);
+            ll.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(100, 10, 100, 10);
+            ll.setLayoutParams(layoutParams);
+            Switch sbSound;
+            sbSound = new Switch(this);
+            sbSound.setText("Sound");
+
+            if(suono)
+                sbSound.setChecked(true);
+
+            sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        session.setSuono(true);
+                        suono=true;
+                    } else {
+                        session.setSuono(false);
+                        suono=false;
+                    }
+                }
+            });
+
+            ll.addView(sbSound,layoutParams);
+            AlertDialog.Builder builder;
+            AlertDialog alertDialog;
+            builder = new AlertDialog.Builder(this);
+            builder.setView(ll);
+            builder.setTitle("Edit settings");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+            alertDialog = builder.create();
+
+            alertDialog.show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void conferma(View view){
+
+        if(parola_ing.getText().toString().equalsIgnoreCase(voc.getInglese())){
+            prossimo++;
+            Toast.makeText(getApplicationContext(),getString(R.string.esatta) , Toast.LENGTH_SHORT).show();
+            if(suono)
+                correctSound.start();
+
+            if(prossimo<20)
+                voc=vocaboli.get(prossimo);
+            else{
+
+                if(connectivityManager.check()){
+                    GetVocaboliFromDB getVocaboli=new GetVocaboliFromDB(this,categoria);
+                    getVocaboli.execute();
+
+                    try {
+                        vocaboli=getVocaboli.get();
+                        prossimo=0;
+                        voc=vocaboli.get(prossimo);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            impostaParola();
+
+        }else{
+            if(suono)
+                wrongSound.start();
+
+            Toast.makeText(getApplicationContext(),getString(R.string.sbagliata) , Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void showSolution(View view){
+        parola_ing.setText(voc.getInglese());
+    }
+
+    public void showAiuto(View view){
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        help.setVisibility(View.VISIBLE);
+        int lunghezza=voc.getInglese().length();
+        String aiuto=voc.getInglese().substring(0, 2)+" ";
+        for(int i=2; i<lunghezza; i++){
+            if(Character.isWhitespace(voc.getInglese().charAt(i)))
+                aiuto+=" ";
+            else
+                aiuto+="_ ";
+        }
+
+        help.setText(aiuto);
+        Toast.makeText(getApplicationContext(),getString(R.string.aiuto) , Toast.LENGTH_SHORT).show();
+    }
+}

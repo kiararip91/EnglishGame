@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+    
+  <!-- 
+  
+    <TextView
+        android:id="@+id/no_parole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#5e5555" 
+		android:textSize="18sp"
+		android:background="@drawable/shape"
+		android:layout_marginBottom="5dp"
+		android:layout_marginTop="5dp"
+		android:gravity="center"
+		android:fontFamily="sans-serif-condensed"
+        android:text="@string/no_parole" />
+<ScrollView 
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="3dp"
+	android:layout_marginLeft="10dp"
+	android:layout_marginRight="10dp"
+	android:layout_marginTop="10dp"
+	
+    android:fillViewport="true"
+    android:layout_above="@+id/footer">
+    
+ 
+    
+<LinearLayout
+	android:id="@+id/linearLayout1"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical" >
+
+   
+	<LinearLayout
+	android:id="@+id/linearLayout2"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/shape"
+	android:orientation="vertical" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#5e5555" 
+		android:textSize="18sp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginTop="5dp"
+		android:gravity="center"
+		android:fontFamily="sans-serif-condensed"
+        android:text="@string/piu_indovinati" />
+    
+    <com.echo.holographlibrary.BarGraph
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/bargraph"/>
+    </LinearLayout>
+    
+	<LinearLayout
+	android:id="@+id/linearLayout3"
+	android:layout_width="match_parent"
+	android:layout_marginTop="5dp"
+	android:layout_height="wrap_content"
+	android:background="@drawable/shape"
+	android:orientation="vertical" >
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#5e5555" 
+		android:textSize="18sp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginTop="10dp"
+		android:gravity="center"
+		android:fontFamily="sans-serif-condensed"
+        android:text="@string/meno_indovinati" />
+    
+    <com.echo.holographlibrary.BarGraph
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/bargraph2"/>
+    </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+    android:id="@+id/footer"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+ </RelativeLayout>
+ -->  
+</RelativeLayout>

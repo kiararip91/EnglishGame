@@ -1,0 +1,134 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.chiararipanti.itranslate.ImparaActivity" >
+
+<ScrollView 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:background="@drawable/shape"
+    android:layout_marginBottom="3dp"
+	android:layout_marginLeft="10dp"
+	android:layout_marginRight="10dp"
+	android:layout_marginTop="3dp"
+    android:layout_above="@+id/footer">
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+			
+			    <LinearLayout
+			        android:id="@+id/linearLayout1"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical" >
+				<TextView 
+			            android:id="@+id/level"
+			                android:layout_height="wrap_content"
+			            	android:layout_width="match_parent"
+			                android:textColor="#000000" 
+			                android:textSize="16sp"
+			                android:background="@drawable/shape3"
+			                android:fontFamily="sans-serif-condensed"
+			                android:gravity="center"
+			                android:layout_marginBottom="20dp"
+			        		android:layout_marginTop="4dp" />
+				<TableLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginBottom="10dp"
+			        android:layout_marginTop="2dp"
+			        android:background="@drawable/shape"
+			        android:padding="1dip" >
+			        <TableRow 
+			            android:layout_marginTop="10dp"
+			            android:layout_marginBottom="5dp">
+			        
+			        <ImageButton
+			            android:id="@+id/audio"
+			            android:layout_height="wrap_content"
+			            android:layout_width="0dp"
+			            android:layout_weight=".15"
+			            android:layout_marginLeft="10dp"
+			            android:background="@drawable/shape6"
+			            android:src="@drawable/audio"
+			            android:onClick="ascolta"/>
+				<TextView
+			            android:id="@+id/parola_inglese"
+			            android:layout_width="0dp"
+			            android:layout_weight=".85"
+			            android:gravity="center"
+			            android:fontFamily="sans-serif-condensed"
+			            android:textColor="#5e5555" 
+			            android:textStyle="bold"
+			            android:textSize="24sp"
+			             />
+				</TableRow>
+				<TextView
+			            android:id="@+id/frase"
+			            android:layout_width="match_parent"
+				    	android:layout_height="wrap_content"
+			            android:gravity="center"
+			            android:layout_marginBottom="5dp"
+			            android:fontFamily="sans-serif-condensed"
+			            android:textColor="#5e5555" 
+			            android:textSize="16sp"
+			             />
+				<TableRow>
+				    
+				</TableRow>
+				</TableLayout>
+				
+
+		
+
+				<ImageView
+				    android:id="@+id/immagine"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginBottom="15dp"
+				    android:layout_marginTop="5dp" />
+	
+		
+		
+		<TextView
+			            android:id="@+id/parola_italiano"
+			            android:layout_width="match_parent"
+				    	android:layout_height="wrap_content"
+			            android:gravity="center"
+			            android:layout_marginBottom="15dp"
+			            android:background="@drawable/shape8"
+			            android:fontFamily="sans-serif-condensed"
+			            android:textColor="#5e5555" 
+			            android:textStyle="bold"
+			            android:textSize="20sp"
+			            android:text="Gatto"
+			             />
+		
+		<Button
+			        android:id="@+id/next"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:background="@drawable/button"
+			        android:fontFamily="sans-serif-condensed"
+			        android:text="@string/soluzione"
+			        android:onClick="next"
+			        android:textColor="#ffffff" />
+		
+</LinearLayout>
+</RelativeLayout>
+		   
+ </ScrollView>
+ 
+<RelativeLayout
+    android:id="@+id/footer"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+ </RelativeLayout>
+
+</RelativeLayout>

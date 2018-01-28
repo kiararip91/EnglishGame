@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+<ScrollView 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:background="@drawable/shape"
+    android:layout_marginBottom="3dp"
+	android:layout_marginLeft="10dp"
+	android:layout_marginRight="10dp"
+	android:layout_marginTop="3dp"
+    android:layout_above="@+id/footer">
+    
+     <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+          <LinearLayout
+			        android:id="@+id/linearLayout1"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical" >
+    
+						<TextView 
+			            android:id="@+id/level"
+			                android:layout_height="wrap_content"
+			            	android:layout_width="match_parent"
+			                android:textColor="#000000" 
+			                android:textSize="16sp"
+			                android:background="@drawable/shape3"
+			                android:fontFamily="sans-serif-condensed"
+			                android:text="@string/text_to_speech"
+			                android:gravity="center"/>
+						<TableLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="10dp" >
+			        
+			        <TableRow>
+						<TextView 
+			            android:id="@+id/level1"
+			               android:layout_height="match_parent"
+			            	android:layout_width="0dp"
+			            	android:layout_weight=".80"
+			                android:textColor="#000000" 
+			                android:textSize="14sp"
+			                android:fontFamily="sans-serif-condensed"
+			                android:text="@string/livello"
+			                android:gravity="center"/>
+					    <ImageButton
+			            android:id="@+id/settings"
+			            android:layout_height="match_parent"
+			            android:layout_width="0dp"
+			            android:layout_weight=".20"
+			            android:layout_margin="0dp"
+					    android:background="@null"
+					    android:src="@drawable/ic_action_stat"
+					    android:onClick="changeLevel"/>
+					    </TableRow>
+					    </TableLayout>
+						
+					     
+					    
+					   
+					    
+					    
+					    
+					     <TableLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="10dp"
+			        android:layout_marginRight="10dp"
+			        android:layout_marginTop="10dp"
+			        android:background="@drawable/shape"
+			        android:padding="1dip" >
+			        
+			        <TableRow 
+			            android:layout_marginTop="8dp"
+			            android:layout_marginBottom="8dp">
+			         <TextView android:id="@+id/txtText"
+			             android:layout_width="0dp"
+			            android:layout_weight="1"
+					        android:fontFamily="sans-serif-condensed"
+					        android:gravity="center"
+					        android:textSize="20sp"/>
+			         </TableRow>
+			         <TableRow 
+			            android:layout_marginTop="8dp"
+			            android:layout_marginBottom="8dp">
+			        
+			        <ImageButton
+			            android:id="@+id/audio"
+			            android:layout_height="match_parent"
+			            android:layout_width="0dp"
+			            android:layout_weight=".50"
+			            android:layout_margin="0dp"
+					    android:background="@null"
+					    android:src="@drawable/ico_sound"/>
+			        
+			        <ImageButton
+			            android:id="@+id/btnSpeak1"
+			            android:layout_height="wrap_content"
+			            android:layout_width="0dp"
+			            android:layout_weight=".50"
+			            android:layout_margin="0dp"
+					    android:background="@null"
+					    android:src="@drawable/ico_mic"/>
+			     </TableRow>
+			     </TableLayout>
+			     <TextView
+					        android:id="@+id/txtSpeechInput"
+					        android:layout_height="wrap_content"
+			            	android:layout_width="match_parent"
+			                android:textColor="#2d2049" 
+					        android:layout_marginTop="10dp"
+					        android:fontFamily="sans-serif-condensed"
+					        android:gravity="center"
+					        android:textSize="20sp"
+					        android:textStyle="normal" />
+					
+					
+					        <TextView
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_marginTop="10dp"
+					            android:text="@string/tap_on_mic"
+					            android:textColor="#ffffff"
+					            android:textSize="5dp"
+					            android:textStyle="normal" />
+					        
+					        
+					        <Button
+			        android:id="@+id/conferma"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:background="@drawable/button"
+			        android:fontFamily="sans-serif-condensed"
+			        android:text="@string/next"
+			        android:layout_marginTop="20dp"
+			        android:onClick="next"
+			        android:textColor="#ffffff" />
+					        </LinearLayout>
+					        
+	  </RelativeLayout>
+</ScrollView>
+
+
+<RelativeLayout
+    android:id="@+id/footer"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+ </RelativeLayout>
+ 
+</RelativeLayout>
