@@ -5,6 +5,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -42,6 +44,7 @@ public class TestoActivity extends Activity {
     String titolo;
     ProgressDialog caricamento;
     AlertDialog.Builder alertDialog;
+    EnglishGameUtility gameUtils;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,15 +63,10 @@ public class TestoActivity extends Activity {
         caricamento.setTitle(R.string.attendi);
         caricamento.setMessage(getString(R.string.caricamento));
         caricamento.show();
-        ActionBar actionBar = getActionBar();
 
-        if(actionBar == null){
-            String LOG = "TestoActivity";
-            Log.e(LOG, "ActionBar null");
-        }else{
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
 
         alertDialog = new AlertDialog.Builder(
                 TestoActivity.this);
@@ -85,26 +83,6 @@ public class TestoActivity extends Activity {
         alertDialog.setTitle(getString(R.string.testo_non_disp_title));
         //Messaggio mostrato
         alertDialog.setMessage(getString(R.string.testo_non_disp));
-
-
-        //****************inserimento bunner pubblicitario***************************
-        //create adView
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-                .build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
 
         new GetTesto().execute();
 

@@ -2,6 +2,7 @@ package com.chiararipanti.itranslate;
 
 import java.util.Locale;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
 import com.google.android.gms.ads.AdRequest;
@@ -53,6 +54,7 @@ public class StartActivity extends Activity {
     Context mcontext;
     ImageButton suono_button;
     FirebaseAuth mAuth;
+    EnglishGameUtility gameUtils;
 
     /**
      * Manage User Anonimous Auth
@@ -91,6 +93,10 @@ public class StartActivity extends Activity {
         //Setting up page layout
         setContentView(R.layout.activity_start);
         connectivityManager=new MyConnectivityManager(getApplicationContext());
+
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.addAdBunner();
+
         alertDialog=new AlertDialogManager();
 
         //Game Mode custom for Italian Users
@@ -106,26 +112,6 @@ public class StartActivity extends Activity {
             suono_button.setImageResource(R.drawable.sound);
         else
             suono_button.setImageResource(R.drawable.no_sound);
-
-        //****************inserimento bunner pubblicitario***************************
-        //create adView
-        /* The view to show the ad. */
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-                .build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
     }
 
     public void quizm(View view){

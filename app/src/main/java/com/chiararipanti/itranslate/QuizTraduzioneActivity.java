@@ -54,13 +54,12 @@ public class QuizTraduzioneActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_traduzione);
-        ActionBar actionBar = getActionBar();
 
-        if(actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
 
         session = new SessionManager(getApplicationContext());
         gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
         text = findViewById(R.id.text);
         sol = findViewById(R.id.sol);
         alertBuilder = new AlertDialog.Builder(QuizTraduzioneActivity.this);
@@ -72,24 +71,6 @@ public class QuizTraduzioneActivity extends Activity {
         prop = findViewById(R.id.prop);
         score = 0;
         populateQuiz(tipoQuiz);
-
-        //****************inserimento bunner pubblicitario***************************
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-                .build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
     }
 
     @Override

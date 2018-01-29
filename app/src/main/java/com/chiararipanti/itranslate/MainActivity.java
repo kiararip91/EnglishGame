@@ -56,8 +56,7 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 
-    EnglishGameUtility gameUtils;
-    LinearLayout ll;
+    private EnglishGameUtility gameUtils;
     LinearLayout ll1;
     LinearLayout ll2;
     LinearLayout ll_black;
@@ -95,7 +94,6 @@ public class MainActivity extends Activity {
     Vocabolo voc;
     SessionManager session;
     ArrayList<String> parola_selezionata;
-    Vibrator vibrator;
     ArrayList<Vocabolo> vocaboli;
     int prossimo;
     String categoria;
@@ -103,7 +101,6 @@ public class MainActivity extends Activity {
     AlertDialogManager settingDialog;
     MyConnectivityManager connectivityManager;
     ArrayList<Button> bb;
-    MediaPlayer overSound;
     MediaPlayer ascolta;
     boolean ascoltata;
     String lingua;
@@ -116,9 +113,7 @@ public class MainActivity extends Activity {
 
         gameUtils = new EnglishGameUtility(this);
 
-        overSound = MediaPlayer.create(this, R.raw.over);
         ascoltata=false;
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         prossimo = 0;
         alertDialog = new AlertDialogManager();
         settingDialog = new AlertDialogManager();
@@ -127,10 +122,9 @@ public class MainActivity extends Activity {
         mySwitch = findViewById(R.id.switchForActionBar);
         connectivityManager = new MyConnectivityManager(getApplicationContext());
         session = new SessionManager(getApplicationContext());
-        ActionBar actionBar = getActionBar();
 
-        if(actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
 
         display= getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -141,25 +135,8 @@ public class MainActivity extends Activity {
         numeroAiuti = 0;
         numeroSoluzioni = 0;
 
-        //****************inserimento bunner pubblicitario***************************
-        //create adView
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE").build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
-
         lb=new HashMap<>();
         record=session.getRecord(categoria);
-        ll = findViewById(R.id.linearLayout1);
         ll1 = findViewById(R.id.linearletter);
         ll2 = findViewById(R.id.linearletter2);
         ll_black = findViewById(R.id.black);

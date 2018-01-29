@@ -1,5 +1,6 @@
 package com.chiararipanti.itranslate;
 
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -25,6 +26,7 @@ public class QuizLivelliActivity extends Activity {
      * Declaring variables
      */
     MyConnectivityManager connectivityManager;
+    EnglishGameUtility gameUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,25 +34,10 @@ public class QuizLivelliActivity extends Activity {
         setContentView(R.layout.activity_quiz_livelli);
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
-        ActionBar actionBar = getActionBar();
 
-        if(actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
-
-        //****************inserimento bunner pubblicitario***************************
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE").build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
     }
 
     @Override

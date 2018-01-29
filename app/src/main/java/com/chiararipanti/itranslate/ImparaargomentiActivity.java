@@ -1,5 +1,6 @@
 package com.chiararipanti.itranslate;
 
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
 import com.google.android.gms.ads.AdRequest;
@@ -30,6 +31,7 @@ public class ImparaargomentiActivity extends Activity {
     Button viaggib;
     Button vitab;
     Button cibob;
+    EnglishGameUtility gameUtils;
     MyConnectivityManager connectivityManager;
     String action;
     SessionManager session;
@@ -53,32 +55,11 @@ public class ImparaargomentiActivity extends Activity {
         Intent intent=getIntent();
         action=intent.getStringExtra("action");
 
-        ActionBar actionBar = getActionBar();
-        if(actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
+
         session = new SessionManager(getApplicationContext());
-
-
-
-
-        //****************inserimento bunner pubblicitario***************************
-        //create adView
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-                .build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
     }
 
     @Override

@@ -44,7 +44,6 @@ public class QuizActivity extends Activity {
      */
     MyConnectivityManager connectivityManager;
     SessionManager session;
-    EnglishGameUtility gameUtils;
     int tipoQuiz;
     int quizTot;
     int quizNow;
@@ -59,6 +58,7 @@ public class QuizActivity extends Activity {
     Button b3;
     Button b4;
     AlertDialog.Builder alertBuilder;
+    EnglishGameUtility gameUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +75,6 @@ public class QuizActivity extends Activity {
         alertBuilder = new AlertDialog.Builder(QuizActivity.this);
         score = 0;
         connectivityManager=new MyConnectivityManager(getApplicationContext());
-        ActionBar actionBar = getActionBar();
-
-        if(actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent=getIntent();
         tipoQuiz=intent.getIntExtra("quiz",0);
@@ -87,25 +83,9 @@ public class QuizActivity extends Activity {
 
         populateQuiz(tipoQuiz);
 
-
-        //****************inserimento bunner pubblicitario***************************
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-                .build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
-
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
     }
 
     @Override

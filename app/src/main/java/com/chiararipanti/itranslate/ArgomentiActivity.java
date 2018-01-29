@@ -1,5 +1,6 @@
 package com.chiararipanti.itranslate;
 
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.SessionManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -67,6 +68,8 @@ public class ArgomentiActivity extends Activity {
     TextView partite_i;
     TextView partite_e;
 
+    EnglishGameUtility gameUtils;
+
     //********************fine bunner pubblicitario******************************
 
     @SuppressLint("SetTextI18n")
@@ -75,16 +78,10 @@ public class ArgomentiActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argomenti);
 
-        ActionBar actionBar = getActionBar();
-
-        if (actionBar == null) {
-            String TAG = "ArgomentiActivity";
-            Log.w(TAG, "Action Bar null");
-        } else {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         session = new SessionManager(getApplicationContext());
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
 
         mcontext=getApplicationContext();
 
@@ -158,25 +155,6 @@ public class ArgomentiActivity extends Activity {
 
         partiteE= session.getPartite(getString(R.string.esperto));
         partite_e.setText(getString(R.string.partite)+": "+ partiteE);
-
-        //****************inserimento bunner pubblicitario***************************
-        //create adView
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-                .build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
     }
 
     @Override

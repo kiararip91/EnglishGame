@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import com.chiararipanti.itranslate.util.AlertDialogManager;
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetSentencesFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.google.android.gms.ads.AdRequest;
@@ -54,17 +55,17 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     AlertDialogManager alertDialog;
     MyConnectivityManager connectivityManager;
     AlertDialog.Builder alertChangeLevel;
+    EnglishGameUtility gameUtils;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech);
-        ActionBar actionBar = getActionBar();
 
-        if(actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
 
         tts = new TextToSpeech(this, this);
         audio = findViewById(R.id.audio);
@@ -78,26 +79,6 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
         alertDialog=new AlertDialogManager();
         prossimo=0;
         connectivityManager=new MyConnectivityManager(getApplicationContext());
-
-
-        //****************inserimento bunner pubblicitario***************************
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(getString(R.string.unit_id));
-        // Add the AdView to the view hierarchy.
-        RelativeLayout layout = findViewById(R.id.footer);
-        layout.addView(adView);
-
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-                .build();
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-        //******************  FINE  bunner pubblicitario***************************
-
         btnSpeak1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
