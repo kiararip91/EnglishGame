@@ -57,10 +57,17 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 
+    /**
+     * Checked
+     */
     private EnglishGameUtility gameUtils;
     private List<Vocabolo> words;
     private int index;
     private Vocabolo word;
+
+    /**
+     * Checked
+     */
 
 
     LinearLayout ll1;
@@ -169,7 +176,7 @@ public class MainActivity extends Activity {
         frase_tv.setText("");
 
         this.words = this.getWords();
-        this.setLettere(words,this.index);
+        this.setLetters(words,this.index);
 
     }
 
@@ -221,9 +228,7 @@ public class MainActivity extends Activity {
         return vocaboli;
     }
 
-
-
-    public void setLettere(List<Vocabolo> words, int index){
+    public void setLetters(List<Vocabolo> words, int index){
         this.word = words.get(index);
         this.listened = false;
         //ripristino le visibilta dei layout
@@ -365,12 +370,15 @@ public class MainActivity extends Activity {
                                     aiuto.setClickable(false);
                                     soluzione.setClickable(false);
                                     linear_gameover.setVisibility(View.VISIBLE);
-                                    if(nuovoRecord(punti))
+
+                                    if(isNewRecord(punti)){
                                         alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title),getString(R.string.nuovo_record)+punti,false);
+                                    }
+                                }
+                                else{
+                                    errori.setText(getString(R.string.errori)+err);
 
                                 }
-                                else
-                                    errori.setText(getString(R.string.errori)+err);
 
                                 gameUtils.soundWrong();
                                 gameUtils.vibrate();
@@ -382,18 +390,9 @@ public class MainActivity extends Activity {
                                 premutiLog+=", "+premuti.get(i);
                             }
 
-
-                            //Log.v("premutilog",premutiLog);
-                            premutiLog="";
+                            premutiLog = "";
 
                         }
-                        //parola completata, ma continuo a premere lettere
-                        else if(numero_lettera==italiano.length())
-                        {
-                            //non fare niente
-                        }
-
-
                     }
 
                 });
@@ -607,13 +606,15 @@ public class MainActivity extends Activity {
                                 aiuto.setClickable(false);
                                 soluzione.setClickable(false);
                                 linear_gameover.setVisibility(View.VISIBLE);
-                                if(nuovoRecord(punti))
-                                    alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title),getString(R.string.nuovo_record)+punti,false);
 
+                                if(isNewRecord(punti)){
+                                    alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title),getString(R.string.nuovo_record)+punti,false);
+                                }
 
                             }
-                            else
+                            else{
                                 errori.setText(getString(R.string.errori)+err);
+                            }
 
                             gameUtils.soundWrong();
                             gameUtils.vibrate();
@@ -663,7 +664,7 @@ public class MainActivity extends Activity {
         if(this.index++==20){
             this.getWords();
         }
-        this.setLettere(this.words, this.index);
+        this.setLetters(this.words, this.index);
 
     }
 
@@ -860,16 +861,14 @@ public class MainActivity extends Activity {
         soluzione.setClickable(true);
         linear_gameover.setVisibility(View.GONE);
         this.getWords();
-        this.setLettere(this.words, this.index);
+        this.setLetters(this.words, this.index);
 
     }
 
     @SuppressLint("SetTextI18n")
-    public boolean nuovoRecord(float punti)
-    {
-        record=session.getRecord(categoria);
-        if(punti>record)
-        {
+    public boolean isNewRecord(float punti){
+        record = session.getRecord(categoria);
+        if(punti > record){
             session.setRecord(categoria, punti);
             record_tv.setText(getString(R.string.record)+" "+punti);
             return true;
@@ -879,23 +878,17 @@ public class MainActivity extends Activity {
 
     }
 
-    public void showFrase(View view){
+    public void showSentence(View view){
         frase_tv.setText(this.word.getFrase());
 
     }
 
-    public void ascoltaParola(View view){
+    public void listenToWord(View view){
 
-        String ingl=this.word.getInglese().toLowerCase();
-        ingl=ingl.replaceAll("to ","");
-        ingl=ingl.replaceAll("\\s","_");
-        ingl=ingl.replaceAll("_\\[sb\\]","");
-        ingl=ingl.replaceAll("_\\[sth\\]","");
-        ingl=ingl.replaceAll("_\\[smb\\]","");
-        ingl=ingl.replaceAll("\\[sb\\]","");
-        ingl=ingl.replaceAll("\\[sth\\]","");
-        ingl=ingl.replaceAll("\\[smb\\]","");
-        String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/"+ingl+"--_gb_1.mp3";
+        String englishWord = this.word.getInglese().toLowerCase();
+        englishWord = gameUtils.substituteSpecialCharWordToPronunce(englishWord);
+
+        String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + englishWord + "--_gb_1.mp3";
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
@@ -924,9 +917,6 @@ public class MainActivity extends Activity {
             }
 
         }
-
     }
 
 }
-
-
