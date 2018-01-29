@@ -112,7 +112,7 @@ public class ImparaActivity extends Activity {
         livello.setText(intent.getStringExtra("categoria1"));
 
         if(connectivityManager.check()){
-            getVocaboli();
+            getWords();
             impostaParola();
         }
         else {
@@ -136,7 +136,7 @@ public class ImparaActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getVocaboli(){
+    public void getWords(){
         //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
         Log.v(TAG,"impara"+categoria);
         GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,categoria);
