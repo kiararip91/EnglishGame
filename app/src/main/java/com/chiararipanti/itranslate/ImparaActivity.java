@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import com.chiararipanti.itranslate.db.Vocabolo;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
+import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
@@ -82,9 +83,10 @@ public class ImparaActivity extends Activity {
          * Checked
          */
 
-        gameUtils = new EnglishGameUtility(this);
-        gameUtils.addAdBunner();
-        gameUtils.setHomeButtonEnabled();
+        this.gameUtils = new EnglishGameUtility(this);
+        this.gameUtils.addAdBunner();
+        this.gameUtils.setHomeButtonEnabled();
+        this.listened = false;
 
         /**
          * Checked
@@ -93,7 +95,7 @@ public class ImparaActivity extends Activity {
         Intent intent=getIntent();
         categoria=intent.getStringExtra("categoria");
         prossimo=0;
-        this.listened = false;
+
         sol=false;
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
@@ -125,9 +127,6 @@ public class ImparaActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
             Intent intent=new Intent(this,StartActivity.class);
@@ -137,8 +136,7 @@ public class ImparaActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getVocaboli()
-    {
+    public void getVocaboli(){
         //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
         Log.v(TAG,"impara"+categoria);
         GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,categoria);
@@ -158,17 +156,16 @@ public class ImparaActivity extends Activity {
         voc=vocaboli.get(prossimo);
     }
 
-    public void impostaParola()
-    {
+    public void impostaParola(){
         this.listened = false;
         parola_italiano_tv.setText(voc.getLingua_nativa());
         parola_inglese_tv.setText(voc.getInglese());
         parola_italiano_tv.setText(voc.getLingua_nativa());
         frase_tv.setText(voc.getFrase());
-        Log.v("Vocabolo", voc.getInglese());
-        Log.v("Img", voc.getImg());
-        AudioRequest ar=new AudioRequest();
-        Log.v("task","prima di execute");
+
+        this.mediaPlayer = new MediaPlayer();
+        AudioRequest ar=new AudioRequest(this, mediaPlayer);
+
         String ingl=voc.getInglese().toLowerCase();
         ingl=ingl.replaceAll("to ","");
         ingl=ingl.replaceAll("\\s","_");
@@ -180,44 +177,42 @@ public class ImparaActivity extends Activity {
         ingl=ingl.replaceAll("\\[smb\\]","");
 
         String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/"+ingl+"--_gb_1.mp3";
-        if(connectivityManager.check())
-        {
-            ar.execute(url);
 
-            new DownloadImageTask((ImageView) findViewById(R.id.immagine))
-                    .execute(voc.getImg());
+        try {
+            mediaPlayer.setDataSource(url);
+            if(connectivityManager.check()){
+                ar.execute(url);
+                this.listened = true;
+
+                new DownloadImageTask((ImageView) findViewById(R.id.immagine)).execute(voc.getImg());
+            }
+            else{
+                Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            Log.e("IMPARAACTIVITY", "fail to load madiaPlayer");
         }
-        else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-
-
 
     }
 
 
-    public void next(View view)
-    {
-        if(connectivityManager.check())
-        {
-            if(!sol)
-            {
+    public void next(View view){
+        if(connectivityManager.check()){
+            if(!sol){
                 sol=true;
                 next.setText(getString(R.string.next));
                 parola_italiano_tv.setVisibility(View.VISIBLE);
 
             }
-            else
-            {
+            else{
                 sol=false;
                 next.setText(getString(R.string.soluzione));
                 parola_italiano_tv.setVisibility(View.GONE);
                 prossimo++;
                 if(prossimo<10)
                     voc=vocaboli.get(prossimo);
-                else
-                {
-                    if(connectivityManager.check())
-                    {
+                else{
+                    if(connectivityManager.check()){
                         GetVocaboliFromDB getVocaboli=new GetVocaboliFromDB(this,categoria);
                         getVocaboli.execute();
                         try {
@@ -235,9 +230,7 @@ public class ImparaActivity extends Activity {
                         }
 
                     }
-                    else
-                    {
-                        //Log.v("no connessione","no connessione");
+                    else{
                         alertDialog.showAlertDialog(ImparaActivity.this, getString(R.string.attenzione), getString(R.string.attiva_connessione), true);
 
                     }
@@ -249,75 +242,16 @@ public class ImparaActivity extends Activity {
         }
         else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-
-
     }
 
     public void ascolta(View view)
     {
-        if(this.listened)
+        if(this.listened) {
             mediaPlayer.start();
-        else
+        }else
             Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
 
     }
-
-    private class AudioRequest extends AsyncTask<String, Void, String> {
-        int statusCode;
-        String url;
-        @Override
-        protected String doInBackground(String... urls) {
-
-            url=urls[0];
-            // params comes from the execute() call: params[0] is the url.
-            try {
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(new HttpGet(urls[0]));
-                statusCode = response.getStatusLine().getStatusCode();
-
-                if(statusCode==200)
-                    return "ok";
-
-            } catch (IOException e) {
-                return "errore";
-            }
-            return "errore";
-        }
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            if(result.equalsIgnoreCase("ok")){
-                mediaPlayer = new MediaPlayer();
-                try {
-                    mediaPlayer.setDataSource(url);
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                    listened = true;
-
-                }
-                catch (SecurityException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                    return;
-                } catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                    return;
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-            else
-                Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;

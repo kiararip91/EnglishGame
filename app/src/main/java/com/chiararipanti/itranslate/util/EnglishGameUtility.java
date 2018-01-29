@@ -158,4 +158,104 @@ public class EnglishGameUtility {
 
     }
 
+    public String substituteSpecialChar(Character c){
+        String res;
+        switch(c) {
+
+            case 'ß':
+                res="sb";
+                break;
+
+            case 'á':
+                res="aacuta";
+                break;
+
+            case 'ó':
+                res="oacuta";
+                break;
+
+
+            case 'ö':
+                res="opt";
+                break;
+
+
+
+
+            case 'ñ':
+                res="ntilde";
+                break;
+
+            case 'í':
+                res="iacuta";
+                break;
+
+            case 'é':
+                res="eacuta";
+                break;
+
+            case 'è':
+                res="egrave";
+                break;
+
+            case 'ê':
+                res="eflex";
+                break;
+
+            case 'ë':
+                res="ept";
+                break;
+
+            case 'à':
+                res="agrave";
+                break;
+
+            case 'â':
+                res="aflex";
+                break;
+
+            case 'ä':
+                res="apt";
+                break;
+
+            case 'î':
+                res="iflex";
+                break;
+
+            case 'ï':
+                res="ipt";
+                break;
+
+            case 'ô':
+                res="oflex";
+                break;
+
+            case 'ù':
+                res="ugrave";
+                break;
+
+            case 'û':
+                res="uflex";
+                break;
+
+            case 'ú':
+                res="uacuta";
+                break;
+
+            case 'ü':
+                res="upt";
+                break;
+
+            case 'ÿ':
+                res="ypt";
+                break;
+
+
+
+            default:
+                res=c.toString();
+        }
+        return res;
+    }
+
 }

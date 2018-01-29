@@ -274,7 +274,7 @@ public class MainActivity extends Activity {
                 img.setId(indice);
                 img.setLayoutParams(lp);
                 final String carattere=arr[i];
-                String sfondo_lettera=sostituisciSpecialChar(arr[i].charAt(0));
+                String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                 int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                 img.setBackground(getResources().getDrawable(j));
 
@@ -292,7 +292,7 @@ public class MainActivity extends Activity {
                                 premuti.add(indice);
                                 //estraggo il bottone nero successivo e gli cambio lo sfondo in base alla lettera selezionata
                                 Button black_button=bb.get(numero_lettera);
-                                String sfondo_lettera=sostituisciSpecialChar(carattere.charAt(0));
+                                String sfondo_lettera = gameUtils.substituteSpecialChar(carattere.charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                                 black_button.setBackground(getResources().getDrawable(w));
                                 img.setBackground(getResources().getDrawable(R.drawable.black));
@@ -305,8 +305,8 @@ public class MainActivity extends Activity {
                                 parola_selezionata.add(carattere);
                                 premuti.add(100);
                                 premuti.add(indice);
-                                Button black_button=bb.get(numero_lettera+1);
-                                String sfondo_lettera=sostituisciSpecialChar(carattere.charAt(0));
+                                Button black_button = bb.get(numero_lettera+1);
+                                String sfondo_lettera = gameUtils.substituteSpecialChar(carattere.charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                                 black_button.setBackground(getResources().getDrawable(w));
                                 img.setBackground(getResources().getDrawable(R.drawable.black));
@@ -322,7 +322,7 @@ public class MainActivity extends Activity {
                             premuti.add(indice);
                             //cambio lo sfondo dell'ultimo bottone
                             Button black_button=bb.get(numero_lettera);
-                            String sfondo_lettera=sostituisciSpecialChar(carattere.charAt(0));
+                            String sfondo_lettera = gameUtils.substituteSpecialChar(carattere.charAt(0));
                             int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             black_button.setBackground(getResources().getDrawable(w));
                             img.setBackground(getResources().getDrawable(R.drawable.black));
@@ -437,7 +437,7 @@ public class MainActivity extends Activity {
                                 }
                                 premutiLog="";
                                 Button b=lb.get(ripristina);
-                                String sfondo_lettera=sostituisciSpecialChar(parola_selezionata.get(indice).toString().charAt(0));
+                                String sfondo_lettera = gameUtils.substituteSpecialChar(parola_selezionata.get(indice).toString().charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                                 b.setBackground(getResources().getDrawable(w));
                                 b.setClickable(true);
@@ -463,7 +463,7 @@ public class MainActivity extends Activity {
                                 premutiLog="";
                                 Button b=lb.get(ripristina);
                                 b.setClickable(true);
-                                String sfondo_lettera = sostituisciSpecialChar(parola_selezionata.get(indice).charAt(0));
+                                String sfondo_lettera = gameUtils.substituteSpecialChar(parola_selezionata.get(indice).charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                                 b.setBackground(getResources().getDrawable(w));
                                 parola_selezionata.remove(indice);
@@ -545,7 +545,7 @@ public class MainActivity extends Activity {
                             premuti.add(indicer);
                             parola_selezionata.add(randomChar.toString());
                             Button black_button=bb.get(numero_lettera);
-                            String sfondo_lettera=sostituisciSpecialChar(randomChar);
+                            String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
                             int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             black_button.setBackground(getResources().getDrawable(w));
                             img.setBackground(getResources().getDrawable(R.drawable.black));
@@ -557,7 +557,7 @@ public class MainActivity extends Activity {
                             premuti.add(100);
                             premuti.add(indicer);
                             Button black_button=bb.get(numero_lettera+1);
-                            String sfondo_lettera=sostituisciSpecialChar(randomChar);
+                            String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
                             int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             black_button.setBackground(getResources().getDrawable(w));
                             img.setBackground(getResources().getDrawable(R.drawable.black));
@@ -569,7 +569,7 @@ public class MainActivity extends Activity {
                         premuti.add(indicer);
                         parola_selezionata.add(randomChar.toString());
                         Button black_button=bb.get(numero_lettera);
-                        String sfondo_lettera=sostituisciSpecialChar(randomChar);
+                        String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
                         int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                         black_button.setBackground(getResources().getDrawable(w));
                         img.setBackground(getResources().getDrawable(R.drawable.black));
@@ -630,12 +630,10 @@ public class MainActivity extends Activity {
                 }
             });
 
-
-            String sfondo_lettera=sostituisciSpecialChar(randomChar);
+            String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
             int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
             img.setBackground(getResources().getDrawable(j));
             lb.put(indicer,img);
-
         }
 
         //lista di chiavi
@@ -692,7 +690,7 @@ public class MainActivity extends Activity {
                     Button black_button=bb.get(i);
                     if(!arr[i].equalsIgnoreCase(" "))
                     {
-                        String sfondo_lettera=sostituisciSpecialChar(arr[i].charAt(0));
+                        String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                         int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                         black_button.setBackground(getResources().getDrawable(j));
                         black_button.setClickable(false);
@@ -773,7 +771,7 @@ public class MainActivity extends Activity {
                         {
                             //ripristino caselle cliccabili
                             Button b=lb.get(i);
-                            String sfondo_lettera = sostituisciSpecialChar(arr[i].charAt(0));
+                            String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                             int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             b.setBackground(getResources().getDrawable(j));
                             b.setClickable(true);
@@ -792,7 +790,7 @@ public class MainActivity extends Activity {
                             final Character randomChar=randomLetters.charAt(id);
 
                             b.setClickable(true);
-                            String sfondo_lettera=sostituisciSpecialChar(randomChar);
+                            String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
                             int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             b.setBackground(getResources().getDrawable(j));
                         }
@@ -800,7 +798,7 @@ public class MainActivity extends Activity {
                         for(int i=0; i<lettere_da_mostrare; i++)
                         {
                             Button black_button=bb.get(i);
-                            String sfondo_lettera=sostituisciSpecialChar(arr[i].charAt(0));
+                            String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                             int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             //mostro le lettere della soluzione
                             black_button.setBackground(getResources().getDrawable(j));
@@ -927,106 +925,6 @@ public class MainActivity extends Activity {
 
         }
 
-    }
-
-    public String sostituisciSpecialChar(Character c){
-        String res;
-        switch(c) {
-
-            case 'ß':
-                res="sb";
-                break;
-
-            case 'á':
-                res="aacuta";
-                break;
-
-            case 'ó':
-                res="oacuta";
-                break;
-
-
-            case 'ö':
-                res="opt";
-                break;
-
-
-
-
-            case 'ñ':
-                res="ntilde";
-                break;
-
-            case 'í':
-                res="iacuta";
-                break;
-
-            case 'é':
-                res="eacuta";
-                break;
-
-            case 'è':
-                res="egrave";
-                break;
-
-            case 'ê':
-                res="eflex";
-                break;
-
-            case 'ë':
-                res="ept";
-                break;
-
-            case 'à':
-                res="agrave";
-                break;
-
-            case 'â':
-                res="aflex";
-                break;
-
-            case 'ä':
-                res="apt";
-                break;
-
-            case 'î':
-                res="iflex";
-                break;
-
-            case 'ï':
-                res="ipt";
-                break;
-
-            case 'ô':
-                res="oflex";
-                break;
-
-            case 'ù':
-                res="ugrave";
-                break;
-
-            case 'û':
-                res="uflex";
-                break;
-
-            case 'ú':
-                res="uacuta";
-                break;
-
-            case 'ü':
-                res="upt";
-                break;
-
-            case 'ÿ':
-                res="ypt";
-                break;
-
-
-
-            default:
-                res=c.toString();
-        }
-        return res;
     }
 
 }
