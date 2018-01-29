@@ -43,7 +43,7 @@ public class QuizTraduzioneActivity extends Activity {
     int tipoQuiz;
     int quizTot;
     int quizNow;
-    int prossimo;
+    int next;
     int score;
     TextView text;
     TextView sol;
@@ -67,7 +67,7 @@ public class QuizTraduzioneActivity extends Activity {
         tipoQuiz = intent.getIntExtra("quiz",0);
         quizTot = 0;
         quizNow = 1;
-        prossimo = 0;
+        next = 0;
         prop = findViewById(R.id.prop);
         score = 0;
         populateQuiz(tipoQuiz);
@@ -104,13 +104,13 @@ public class QuizTraduzioneActivity extends Activity {
             e.printStackTrace();
         }
 
-        quiz=quizs.get(prossimo);
+        quiz=quizs.get(next);
         quizTot=quizs.size();
         prop.setText(quizNow + "\\" + quizTot);
-        impostaQuiz();
+        setQuiz();
     }
 
-    public void impostaQuiz(){
+    public void setQuiz(){
         prop.setText(quizNow + "\\" + quizTot);
         text.setText(quiz.getText());
     }
@@ -118,14 +118,14 @@ public class QuizTraduzioneActivity extends Activity {
     public void conferma(View view){
         if(sol.getText().toString().equalsIgnoreCase(quiz.getCorrectAnswer())){
             quizNow++;
-            prossimo++;
+            next++;
             score++;
             gameUtils.soundCorrect();
 
-            if(prossimo+1<quizTot){
-                quiz=quizs.get(prossimo);
+            if(next+1<quizTot){
+                quiz=quizs.get(next);
                 sol.setText("");
-                impostaQuiz();
+                setQuiz();
             }else{
                 alertBuilder.setTitle("The END");
                 alertBuilder
@@ -144,11 +144,11 @@ public class QuizTraduzioneActivity extends Activity {
     }
     public void next(View view){
         quizNow++;
-        prossimo++;
+        next++;
 
-        if(prossimo+1<=quizTot){
-            quiz=quizs.get(prossimo);
-            impostaQuiz();
+        if(next+1<=quizTot){
+            quiz=quizs.get(next);
+            setQuiz();
         }else{
             alertBuilder.setTitle("The END");
             alertBuilder.setMessage("Final SCORE: "+score).setPositiveButton("OK", new DialogInterface.OnClickListener() {
