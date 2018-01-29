@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 import com.chiararipanti.itranslate.db.Canzone;
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetCanzoniFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
@@ -49,20 +50,15 @@ public class MusicaActivity extends Activity {
     Button b3;
     Button b4;
     MyConnectivityManager connectivityManager;
-    MediaPlayer wrongSound;
-    MediaPlayer correctSound;
+    EnglishGameUtility gameUtils;
     SessionManager session;
-    Boolean suono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musica);
-
-        wrongSound = MediaPlayer.create(this, R.raw.wrong);
-        correctSound = MediaPlayer.create(this, R.raw.correct);
         session = new SessionManager(getApplicationContext());
-        suono=session.getSuono();
+        gameUtils = new EnglishGameUtility(this);
         ActionBar actionBar = getActionBar();
         if(actionBar == null){
             String TAG = "MusicaActivity";
@@ -131,17 +127,15 @@ public class MusicaActivity extends Activity {
             sbSound = new Switch(this);
             sbSound.setText(R.string.sound);
 
-            if(suono)
+            if(session.getSuono())
                 sbSound.setChecked(true);
 
             sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         session.setSuono(true);
-                        suono=true;
                     } else {
                         session.setSuono(false);
-                        suono=false;
                     }
                 }
             });
@@ -199,12 +193,10 @@ public class MusicaActivity extends Activity {
         String buttonText = b.getText().toString();
         if(buttonText.equals(song.getTraduzione())){
             b.setBackgroundColor(Color.GREEN);
-            if(suono)
-                correctSound.start();
+            gameUtils.soundCorrect();
         }else {
             b.setBackgroundColor(Color.RED);
-            if(suono)
-                wrongSound.start();
+            gameUtils.soundWrong();
         }
 
         final Handler handler = new Handler();

@@ -15,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.chiararipanti.itranslate.db.Vocabolo;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
@@ -54,8 +55,8 @@ import android.widget.Toast;
  * date 04/05/2013
  */
 public class MainActivity extends Activity {
-    Boolean suono;
-    Boolean vibra;
+
+    EnglishGameUtility gameUtils;
     LinearLayout ll;
     LinearLayout ll1;
     LinearLayout ll2;
@@ -102,8 +103,6 @@ public class MainActivity extends Activity {
     AlertDialogManager settingDialog;
     MyConnectivityManager connectivityManager;
     ArrayList<Button> bb;
-    MediaPlayer wrongSound;
-    MediaPlayer correctSound;
     MediaPlayer overSound;
     MediaPlayer ascolta;
     boolean ascoltata;
@@ -114,8 +113,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        wrongSound = MediaPlayer.create(this, R.raw.wrong);
-        correctSound = MediaPlayer.create(this, R.raw.correct);
+
+        gameUtils = new EnglishGameUtility(this);
+
         overSound = MediaPlayer.create(this, R.raw.over);
         ascoltata=false;
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -127,8 +127,6 @@ public class MainActivity extends Activity {
         mySwitch = findViewById(R.id.switchForActionBar);
         connectivityManager = new MyConnectivityManager(getApplicationContext());
         session = new SessionManager(getApplicationContext());
-        suono=session.getSuono();
-        vibra=session.getVibrazione();
         ActionBar actionBar = getActionBar();
 
         if(actionBar != null)
@@ -149,7 +147,7 @@ public class MainActivity extends Activity {
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        RelativeLayout layout = findViewById(R.id.footer);
         layout.addView(adView);
 
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -229,17 +227,15 @@ public class MainActivity extends Activity {
             sbSound.setTextOn(getString(R.string.sound_on));
             sbSound.setTextOff(getString(R.string.sound_off));
 
-            if(suono)
+            if(session.getSuono())
                 sbSound.setChecked(true);
 
             sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         session.setSuono(true);
-                        suono=true;
                     } else {
                         session.setSuono(false);
-                        suono=false;
                     }
                 }
             });
@@ -249,17 +245,15 @@ public class MainActivity extends Activity {
             sbVibra.setTextOn(getString(R.string.vibration_on));
             sbVibra.setTextOff(getString(R.string.vibration_off));
 
-            if(vibra)
+            if(session.getVibrazione())
                 sbVibra.setChecked(true);
 
             sbVibra.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         session.setVibrazione(true);
-                        vibra=true;
                     } else {
                         session.setVibrazione(false);
-                        vibra=false;
                     }
                 }
             });
@@ -325,10 +319,10 @@ public class MainActivity extends Activity {
         ll_black2.removeAllViews();
 
         //array di botton inizialmente neri
-        bb=new ArrayList<Button>();
+        bb=new ArrayList<>();
 
         //la parola che si sta formando in italiano clicckando sulle lettere
-        parola_selezionata=new ArrayList<String>();
+        parola_selezionata=new ArrayList<>();
 
         //lettere di cui e composta la parola in italiano
         String[] prima=voc.getLingua_nativa().split(",");
@@ -419,10 +413,10 @@ public class MainActivity extends Activity {
                             if(italiano.equalsIgnoreCase(da_convalidare)){
                                 black_button.setClickable(false);
                                 linear_right.setVisibility(View.VISIBLE);
-                                if(suono)
-                                    correctSound.start();
-                                if(vibra)
-                                    vibrator.vibrate(500);
+
+                                gameUtils.soundCorrect();
+                                gameUtils.vibrate();
+
                                 punti=punti+1;
                                 punteggio.setText(getString(R.string.punteggio)+punti);
                                 ll1.setVisibility(View.GONE);
@@ -436,15 +430,12 @@ public class MainActivity extends Activity {
 
                                 //GAME OVER
                                 if(err>2){
-                                    if(suono){
-                                        overSound.start();
-                                    }
+                                    gameUtils.soundOver();
 
                                     numeroAiuti=0;
                                     numeroSoluzioni=0;
 
-                                    if(vibra)
-                                        vibrator.vibrate(500);
+                                    gameUtils.vibrate();
 
                                     session.incrPartite(categoria);
                                     linear_content.setVisibility(View.GONE);
@@ -458,10 +449,8 @@ public class MainActivity extends Activity {
                                 else
                                     errori.setText(getString(R.string.errori)+err);
 
-                                if(suono)
-                                    wrongSound.start();
-                                if(vibra)
-                                    vibrator.vibrate(500);
+                                gameUtils.soundWrong();
+                                gameUtils.vibrate();
                             }
 
                             img.setClickable(false);
@@ -669,10 +658,10 @@ public class MainActivity extends Activity {
                         if(italiano.equalsIgnoreCase(da_convalidare)){
                             black_button.setClickable(false);
                             linear_right.setVisibility(View.VISIBLE);
-                            if(suono)
-                                correctSound.start();
-                            if(vibra)
-                                vibrator.vibrate(500);
+
+                            gameUtils.soundCorrect();
+                            gameUtils.vibrate();
+
                             punti=punti+1;
                             punteggio.setText(getString(R.string.punteggio)+punti);
                             ll1.setVisibility(View.GONE);
@@ -686,9 +675,7 @@ public class MainActivity extends Activity {
                             //GAME OVER
                             if(err>2){
 
-                                if(suono){
-                                    overSound.start();
-                                }
+                                gameUtils.soundOver();
 
                                 numeroAiuti=0;
                                 numeroSoluzioni=0;
@@ -704,10 +691,9 @@ public class MainActivity extends Activity {
                             }
                             else
                                 errori.setText(getString(R.string.errori)+err);
-                            if(suono)
-                                wrongSound.start();
-                            if(vibra)
-                                vibrator.vibrate(500);
+
+                            gameUtils.soundWrong();
+                            gameUtils.vibrate();
 
                         }
 
@@ -825,10 +811,10 @@ public class MainActivity extends Activity {
                 linear_right.setVisibility(View.VISIBLE);
                 ll1.setVisibility(View.GONE);
                 ll2.setVisibility(View.GONE);
-                if(suono)
-                    correctSound.start();
-                if(vibra)
-                    vibrator.vibrate(500);
+
+                gameUtils.soundCorrect();
+                gameUtils.vibrate();
+
                 frase_tv.setText("");
             }
         });

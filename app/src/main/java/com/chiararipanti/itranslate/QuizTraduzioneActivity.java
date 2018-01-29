@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.concurrent.ExecutionException;
 import com.chiararipanti.itranslate.db.QuizTraduzione;
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetQuizTraduzioneFromDB;
 import com.chiararipanti.itranslate.util.SessionManager;
 import com.google.android.gms.ads.AdRequest;
@@ -35,10 +36,8 @@ public class QuizTraduzioneActivity extends Activity {
     /**
      * Declaring Variables
      */
-    MediaPlayer wrongSound;
-    MediaPlayer correctSound;
     SessionManager session;
-    Boolean suono;
+    EnglishGameUtility gameUtils;
     QuizTraduzione quiz;
     ArrayList<QuizTraduzione> quizs;
     int tipoQuiz;
@@ -60,10 +59,8 @@ public class QuizTraduzioneActivity extends Activity {
         if(actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        wrongSound = MediaPlayer.create(this, R.raw.wrong);
-        correctSound = MediaPlayer.create(this, R.raw.correct);
         session = new SessionManager(getApplicationContext());
-        suono=session.getSuono();
+        gameUtils = new EnglishGameUtility(this);
         text = findViewById(R.id.text);
         sol = findViewById(R.id.sol);
         alertBuilder = new AlertDialog.Builder(QuizTraduzioneActivity.this);
@@ -119,17 +116,15 @@ public class QuizTraduzioneActivity extends Activity {
             sbSound = new Switch(this);
             sbSound.setText(R.string.sound);
 
-            if(suono)
+            if(session.getSuono())
                 sbSound.setChecked(true);
 
             sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         session.setSuono(true);
-                        suono=true;
                     } else {
                         session.setSuono(false);
-                        suono=false;
                     }
                 }
             });
@@ -180,8 +175,8 @@ public class QuizTraduzioneActivity extends Activity {
             quizNow++;
             prossimo++;
             score++;
-            if(suono)
-                correctSound.start();
+            gameUtils.soundCorrect();
+
             if(prossimo+1<quizTot){
                 quiz=quizs.get(prossimo);
                 sol.setText("");
@@ -199,8 +194,7 @@ public class QuizTraduzioneActivity extends Activity {
                 alertBuilder.show();
             }
         }else{
-            if(suono)
-                wrongSound.start();
+            gameUtils.soundWrong();
         }
     }
     public void next(View view){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.concurrent.ExecutionException;
 import com.chiararipanti.itranslate.db.Vocabolo;
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
@@ -41,6 +42,7 @@ public class TraduzioneActivity extends Activity {
     /**
      * Declaring Variables
      */
+    EnglishGameUtility gameUtils;
     String categoria;
     ArrayList<Vocabolo> vocaboli;
     int prossimo;
@@ -51,15 +53,13 @@ public class TraduzioneActivity extends Activity {
     TextView help;
     InputMethodManager imm;
     MyConnectivityManager connectivityManager;
-    MediaPlayer wrongSound;
-    MediaPlayer correctSound;
     SessionManager session;
-    Boolean suono = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traduzione);
+        gameUtils = new EnglishGameUtility(this);
         ActionBar actionBar = getActionBar();
 
         if(actionBar == null){
@@ -69,10 +69,7 @@ public class TraduzioneActivity extends Activity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        wrongSound = MediaPlayer.create(this, R.raw.wrong);
-        correctSound = MediaPlayer.create(this, R.raw.correct);
         session = new SessionManager(getApplicationContext());
-        suono = session.getSuono();
         imm = (InputMethodManager)getSystemService(this.getApplicationContext().INPUT_METHOD_SERVICE);
         parola_it = findViewById(R.id.parola_italiano);
         parola_ing = findViewById(R.id.traduzione);
@@ -163,17 +160,15 @@ public class TraduzioneActivity extends Activity {
             sbSound = new Switch(this);
             sbSound.setText(R.string.sound);
 
-            if(suono)
+            if(session.getSuono())
                 sbSound.setChecked(true);
 
             sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         session.setSuono(true);
-                        suono=true;
                     } else {
                         session.setSuono(false);
-                        suono=false;
                     }
                 }
             });
@@ -202,8 +197,7 @@ public class TraduzioneActivity extends Activity {
         if(parola_ing.getText().toString().equalsIgnoreCase(voc.getInglese())){
             prossimo++;
             Toast.makeText(getApplicationContext(),getString(R.string.esatta) , Toast.LENGTH_SHORT).show();
-            if(suono)
-                correctSound.start();
+            gameUtils.soundCorrect();
 
             if(prossimo<20)
                 voc=vocaboli.get(prossimo);
@@ -231,8 +225,7 @@ public class TraduzioneActivity extends Activity {
             impostaParola();
 
         }else{
-            if(suono)
-                wrongSound.start();
+            gameUtils.soundWrong();
 
             Toast.makeText(getApplicationContext(),getString(R.string.sbagliata) , Toast.LENGTH_SHORT).show();
         }

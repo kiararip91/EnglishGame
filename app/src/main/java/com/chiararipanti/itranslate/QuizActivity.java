@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 import com.chiararipanti.itranslate.db.Quiz;
+import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetQuizFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
@@ -42,10 +43,8 @@ public class QuizActivity extends Activity {
      * Declaring variables
      */
     MyConnectivityManager connectivityManager;
-    MediaPlayer wrongSound;
-    MediaPlayer correctSound;
     SessionManager session;
-    Boolean suono;
+    EnglishGameUtility gameUtils;
     int tipoQuiz;
     int quizTot;
     int quizNow;
@@ -65,10 +64,8 @@ public class QuizActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        wrongSound = MediaPlayer.create(this, R.raw.wrong);
-        correctSound = MediaPlayer.create(this, R.raw.correct);
+        gameUtils = new EnglishGameUtility(this);
         session = new SessionManager(getApplicationContext());
-        suono=session.getSuono();
         text = findViewById(R.id.text);
         b1 = findViewById(R.id.b1);
         b2 = findViewById(R.id.b2);
@@ -135,17 +132,15 @@ public class QuizActivity extends Activity {
             sbSound = new Switch(this);
             sbSound.setText(R.string.sound);
 
-            if(suono)
+            if(session.getSuono())
                 sbSound.setChecked(true);
 
             sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         session.setSuono(true);
-                        suono=true;
                     } else {
                         session.setSuono(false);
-                        suono=false;
                     }
                 }
             });
@@ -203,12 +198,10 @@ public class QuizActivity extends Activity {
         if(buttonText.equals(quiz.getCorrectAnswer())){
             b.setBackgroundColor(Color.GREEN);
             score++;
-            if(suono)
-                correctSound.start();
+            gameUtils.soundCorrect();
         }else{
             b.setBackgroundColor(Color.RED);
-            if(suono)
-                wrongSound.start();
+            gameUtils.soundWrong();
         }
 
         final Handler handler = new Handler();
