@@ -81,8 +81,6 @@ public class MusicaActivity extends Activity {
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -92,44 +90,7 @@ public class MusicaActivity extends Activity {
             return true;
         }
         if (id == R.id.action_settings) {
-            LinearLayout ll = new LinearLayout(this);
-            ll.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(100, 10, 100, 10);
-            ll.setLayoutParams(layoutParams);
-            Switch sbSound;
-            sbSound = new Switch(this);
-            sbSound.setText(R.string.sound);
-
-            if(session.getSuono())
-                sbSound.setChecked(true);
-
-            sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        session.setSuono(true);
-                    } else {
-                        session.setSuono(false);
-                    }
-                }
-            });
-
-            ll.addView(sbSound,layoutParams);
-            AlertDialog.Builder builder;
-            AlertDialog alertDialog;
-            builder = new AlertDialog.Builder(this);
-            builder.setView(ll);
-            builder.setTitle("Edit settings");
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //return;
-                }
-            });
-            alertDialog = builder.create();
-
-            alertDialog.show();
+            gameUtils.manageSettings();
             return true;
         }
         return super.onOptionsItemSelected(item);

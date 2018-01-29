@@ -59,12 +59,17 @@ public class ImparaActivity extends Activity {
     TextView parola_inglese_tv;
     TextView frase_tv;
     TextView livello;
-    MediaPlayer audio;
-    boolean ascoltata;
     boolean sol;
-    EnglishGameUtility gameUtils;
 
     Context mcontext;
+
+    /**
+     * Checked
+     */
+    private MediaPlayer mediaPlayer;
+    private boolean listened;
+    private EnglishGameUtility gameUtils;
+
 
     String TAG = "StartActivity";
 
@@ -73,15 +78,23 @@ public class ImparaActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_impara);
 
+        /**
+         * Checked
+         */
+
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.addAdBunner();
+        gameUtils.setHomeButtonEnabled();
+
+        /**
+         * Checked
+         */
+
         Intent intent=getIntent();
         categoria=intent.getStringExtra("categoria");
         prossimo=0;
-        ascoltata=false;
+        this.listened = false;
         sol=false;
-
-        gameUtils = new EnglishGameUtility(this);
-        gameUtils.setHomeButtonEnabled();
-        gameUtils.addAdBunner();
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
         alertDialog=new AlertDialogManager();
@@ -147,7 +160,7 @@ public class ImparaActivity extends Activity {
 
     public void impostaParola()
     {
-        ascoltata=false;
+        this.listened = false;
         parola_italiano_tv.setText(voc.getLingua_nativa());
         parola_inglese_tv.setText(voc.getInglese());
         parola_italiano_tv.setText(voc.getLingua_nativa());
@@ -166,7 +179,7 @@ public class ImparaActivity extends Activity {
         ingl=ingl.replaceAll("\\[sth\\]","");
         ingl=ingl.replaceAll("\\[smb\\]","");
 
-        String url="https://ssl.gstatic.com/dictionary/static/sounds/de/0/"+ingl+".mp3";
+        String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/"+ingl+"--_gb_1.mp3";
         if(connectivityManager.check())
         {
             ar.execute(url);
@@ -242,11 +255,10 @@ public class ImparaActivity extends Activity {
 
     public void ascolta(View view)
     {
-        if(ascoltata)
-            audio.start();
+        if(this.listened)
+            mediaPlayer.start();
         else
             Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -275,12 +287,12 @@ public class ImparaActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             if(result.equalsIgnoreCase("ok")){
-                audio= new MediaPlayer();
+                mediaPlayer = new MediaPlayer();
                 try {
-                    audio.setDataSource(url);
-                    audio.prepare();
-                    audio.start();
-                    ascoltata=true;
+                    mediaPlayer.setDataSource(url);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                    listened = true;
 
                 }
                 catch (SecurityException e) {
@@ -331,8 +343,5 @@ public class ImparaActivity extends Activity {
             bmImage.setImageBitmap(result);
         }
     }
-
-
-
 
 }

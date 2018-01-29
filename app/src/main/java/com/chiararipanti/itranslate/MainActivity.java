@@ -15,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.chiararipanti.itranslate.db.Vocabolo;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
+import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
@@ -57,6 +58,11 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     private EnglishGameUtility gameUtils;
+    private List<Vocabolo> words;
+    private int index;
+    private Vocabolo word;
+
+
     LinearLayout ll1;
     LinearLayout ll2;
     LinearLayout ll_black;
@@ -91,18 +97,17 @@ public class MainActivity extends Activity {
 
     //array nel quale memorizzo gli identificatori delle lettere premuti
     ArrayList<Integer> premuti;
-    Vocabolo voc;
+    //Vocabolo voc;
     SessionManager session;
     ArrayList<String> parola_selezionata;
-    ArrayList<Vocabolo> vocaboli;
+    //ArrayList<Vocabolo> vocaboli;
     int prossimo;
     String categoria;
     AlertDialogManager alertDialog;
     AlertDialogManager settingDialog;
     MyConnectivityManager connectivityManager;
     ArrayList<Button> bb;
-    MediaPlayer ascolta;
-    boolean ascoltata;
+    private boolean listened;
     String lingua;
 
     @SuppressLint("SetTextI18n")
@@ -112,8 +117,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         gameUtils = new EnglishGameUtility(this);
-
-        ascoltata=false;
         prossimo = 0;
         alertDialog = new AlertDialogManager();
         settingDialog = new AlertDialogManager();
@@ -164,14 +167,9 @@ public class MainActivity extends Activity {
         premuti=new ArrayList<>();
         livello_tv.setText(getString(R.string.livello)+": "+intent.getStringExtra("categoria1"));
         frase_tv.setText("");
-        if(connectivityManager.check())
-            getVocaboli();
-        else
-        {
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-            Intent intent1=new Intent(this,StartActivity.class);
-            startActivity(intent1);
-        }
+
+        this.words = this.getWords();
+        this.setLettere(words,this.index);
 
     }
 
@@ -191,100 +189,43 @@ public class MainActivity extends Activity {
             return true;
         }
         if (id == R.id.action_settings) {
-
-            LinearLayout ll = new LinearLayout(this);
-            ll.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            layoutParams.setMargins(100, 10, 100, 10);
-            ll.setLayoutParams(layoutParams);
-            Switch sbSound;
-            sbSound = new Switch(this);
-            sbSound.setTextOn(getString(R.string.sound_on));
-            sbSound.setTextOff(getString(R.string.sound_off));
-
-            if(session.getSuono())
-                sbSound.setChecked(true);
-
-            sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        session.setSuono(true);
-                    } else {
-                        session.setSuono(false);
-                    }
-                }
-            });
-
-            Switch sbVibra;
-            sbVibra = new Switch(this);
-            sbVibra.setTextOn(getString(R.string.vibration_on));
-            sbVibra.setTextOff(getString(R.string.vibration_off));
-
-            if(session.getVibrazione())
-                sbVibra.setChecked(true);
-
-            sbVibra.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        session.setVibrazione(true);
-                    } else {
-                        session.setVibrazione(false);
-                    }
-                }
-            });
-
-            ll.addView(sbVibra,layoutParams);
-            ll.addView(sbSound,layoutParams);
-            AlertDialog.Builder builder;
-            AlertDialog alertDialog;
-            builder = new AlertDialog.Builder(this);
-            builder.setView(ll);
-            builder.setTitle("Edit settings");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-            alertDialog = builder.create();
-
-            alertDialog.show();
+            gameUtils.manageSettings();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Retrieve a list of word form DataSource
+     */
+    private List<Vocabolo> getWords(){
+        List<Vocabolo> vocaboli = new ArrayList<>();
 
-    public void onBackPressed() {
-        //finish();
-    }
-
-    public void getVocaboli()
-    {
-        //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
-        GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,categoria);
-        try {
-            getvocTask.execute();
-            vocaboli=getvocTask.get();
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            alertDialog.showAlertDialog(MainActivity.this, "OPS!", getString(R.string.errore), false);
-        } catch (ExecutionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            alertDialog.showAlertDialog(MainActivity.this, "OPS!", getString(R.string.errore), false);
+        if(!connectivityManager.check()) {
+            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
+            Intent intent1=new Intent(this,StartActivity.class);
+            startActivity(intent1);
+        }else{
+            this.index = 0;
+            GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,categoria);
+            vocaboli = new ArrayList<>();
+            try {
+                getvocTask.execute();
+                vocaboli=getvocTask.get();
+            } catch (Exception e) {
+                String TAG = "MainActivity";
+                Log.e(TAG, "Error in retriving vocaboli "+ e.getMessage());
+                alertDialog.showAlertDialog(MainActivity.this, "OPS!", getString(R.string.errore), false);
+            }
         }
-        voc=vocaboli.get(prossimo);
-        setLettere(voc);
+        return vocaboli;
     }
 
 
 
-    public void setLettere(Vocabolo voc)
-    {
+    public void setLettere(List<Vocabolo> words, int index){
+        this.word = words.get(index);
+        this.listened = false;
         //ripristino le visibilta dei layout
         ll1.setVisibility(View.VISIBLE);
         ll2.setVisibility(View.VISIBLE);
@@ -294,15 +235,20 @@ public class MainActivity extends Activity {
         ll2.removeAllViews();
         ll_black.removeAllViews();
         ll_black2.removeAllViews();
+        this.premuti = new ArrayList<>();
+        this.seconda_riga = false;
+        this.soluzione.setClickable(true);
+        aiuto.setClickable(true);
+        linear_right.setVisibility(View.GONE);
 
         //array di botton inizialmente neri
-        bb=new ArrayList<>();
+        bb = new ArrayList<>();
 
         //la parola che si sta formando in italiano clicckando sulle lettere
         parola_selezionata=new ArrayList<>();
 
         //lettere di cui e composta la parola in italiano
-        String[] prima=voc.getLingua_nativa().split(",");
+        String[] prima=this.word.getLingua_nativa().split(",");
 
         //prendo la prima traduzione, ignoro i sinonimi
         final String italiano=prima[0];
@@ -710,43 +656,17 @@ public class MainActivity extends Activity {
                 ll2.addView(lb.get(o));
             num++;
         }
-        parola_inglese.setText(voc.getInglese());
+        parola_inglese.setText(word.getInglese());
     }
 
     public void next(View view){
-        ascoltata=false;
-        premuti=new ArrayList<>();
-        seconda_riga=false;
-        soluzione.setClickable(true);
-        aiuto.setClickable(true);
-        prossimo++;
-        linear_right.setVisibility(View.GONE);
+        this.index++;
 
-        if(prossimo<20)
-            voc=vocaboli.get(prossimo);
-        else{
-            if(connectivityManager.check()){
-                GetVocaboliFromDB getVocaboli=new GetVocaboliFromDB(this,categoria);
-                getVocaboli.execute();
-                try {
-                    vocaboli=getVocaboli.get();
-                    prossimo=0;
-                    voc=vocaboli.get(prossimo);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    alertDialog.showAlertDialog(MainActivity.this, "OPS!", getString(R.string.errore), false);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                    alertDialog.showAlertDialog(MainActivity.this, "OPS!", getString(R.string.errore), false);
-                }
-
-            }
-            else{
-                alertDialog.showAlertDialog(MainActivity.this, getString(R.string.attenzione), getString(R.string.attiva_connessione), true);
-            }
-
+        if(this.index++==20){
+            this.getWords();
         }
-        setLettere(voc);
+        this.setLettere(this.words, this.index);
+
     }
 
     public void showSolution(View view)
@@ -762,7 +682,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                String[] prima=voc.getLingua_nativa().split(",");
+                String[] prima=word.getLingua_nativa().split(",");
 
                 //prendo la prima traduzione, ignoro i sinonimi
                 final String italiano=prima[0];
@@ -809,10 +729,11 @@ public class MainActivity extends Activity {
         numeroSoluzioni++;
     }
 
-    public void showAiuto(View view)
-    {
-        if(numeroAiuti<3)
-        {
+    public void showAiuto(View view) {
+
+        final Vocabolo word = this.word;
+
+        if(numeroAiuti<3){
             AlertDialog.Builder alertD = new AlertDialog.Builder(MainActivity.this);
             alertD.setTitle(getString(R.string.aiuto));
             alertD.setMessage(getString(R.string.aiuto_msg));
@@ -824,7 +745,7 @@ public class MainActivity extends Activity {
                     dialog.dismiss();
 
                     //Estraggo la traduzione, ignoro i sinonimi
-                    String[] prima=voc.getLingua_nativa().split(",");
+                    String[] prima = word.getLingua_nativa().split(",");
                     final String italiano=prima[0];
 
                     //estraggo le singole lettere
@@ -836,8 +757,8 @@ public class MainActivity extends Activity {
 
                     String sottostringa=italiano.substring(0, lettere_da_mostrare);
                     //sottostringa.
-                    if(sottostringa.matches(".*\\s+.*"))
-                    {
+                    if(sottostringa.matches(".*\\s+.*")) {
+
                         AlertDialogManager alertD=new AlertDialogManager();
                         alertD.showAlertDialog(MainActivity.this, "Help", getString(R.string.prime_lettere)+sottostringa, false);
                     }
@@ -931,8 +852,7 @@ public class MainActivity extends Activity {
     }
 
     @SuppressLint("SetTextI18n")
-    public void restart(View view)
-    {
+    public void restart(View view){
         premuti=new ArrayList<Integer>();
         punti=0;
         err=0;
@@ -941,7 +861,8 @@ public class MainActivity extends Activity {
         aiuto.setClickable(true);
         soluzione.setClickable(true);
         linear_gameover.setVisibility(View.GONE);
-        getVocaboli();
+        this.getWords();
+        this.setLettere(this.words, this.index);
 
     }
 
@@ -960,96 +881,55 @@ public class MainActivity extends Activity {
 
     }
 
-    public void showFrase(View view)
-    {
-        frase_tv.setText(voc.getFrase());
+    public void showFrase(View view){
+        frase_tv.setText(this.word.getFrase());
 
     }
 
-    public void ascoltaParola(View view)
-    {
-        if(!ascoltata)
-        {
+    public void ascoltaParola(View view){
+
+        String ingl=this.word.getInglese().toLowerCase();
+        ingl=ingl.replaceAll("to ","");
+        ingl=ingl.replaceAll("\\s","_");
+        ingl=ingl.replaceAll("_\\[sb\\]","");
+        ingl=ingl.replaceAll("_\\[sth\\]","");
+        ingl=ingl.replaceAll("_\\[smb\\]","");
+        ingl=ingl.replaceAll("\\[sb\\]","");
+        ingl=ingl.replaceAll("\\[sth\\]","");
+        ingl=ingl.replaceAll("\\[smb\\]","");
+        String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/"+ingl+"--_gb_1.mp3";
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        try {
+            mediaPlayer.setDataSource(url);
+        } catch (IOException e) {
+            String TAG = "MainActivity";
+            Log.e(  TAG,"Unable to load audio");
+        }
+        if(!this.listened){
             if(connectivityManager.check()){
-                AudioRequest ar=new AudioRequest();
-                String ingl=voc.getInglese().toLowerCase();
-                ingl=ingl.replaceAll("to ","");
-                ingl=ingl.replaceAll("\\s","_");
-                ingl=ingl.replaceAll("_\\[sb\\]","");
-                ingl=ingl.replaceAll("_\\[sth\\]","");
-                ingl=ingl.replaceAll("_\\[smb\\]","");
-                ingl=ingl.replaceAll("\\[sb\\]","");
-                ingl=ingl.replaceAll("\\[sth\\]","");
-                ingl=ingl.replaceAll("\\[smb\\]","");
-                String url="https://ssl.gstatic.com/dictionary/static/sounds/de/0/"+ingl+".mp3";
-
+                AudioRequest ar=new AudioRequest(this, mediaPlayer);
                 ar.execute(url);
+                this.listened = true;
             }
-            else
-                Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-
+            else {
+                Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
+            }
         }
-        else
-            ascolta.start();
-
-    }
-
-
-    private class AudioRequest extends AsyncTask<String, Void, String> {
-        int statusCode;
-        String url;
-        @Override
-        protected String doInBackground(String... urls) {
-
-            url=urls[0];
-            // params comes from the execute() call: params[0] is the url.
+        else {
             try {
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(new HttpGet(urls[0]));
-                statusCode = response.getStatusLine().getStatusCode();
-
-                Log.d("test", statusCode + "");
-                if(statusCode==200)
-                    return "ok";
-
+                mediaPlayer.prepare();
+                mediaPlayer.start();
             } catch (IOException e) {
-                return "errore";
+                String TAG = "MainActivity";
+                Log.e(  TAG,"Unable to load audio");
             }
-            return "errore";
-        }
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            if(result.equalsIgnoreCase("ok")){
-                ascolta= new MediaPlayer();
-                try {
-                    ascolta.setDataSource(url);
-                    ascolta.prepare();
-                    ascolta.start();
-                    ascoltata=true;
-
-                }
-                catch (SecurityException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                } catch (IllegalStateException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
-                }
-            }
-            else
-                Toast.makeText(getApplicationContext(),getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
 
         }
+
     }
 
-    //
-
-    public String sostituisciSpecialChar(Character c)
-    {
+    public String sostituisciSpecialChar(Character c){
         String res;
         switch(c) {
 
@@ -1148,9 +1028,6 @@ public class MainActivity extends Activity {
         }
         return res;
     }
-
-
-
 
 }
 

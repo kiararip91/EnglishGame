@@ -14,6 +14,8 @@ public class Vocabolo {
     String _img;
     int _esatti;
     int _sbagliati;
+
+    public Vocabolo(){}
     
     // constructor
     public Vocabolo(String inglese, String lingua_nativa, String categoria, int esatti, int sbagliati, String frase, String img){
