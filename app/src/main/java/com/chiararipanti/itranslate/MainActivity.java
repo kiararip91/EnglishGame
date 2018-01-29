@@ -104,10 +104,8 @@ public class MainActivity extends Activity {
 
     //array nel quale memorizzo gli identificatori delle lettere premuti
     ArrayList<Integer> premuti;
-    //Vocabolo voc;
     SessionManager session;
     ArrayList<String> parola_selezionata;
-    //ArrayList<Vocabolo> vocaboli;
     int prossimo;
     String categoria;
     AlertDialogManager alertDialog;
@@ -206,26 +204,26 @@ public class MainActivity extends Activity {
      * Retrieve a list of word form DataSource
      */
     private List<Vocabolo> getWords(){
-        List<Vocabolo> vocaboli = new ArrayList<>();
+        List<Vocabolo> words = new ArrayList<>();
 
         if(!connectivityManager.check()) {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-            Intent intent1=new Intent(this,StartActivity.class);
+            Intent intent1 = new Intent(this,StartActivity.class);
             startActivity(intent1);
         }else{
             this.index = 0;
             GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,categoria);
-            vocaboli = new ArrayList<>();
+            words = new ArrayList<>();
             try {
                 getvocTask.execute();
-                vocaboli=getvocTask.get();
+                words = getvocTask.get();
             } catch (Exception e) {
                 String TAG = "MainActivity";
                 Log.e(TAG, "Error in retriving vocaboli "+ e.getMessage());
                 alertDialog.showAlertDialog(MainActivity.this, "OPS!", getString(R.string.errore), false);
             }
         }
-        return vocaboli;
+        return words;
     }
 
     public void setLetters(List<Vocabolo> words, int index){
@@ -250,35 +248,35 @@ public class MainActivity extends Activity {
         bb = new ArrayList<>();
 
         //la parola che si sta formando in italiano clicckando sulle lettere
-        parola_selezionata=new ArrayList<>();
+        parola_selezionata = new ArrayList<>();
 
         //lettere di cui e composta la parola in italiano
         String[] prima=this.word.getLingua_nativa().split(",");
 
         //prendo la prima traduzione, ignoro i sinonimi
-        final String italiano=prima[0];
+        final String italiano = prima[0];
 
         //estraggo le lettere dalla parola
         String[] arr=italiano.toLowerCase().split("(?!^)");
-        int nlettere=arr.length;
+        int nlettere = arr.length;
 
         if(nlettere>8)
             seconda_riga=true;
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, rapporto);
-        lp.weight=1;
-        lp.leftMargin=5;
-        lp.rightMargin=5;
+        lp.weight = 1;
+        lp.leftMargin = 5;
+        lp.rightMargin = 5;
 
         //genero i pulsanti con le lettere della parola
         for(int i=0;i<nlettere; i++){
-            final int indice=i;
+            final int indice = i;
 
             if(!arr[i].equalsIgnoreCase(" ")){
-                final Button img=new Button(getApplicationContext());
+                final Button img = new Button(getApplicationContext());
                 img.setId(indice);
                 img.setLayoutParams(lp);
-                final String carattere=arr[i];
+                final String carattere = arr[i];
                 String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                 int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                 img.setBackground(getResources().getDrawable(j));
@@ -286,17 +284,17 @@ public class MainActivity extends Activity {
                 //click lettera parola
                 img.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        int numero_lettera=parola_selezionata.size();
+                        int numero_lettera = parola_selezionata.size();
 
                         //parola non ancora terminata
-                        if(numero_lettera<italiano.length()-1){
-                            Character car_italiano=italiano.charAt(parola_selezionata.size());
+                        if(numero_lettera < italiano.length()-1){
+                            Character car_italiano = italiano.charAt(parola_selezionata.size());
                             //la lettera corrispondente non e' uno spazio
                             if(!(String.valueOf(car_italiano).equalsIgnoreCase(" "))){
                                 parola_selezionata.add(carattere);
                                 premuti.add(indice);
                                 //estraggo il bottone nero successivo e gli cambio lo sfondo in base alla lettera selezionata
-                                Button black_button=bb.get(numero_lettera);
+                                Button black_button = bb.get(numero_lettera);
                                 String sfondo_lettera = gameUtils.substituteSpecialChar(carattere.charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                                 black_button.setBackground(getResources().getDrawable(w));
@@ -316,11 +314,10 @@ public class MainActivity extends Activity {
                                 black_button.setBackground(getResources().getDrawable(w));
                                 img.setBackground(getResources().getDrawable(R.drawable.black));
                             }
-
                         }
 
                         //ho selezionato l'ultima lettera
-                        else if(numero_lettera==italiano.length()-1){
+                        else if(numero_lettera == italiano.length()-1){
                             //aggiungo il carattere selezionato alla parola che sto formando
                             parola_selezionata.add(carattere);
                             Log.v("onclick",carattere+" "+indice);
@@ -333,10 +330,10 @@ public class MainActivity extends Activity {
                             img.setBackground(getResources().getDrawable(R.drawable.black));
 
                             //convalido la stringa formata
-                            String da_convalidare="";
+                            String da_convalidare = "";
 
                             for(int i=0; i<parola_selezionata.size(); i++){
-                                da_convalidare=da_convalidare+(parola_selezionata.get(i));
+                                da_convalidare = da_convalidare+(parola_selezionata.get(i));
                             }
                             if(italiano.equalsIgnoreCase(da_convalidare)){
                                 black_button.setClickable(false);
@@ -351,17 +348,17 @@ public class MainActivity extends Activity {
                                 ll2.setVisibility(View.GONE);
                                 frase_tv.setText("");
 
-                                premutiLog="";
+                                premutiLog = "";
                             }
                             else{
-                                err=err+1;
+                                err = err+1;
 
                                 //GAME OVER
-                                if(err>2){
+                                if(err > 2){
                                     gameUtils.soundOver();
 
-                                    numeroAiuti=0;
-                                    numeroSoluzioni=0;
+                                    numeroAiuti = 0;
+                                    numeroSoluzioni = 0;
 
                                     gameUtils.vibrate();
 
@@ -374,10 +371,8 @@ public class MainActivity extends Activity {
                                     if(isNewRecord(punti)){
                                         alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title),getString(R.string.nuovo_record)+punti,false);
                                     }
-                                }
-                                else{
+                                }else{
                                     errori.setText(getString(R.string.errori)+err);
-
                                 }
 
                                 gameUtils.soundWrong();
@@ -385,13 +380,11 @@ public class MainActivity extends Activity {
                             }
 
                             img.setClickable(false);
-                            for(int i=0;i<premuti.size(); i++)
-                            {
+
+                            for(int i = 0;i<premuti.size(); i++) {
                                 premutiLog+=", "+premuti.get(i);
                             }
-
                             premutiLog = "";
-
                         }
                     }
 
@@ -403,9 +396,9 @@ public class MainActivity extends Activity {
                 final Button black=new Button(getApplicationContext());
                 LinearLayout.LayoutParams lpb = new LinearLayout.LayoutParams(0, rapporto);
 
-                lpb.weight=1;
-                lpb.leftMargin=5;
-                lpb.rightMargin=5;
+                lpb.weight = 1;
+                lpb.leftMargin = 5;
+                lpb.rightMargin = 5;
                 black.setLayoutParams(lpb);
                 black.setBackground(getResources().getDrawable(R.drawable.black));
 
@@ -423,19 +416,19 @@ public class MainActivity extends Activity {
                             //il carattere precedente alla precendente non e' uno spazio
                             if(!String.valueOf(letteraPrecedente).equalsIgnoreCase(" ")){
                                 black.setBackground(getResources().getDrawable(R.drawable.black));
-                                int ripristina=premuti.get(indice);
+                                int ripristina = premuti.get(indice);
 
-                                for (int i=0;i<premuti.size(); i++){
+                                for (int i = 0;i<premuti.size(); i++){
                                     premutiLog+=", "+premuti.get(i);
                                 }
-                                premutiLog="";
+                                premutiLog = "";
                                 premuti.remove(indice);
 
-                                for (int i=0;i<premuti.size(); i++){
-                                    premutiLog+=", "+premuti.get(i);
+                                for (int i = 0;i<premuti.size(); i++){
+                                    premutiLog+= ", "+premuti.get(i);
                                 }
-                                premutiLog="";
-                                Button b=lb.get(ripristina);
+                                premutiLog = "";
+                                Button b = lb.get(ripristina);
                                 String sfondo_lettera = gameUtils.substituteSpecialChar(parola_selezionata.get(indice).toString().charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                                 b.setBackground(getResources().getDrawable(w));
@@ -447,20 +440,20 @@ public class MainActivity extends Activity {
 
                                 int ripristina = premuti.get(indice);
 
-                                for (int i=0;i<premuti.size(); i++){
-                                    premutiLog+=", "+premuti.get(i);
+                                for (int i = 0;i<premuti.size(); i++){
+                                    premutiLog+= ", " + premuti.get(i);
                                 }
 
-                                premutiLog="";
+                                premutiLog = "";
                                 premuti.remove(indice);
                                 premuti.remove(premuti.indexOf(100));
 
-                                for (int i=0;i<premuti.size(); i++){
-                                    premutiLog+=", "+premuti.get(i);
+                                for (int i = 0; i<premuti.size(); i++){
+                                    premutiLog+=", " + premuti.get(i);
                                 }
 
-                                premutiLog="";
-                                Button b=lb.get(ripristina);
+                                premutiLog = "";
+                                Button b = lb.get(ripristina);
                                 b.setClickable(true);
                                 String sfondo_lettera = gameUtils.substituteSpecialChar(parola_selezionata.get(indice).charAt(0));
                                 int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
@@ -468,20 +461,18 @@ public class MainActivity extends Activity {
                                 parola_selezionata.remove(indice);
                                 parola_selezionata.remove(" ");
                             }
-                            //altrimenti non faccio nulla
                         }
                     }
                 });
                 bb.add(black);
 
-                if(i<8){
+                if(i < 8){
                     ll_black.addView(black);
-                }
-                else
+                }else{
                     ll_black2.addView(black);
-            }
-            //spazio
-            else{
+                }
+            }else{
+                //Space
                 Button black=new Button(getApplicationContext());
                 LinearLayout.LayoutParams lpb = new LinearLayout.LayoutParams(0, rapporto);
                 lpb.weight=1;
@@ -491,13 +482,12 @@ public class MainActivity extends Activity {
                 black.setBackgroundColor(Color.TRANSPARENT);
                 black.setClickable(false);
                 bb.add(black);
-                if(i<8)
+                if(i < 8){
                     ll_black.addView(black);
-                else
+                }else{
                     ll_black2.addView(black);
-
+                }
             }
-
         }
 
         String randomLetters = getString(R.string.alfabeto);
@@ -506,25 +496,24 @@ public class MainActivity extends Activity {
         //inserisco altre lettere random in tot ne avro 16
         //inserisco anche finti bottoni bianchi affinaco ai neri per avere la giusta dimensione relativa delle caselle
         for(int i=nlettere;i<16;i++){
-            final Button fasullo=new Button(getApplicationContext());
+            final Button fasullo = new Button(getApplicationContext());
             fasullo.setLayoutParams(lp);
             fasullo.setBackgroundColor(Color.TRANSPARENT);
             fasullo.setClickable(false);
 
-            if(i<8){
+            if(i < 8){
                 ll_black.addView(fasullo);
-            }
-            else{
-                if(seconda_riga)
+            }else{
+                if(seconda_riga){
                     ll_black2.addView(fasullo);
-
+                }
             }
 
-            final int indicer=i;
-            final Button img=new Button(getApplicationContext());
+            final int indicer = i;
+            final Button img = new Button(getApplicationContext());
             img.setLayoutParams(lp);
-            int randomGen=rnd.nextInt(randomLetters.length());
-            final Character randomChar=randomLetters.charAt(randomGen);
+            int randomGen = rnd.nextInt(randomLetters.length());
+            final Character randomChar = randomLetters.charAt(randomGen);
 
             //assegno il numero random genrerato come id del bottone per poter risalire al carattere corrispondente
             img.setId(randomGen);
@@ -533,49 +522,49 @@ public class MainActivity extends Activity {
             img.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("SetTextI18n")
                 public void onClick(View v) {
-                    int numero_lettera=parola_selezionata.size();
+                    int numero_lettera = parola_selezionata.size();
 
                     //non sto inserendo l'ultima lettera
-                    if(numero_lettera<italiano.length()-1){
-                        Character car_italiano=italiano.charAt(parola_selezionata.size());
+                    if(numero_lettera < italiano.length()-1){
+                        Character car_italiano = italiano.charAt(parola_selezionata.size());
 
                         //la lettera corrispondente non e' uno spazio ma una casella nera
                         if(!(String.valueOf(car_italiano).equalsIgnoreCase(" "))){
                             premuti.add(indicer);
                             parola_selezionata.add(randomChar.toString());
-                            Button black_button=bb.get(numero_lettera);
+                            Button black_button = bb.get(numero_lettera);
                             String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
                             int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             black_button.setBackground(getResources().getDrawable(w));
                             img.setBackground(getResources().getDrawable(R.drawable.black));
-                        }
-                        //la lettera che devo inserire va dopo lo spazio
-                        else{
+
+                        }else{
+                            //la lettera che devo inserire va dopo lo spazio
                             parola_selezionata.add(" ");
                             parola_selezionata.add(randomChar.toString());
                             premuti.add(100);
                             premuti.add(indicer);
-                            Button black_button=bb.get(numero_lettera+1);
+                            Button black_button = bb.get(numero_lettera+1);
                             String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
                             int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             black_button.setBackground(getResources().getDrawable(w));
                             img.setBackground(getResources().getDrawable(R.drawable.black));
                         }
 
-                    }
-                    //sto inserendo l'ultima lettera
-                    else if(numero_lettera==italiano.length()-1){
+                    }else if(numero_lettera==italiano.length()-1){
+                        //sto inserendo l'ultima lettera
                         premuti.add(indicer);
                         parola_selezionata.add(randomChar.toString());
-                        Button black_button=bb.get(numero_lettera);
+                        Button black_button = bb.get(numero_lettera);
                         String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
                         int w = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                         black_button.setBackground(getResources().getDrawable(w));
                         img.setBackground(getResources().getDrawable(R.drawable.black));
-                        String da_convalidare="";
+                        String da_convalidare = "";
 
-                        for(int i=0; i<parola_selezionata.size(); i++)
-                            da_convalidare=da_convalidare + (parola_selezionata.get(i));
+                        for(int i = 0; i < parola_selezionata.size(); i++){
+                            da_convalidare = da_convalidare + (parola_selezionata.get(i));
+                        }
 
                         if(italiano.equalsIgnoreCase(da_convalidare)){
                             black_button.setClickable(false);
@@ -584,23 +573,23 @@ public class MainActivity extends Activity {
                             gameUtils.soundCorrect();
                             gameUtils.vibrate();
 
-                            punti=punti+1;
+                            punti = punti+1;
                             punteggio.setText(getString(R.string.punteggio)+punti);
                             ll1.setVisibility(View.GONE);
                             ll2.setVisibility(View.GONE);
 
-                            premutiLog="";
+                            premutiLog = "";
                         }
                         else{
-                            err=err+1;
+                            err = err+1;
 
                             //GAME OVER
                             if(err>2){
 
                                 gameUtils.soundOver();
 
-                                numeroAiuti=0;
-                                numeroSoluzioni=0;
+                                numeroAiuti = 0;
+                                numeroSoluzioni = 0;
                                 session.incrPartite(categoria);
                                 linear_content.setVisibility(View.GONE);
                                 aiuto.setClickable(false);
@@ -610,9 +599,7 @@ public class MainActivity extends Activity {
                                 if(isNewRecord(punti)){
                                     alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title),getString(R.string.nuovo_record)+punti,false);
                                 }
-
-                            }
-                            else{
+                            }else{
                                 errori.setText(getString(R.string.errori)+err);
                             }
 
@@ -623,10 +610,10 @@ public class MainActivity extends Activity {
 
                         img.setClickable(false);
 
-                        for(int i=0;i<premuti.size(); i++){
-                            premutiLog+=", "+premuti.get(i);
+                        for(int i = 0; i < premuti.size(); i++){
+                            premutiLog+=", " + premuti.get(i);
                         }
-                        premutiLog="";
+                        premutiLog = "";
                     }
                 }
             });
@@ -643,33 +630,37 @@ public class MainActivity extends Activity {
         //ordino la lista di chiavi in maniera casuale
         Collections.shuffle(keys);
         //creo una nuova hashmap
-        HashMap<Integer, Button> lettereCasuali=new HashMap<>();
-        int num=0;
+        HashMap<Integer, Button> lettereCasuali = new HashMap<>();
+        int num = 0;
 
         for (Object o : keys) {
             // Access keys/values in a random order
             lettereCasuali.put(o.hashCode(),lb.get(o));
-            if(num<8)
+
+            if(num < 8){
                 ll1.addView(lb.get(o));
-            else
+            }
+            else{
                 ll2.addView(lb.get(o));
+            }
+
             num++;
         }
+
         parola_inglese.setText(word.getInglese());
     }
 
     public void next(View view){
         this.index++;
 
-        if(this.index++==20){
+        if(this.index++ == 20){
             this.getWords();
         }
         this.setLetters(this.words, this.index);
-
     }
 
-    public void showSolution(View view)
-    {
+    public void showSolution(View view){
+
         soluzione.setClickable(false);
         AlertDialog.Builder alertD = new AlertDialog.Builder(
                 MainActivity.this);
@@ -681,23 +672,21 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                String[] prima=word.getLingua_nativa().split(",");
+                String[] prima = word.getLingua_nativa().split(",");
 
                 //prendo la prima traduzione, ignoro i sinonimi
-                final String italiano=prima[0];
-                String[] arr=italiano.toLowerCase().split("(?!^)");
-                for(int i=0; i<arr.length; i++)
-                {
-                    Button black_button=bb.get(i);
-                    if(!arr[i].equalsIgnoreCase(" "))
-                    {
+                final String italiano = prima[0];
+                String[] arr = italiano.toLowerCase().split("(?!^)");
+
+                for(int i = 0; i < arr.length; i++) {
+                    Button black_button = bb.get(i);
+
+                    if(!arr[i].equalsIgnoreCase(" ")){
                         String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                         int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                         black_button.setBackground(getResources().getDrawable(j));
                         black_button.setClickable(false);
-                    }
-                    else
-                    {
+                    }else{
                         black_button.setBackgroundColor(Color.TRANSPARENT);
                         black_button.setClickable(false);
                     }
@@ -732,7 +721,7 @@ public class MainActivity extends Activity {
 
         final Vocabolo word = this.word;
 
-        if(numeroAiuti<3){
+        if(numeroAiuti < 3){
             AlertDialog.Builder alertD = new AlertDialog.Builder(MainActivity.this);
             alertD.setTitle(getString(R.string.aiuto));
             alertD.setMessage(getString(R.string.aiuto_msg));
@@ -745,20 +734,20 @@ public class MainActivity extends Activity {
 
                     //Estraggo la traduzione, ignoro i sinonimi
                     String[] prima = word.getLingua_nativa().split(",");
-                    final String italiano=prima[0];
+                    final String italiano = prima[0];
 
                     //estraggo le singole lettere
-                    String[] arr=italiano.toLowerCase().split("(?!^)");
+                    String[] arr = italiano.toLowerCase().split("(?!^)");
 
                     //calcolo il numero di lettere da mostrare nell'aiuto
                     int lunghezza_tot = italiano.length();
                     int lettere_da_mostrare = lunghezza_tot/3;
 
-                    String sottostringa=italiano.substring(0, lettere_da_mostrare);
+                    String sottostringa = italiano.substring(0, lettere_da_mostrare);
                     //sottostringa.
                     if(sottostringa.matches(".*\\s+.*")) {
 
-                        AlertDialogManager alertD=new AlertDialogManager();
+                        AlertDialogManager alertD = new AlertDialogManager();
                         alertD.showAlertDialog(MainActivity.this, "Help", getString(R.string.prime_lettere)+sottostringa, false);
                     }
                     else
@@ -768,27 +757,25 @@ public class MainActivity extends Activity {
                         premuti = new ArrayList<>();
 
                         //riprisino i background dei bottoni eventualmente premuti dall'utente
-                        for(int i=0; i<lunghezza_tot; i++)
-                        {
+                        for(int i = 0; i < lunghezza_tot; i++){
                             //ripristino caselle cliccabili
-                            Button b=lb.get(i);
+                            Button b = lb.get(i);
                             String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                             int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             b.setBackground(getResources().getDrawable(j));
                             b.setClickable(true);
 
                             //ripristino black button
-                            Button black_b=bb.get(i);
+                            Button black_b = bb.get(i);
                             black_b.setBackground(getResources().getDrawable(R.drawable.black));
                         }
 
                         String randomLetters = getString(R.string.alfabeto);
 
-                        for(int i=lunghezza_tot; i<16; i++)
-                        {
-                            Button b=lb.get(i);
-                            int id=b.getId();
-                            final Character randomChar=randomLetters.charAt(id);
+                        for(int i = lunghezza_tot; i < 16; i++){
+                            Button b = lb.get(i);
+                            int id = b.getId();
+                            final Character randomChar = randomLetters.charAt(id);
 
                             b.setClickable(true);
                             String sfondo_lettera = gameUtils.substituteSpecialChar(randomChar);
@@ -796,27 +783,24 @@ public class MainActivity extends Activity {
                             b.setBackground(getResources().getDrawable(j));
                         }
 
-                        for(int i=0; i<lettere_da_mostrare; i++)
-                        {
-                            Button black_button=bb.get(i);
+                        for(int i=0; i<lettere_da_mostrare; i++){
+                            Button black_button = bb.get(i);
                             String sfondo_lettera = gameUtils.substituteSpecialChar(arr[i].charAt(0));
                             int j = getResources().getIdentifier(sfondo_lettera, "drawable", getPackageName());
                             //mostro le lettere della soluzione
                             black_button.setBackground(getResources().getDrawable(j));
                             //aggiungo le lettere prescelte alla soluzione che sto generando
                             parola_selezionata.add(arr[i]);
-                            //Log.v("onclick",arr[i]);
                             //rendo le lettere dell'aiuto non deselezionabili
                             black_button.setClickable(false);
 
                             //cambio lo sfondo delle lettere selezionate rendendolo nero, e disabilito il click su esse
-                            Button b=lb.get(i);
+                            Button b = lb.get(i);
                             b.setBackground(getResources().getDrawable(R.drawable.black));
                             b.setClickable(false);
 
                             //aggiungo gli id dei button clickati alla lista dei premuti
                             premuti.add(i);
-
                         }
                     }
 
@@ -824,7 +808,7 @@ public class MainActivity extends Activity {
                     aiuto.setClickable(false);
 
                     //scalo i punti dovuti all'aiuto e visualizzo il totale aggiornato
-                    punti=punti-1;
+                    punti = punti-1;
                     punteggio.setText(getString(R.string.punteggio)+" "+punti);
                 }
             });
@@ -840,21 +824,17 @@ public class MainActivity extends Activity {
 
             alertD.show();
             numeroAiuti++;
-        }
-        else
-        {
+
+        }else{
             alertDialog.showAlertDialog(MainActivity.this, getString(R.string.aiuti_terminati_title), getString(R.string.aiuti_terminati), false);
         }
-
-
-
     }
 
     @SuppressLint("SetTextI18n")
     public void restart(View view){
-        premuti=new ArrayList<Integer>();
-        punti=0;
-        err=0;
+        premuti = new ArrayList<Integer>();
+        punti = 0;
+        err = 0;
         errori.setText(getString(R.string.errori)+" "+err);
         linear_content.setVisibility(View.VISIBLE);
         aiuto.setClickable(true);
@@ -862,25 +842,25 @@ public class MainActivity extends Activity {
         linear_gameover.setVisibility(View.GONE);
         this.getWords();
         this.setLetters(this.words, this.index);
-
     }
 
     @SuppressLint("SetTextI18n")
     public boolean isNewRecord(float punti){
+        boolean returnValue = false;
         record = session.getRecord(categoria);
+
         if(punti > record){
             session.setRecord(categoria, punti);
             record_tv.setText(getString(R.string.record)+" "+punti);
-            return true;
+            returnValue = true;
         }
-        else
-            return false;
+
+        return returnValue;
 
     }
 
     public void showSentence(View view){
         frase_tv.setText(this.word.getFrase());
-
     }
 
     public void listenToWord(View view){
@@ -888,7 +868,7 @@ public class MainActivity extends Activity {
         String englishWord = this.word.getInglese().toLowerCase();
         englishWord = gameUtils.substituteSpecialCharWordToPronunce(englishWord);
 
-        String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + englishWord + "--_gb_1.mp3";
+        String url = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + englishWord + "--_gb_1.mp3";
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
@@ -899,15 +879,13 @@ public class MainActivity extends Activity {
         }
         if(!this.listened){
             if(connectivityManager.check()){
-                AudioRequest ar=new AudioRequest(this, mediaPlayer);
+                AudioRequest ar = new AudioRequest(this, mediaPlayer);
                 ar.execute(url);
                 this.listened = true;
-            }
-            else {
+            }else {
                 Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
             }
-        }
-        else {
+        }else {
             try {
                 mediaPlayer.prepare();
                 mediaPlayer.start();
@@ -915,8 +893,6 @@ public class MainActivity extends Activity {
                 String TAG = "MainActivity";
                 Log.e(  TAG,"Unable to load audio");
             }
-
         }
     }
-
 }
