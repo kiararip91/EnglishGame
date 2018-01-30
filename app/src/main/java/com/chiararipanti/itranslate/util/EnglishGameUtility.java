@@ -257,5 +257,16 @@ public class EnglishGameUtility {
         }
         return res;
     }
+    
+    public String substituteSpecialCharWordToPronunce(String englishWord){
+        return englishWord.replaceAll("to ","")
+                .replaceAll("\\s","_")
+                .replaceAll("_\\[sb\\]","")
+                .replaceAll("_\\[sth\\]","")
+                .replaceAll("_\\[smb\\]","")
+                .replaceAll("\\[sb\\]","")
+                .replaceAll("\\[sth\\]","")
+                .replaceAll("\\[smb\\]","");
+    }
 
 }

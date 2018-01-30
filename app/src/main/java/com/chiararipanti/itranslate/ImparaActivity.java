@@ -5,24 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import com.chiararipanti.itranslate.db.Vocabolo;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 
-import android.app.ActionBar;
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,9 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,21 +37,17 @@ public class ImparaActivity extends Activity {
     /**
      * Declaring variables
      */
-    String categoria;
-    ArrayList<Vocabolo> vocaboli;
-    int prossimo;
-    Vocabolo voc;
+    String category;
+    ArrayList<Vocabolo> words;
+    int netx;
+    Vocabolo word;
     MyConnectivityManager connectivityManager;
     AlertDialogManager alertDialog;
-    ImageButton ascolta;
-    Button next;
-    TextView parola_italiano_tv;
-    TextView parola_inglese_tv;
-    TextView frase_tv;
-    TextView livello;
-    boolean sol;
-
-    Context mcontext;
+    TextView wordTranslationTextView;
+    TextView wordEnglishTextView;
+    TextView sentenceTextView;
+    boolean showSolution;
+    Button nextButton;
 
     /**
      * Checked
@@ -71,49 +56,43 @@ public class ImparaActivity extends Activity {
     private boolean listened;
     private EnglishGameUtility gameUtils;
 
-
-    String TAG = "StartActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_impara);
 
-        /**
-         * Checked
+        /*
+          Checked
          */
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.addAdBunner();
+        gameUtils.setHomeButtonEnabled();
 
-        this.gameUtils = new EnglishGameUtility(this);
-        this.gameUtils.addAdBunner();
-        this.gameUtils.setHomeButtonEnabled();
         this.listened = false;
-
-        /**
-         * Checked
+        /*
+          Checked
          */
 
-        Intent intent=getIntent();
-        categoria=intent.getStringExtra("categoria");
-        prossimo=0;
+        category = getIntent().getStringExtra("categoria");
+        netx = 0;
 
-        sol=false;
+        showSolution = false;
 
-        connectivityManager=new MyConnectivityManager(getApplicationContext());
-        alertDialog=new AlertDialogManager();
-        mcontext=getApplicationContext();
+        connectivityManager = new MyConnectivityManager(getApplicationContext());
+        alertDialog = new AlertDialogManager();
 
-        ascolta = (findViewById(R.id.audio));
-        next = (findViewById(R.id.next));
-        parola_italiano_tv = findViewById(R.id.parola_italiano);
-        parola_italiano_tv.setVisibility(View.GONE);
-        parola_inglese_tv = findViewById(R.id.parola_inglese);
-        frase_tv = findViewById(R.id.frase);
-        livello = findViewById(R.id.level);
-        livello.setText(intent.getStringExtra("categoria1"));
+        nextButton = (findViewById(R.id.next));
+        wordTranslationTextView = findViewById(R.id.parola_italiano);
+        wordTranslationTextView.setVisibility(View.GONE);
+        wordEnglishTextView = findViewById(R.id.parola_inglese);
+        sentenceTextView = findViewById(R.id.frase);
+
+        TextView levelTextView = findViewById(R.id.level);
+        levelTextView.setText(getIntent().getStringExtra("categoria1"));
 
         if(connectivityManager.check()){
             getWords();
-            impostaParola();
+            setWord();
         }
         else {
             Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
@@ -138,11 +117,10 @@ public class ImparaActivity extends Activity {
 
     public void getWords(){
         //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
-        Log.v(TAG,"impara"+categoria);
-        GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,categoria);
+        GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,category);
         try {
             getvocTask.execute();
-            vocaboli=getvocTask.get();
+            words = getvocTask.get();
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -152,31 +130,23 @@ public class ImparaActivity extends Activity {
             e.printStackTrace();
             alertDialog.showAlertDialog(ImparaActivity.this, "OPS!",  getString(R.string.errore), false);
         }
-        Log.v(TAG,"impara2"+vocaboli);
-        voc=vocaboli.get(prossimo);
+        word = words.get(netx);
     }
 
-    public void impostaParola(){
+    public void setWord(){
         this.listened = false;
-        parola_italiano_tv.setText(voc.getLingua_nativa());
-        parola_inglese_tv.setText(voc.getInglese());
-        parola_italiano_tv.setText(voc.getLingua_nativa());
-        frase_tv.setText(voc.getFrase());
+        wordTranslationTextView.setText(word.getLingua_nativa());
+        wordEnglishTextView.setText(word.getInglese());
+        wordTranslationTextView.setText(word.getLingua_nativa());
+        sentenceTextView.setText(word.getFrase());
 
         this.mediaPlayer = new MediaPlayer();
-        AudioRequest ar=new AudioRequest(this, mediaPlayer);
+        AudioRequest ar = new AudioRequest(this, mediaPlayer);
 
-        String ingl=voc.getInglese().toLowerCase();
-        ingl=ingl.replaceAll("to ","");
-        ingl=ingl.replaceAll("\\s","_");
-        ingl=ingl.replaceAll("_\\[sb\\]","");
-        ingl=ingl.replaceAll("_\\[sth\\]","");
-        ingl=ingl.replaceAll("_\\[smb\\]","");
-        ingl=ingl.replaceAll("\\[sb\\]","");
-        ingl=ingl.replaceAll("\\[sth\\]","");
-        ingl=ingl.replaceAll("\\[smb\\]","");
+        String english = word.getInglese().toLowerCase();
+        english = gameUtils.substituteSpecialCharWordToPronunce(english);
 
-        String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/"+ingl+"--_gb_1.mp3";
+        String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + english + "--_gb_1.mp3";
 
         try {
             mediaPlayer.setDataSource(url);
@@ -184,7 +154,7 @@ public class ImparaActivity extends Activity {
                 ar.execute(url);
                 this.listened = true;
 
-                new DownloadImageTask((ImageView) findViewById(R.id.immagine)).execute(voc.getImg());
+                new DownloadImageTask((ImageView) findViewById(R.id.immagine)).execute(word.getImg());
             }
             else{
                 Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
@@ -192,33 +162,30 @@ public class ImparaActivity extends Activity {
         } catch (IOException e) {
             Log.e("IMPARAACTIVITY", "fail to load madiaPlayer");
         }
-
     }
-
 
     public void next(View view){
         if(connectivityManager.check()){
-            if(!sol){
-                sol=true;
-                next.setText(getString(R.string.next));
-                parola_italiano_tv.setVisibility(View.VISIBLE);
-
+            if(!showSolution){
+                showSolution = true;
+                nextButton.setText(getString(R.string.next));
+                wordTranslationTextView.setVisibility(View.VISIBLE);
             }
             else{
-                sol=false;
-                next.setText(getString(R.string.soluzione));
-                parola_italiano_tv.setVisibility(View.GONE);
-                prossimo++;
-                if(prossimo<10)
-                    voc=vocaboli.get(prossimo);
+                nextButton.setText(getString(R.string.soluzione));
+                wordTranslationTextView.setVisibility(View.GONE);
+                netx++;
+                
+                if(netx < 10)
+                    word = words.get(netx);
                 else{
                     if(connectivityManager.check()){
-                        GetVocaboliFromDB getVocaboli=new GetVocaboliFromDB(this,categoria);
+                        GetVocaboliFromDB getVocaboli=new GetVocaboliFromDB(this, category);
                         getVocaboli.execute();
                         try {
-                            vocaboli=getVocaboli.get();
-                            prossimo=0;
-                            voc=vocaboli.get(prossimo);
+                            words = getVocaboli.get();
+                            netx=0;
+                            word = words.get(netx);
                         } catch (InterruptedException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
@@ -236,7 +203,7 @@ public class ImparaActivity extends Activity {
                     }
 
                 }
-                impostaParola();
+                setWord();
             }
 
         }
@@ -244,7 +211,7 @@ public class ImparaActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
-    public void ascolta(View view)
+    public void listenToWord(View view)
     {
         if(this.listened) {
             mediaPlayer.start();
@@ -253,10 +220,11 @@ public class ImparaActivity extends Activity {
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 

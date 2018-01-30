@@ -1,6 +1,5 @@
 package com.chiararipanti.itranslate;
 
-import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
 import com.google.android.gms.ads.AdRequest;
@@ -18,10 +17,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-/**
- * @author chiararipanti
- * date 04/05/2013
- */
 public class ImparaargomentiActivity extends Activity {
     Button principianteb;
     Button baseb;
@@ -31,10 +26,14 @@ public class ImparaargomentiActivity extends Activity {
     Button viaggib;
     Button vitab;
     Button cibob;
-    EnglishGameUtility gameUtils;
     MyConnectivityManager connectivityManager;
     String action;
     SessionManager session;
+
+    //****************variabili per il bunner pubblicitario***************************
+    /** The view to show the ad. */
+    private AdView adView;
+    //********************fine bunner pubblicitario******************************
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +45,46 @@ public class ImparaargomentiActivity extends Activity {
         intermediob = findViewById(R.id.intermedio);
         espertob = findViewById(R.id.esperto);
         animalib = findViewById(R.id.animali);
-        viaggib = findViewById(R.id.viaggi);
-        vitab = findViewById(R.id.vita_quotidiana);
-        cibob = findViewById(R.id.cibo);
+        viaggib =(Button) findViewById(R.id.viaggi);
+        vitab=(Button) findViewById(R.id.vita_quotidiana);
+        cibob=(Button) findViewById(R.id.cibo);
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
 
         Intent intent=getIntent();
         action=intent.getStringExtra("action");
 
-        gameUtils = new EnglishGameUtility(this);
-        gameUtils.setHomeButtonEnabled();
-        gameUtils.addAdBunner();
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
+        //suono_button=(ImageButton)(findViewById(R.id.suono));
         session = new SessionManager(getApplicationContext());
+	    /*suono=session.getSuono();
+	    if(suono)
+	    	suono_button.setImageResource(R.drawable.sound);
+	    else
+	    	suono_button.setImageResource(R.drawable.no_sound);*/
+
+
+
+        //****************inserimento bunner pubblicitario***************************
+        //create adView
+        adView = new AdView(this);
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setAdUnitId(getString(R.string.unit_id));
+        // Add the AdView to the view hierarchy.
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.footer);
+        layout.addView(adView);
+
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device.
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
+                .build();
+        // Start loading the ad in the background.
+        adView.loadAd(adRequest);
+        //******************  FINE  bunner pubblicitario***************************
     }
 
     @Override
@@ -233,42 +258,4 @@ public class ImparaargomentiActivity extends Activity {
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
 
     }
-
-	/*public void rate(View view)
-	{
-		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getString(R.string.package_app_name))));
-
-	}
-
-	public void volume(View view)
-	{
-		if(suono=session.getSuono())
-		{
-			session.setSuono(false);
-			suono=false;
-			suono_button.setImageResource(R.drawable.no_sound);
-		}
-		else
-		{
-			session.setSuono(true);
-			suono=true;
-			suono_button.setImageResource(R.drawable.sound);
-
-		}
-
-	}
-
-	public void home(View view)
-	{
-		if(connectivityManager.check())
-		{
-
-		Intent h=new Intent(ImparaargomentiActivity.this, StartActivity.class);
-		startActivity(h);
-		}
-		else
-			Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-
-
-	}*/
 }

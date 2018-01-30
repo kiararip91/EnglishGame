@@ -56,7 +56,7 @@
 			            android:layout_marginLeft="10dp"
 			            android:background="@drawable/shape6"
 			            android:src="@drawable/audio"
-			            android:onClick="ascolta"/>
+			            android:onClick="listenToWord"/>
 				<TextView
 			            android:id="@+id/parola_inglese"
 			            android:layout_width="0dp"

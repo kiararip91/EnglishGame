@@ -133,7 +133,7 @@
 			            android:layout_margin="0dp"
 			            android:background="@drawable/shape6"
 			            android:src="@drawable/frase"
-			            android:onClick="showFrase"/>
+			            android:onClick="showSentence"/>
 			        
 			        <TextView
 			            android:id="@+id/parola_inglese"
@@ -155,7 +155,7 @@
 			            android:layout_margin="0dp"
 			            android:background="@drawable/shape6"
 			            android:src="@drawable/audio"
-			            android:onClick="ascoltaParola"/>
+			            android:onClick="listenToWord"/>
 			         
 			        </TableRow>
 			        </TableLayout>
