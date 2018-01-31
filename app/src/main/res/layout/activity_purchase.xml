@@ -1,32 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical" >
-	
-   
-			
-			    <Button
-			        android:id="@+id/fine"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentLeft="true"
-			        android:layout_below="@+id/aiuto"
-			        android:background="@null"
-			        android:fontFamily="sans-serif-condensed"
-			        android:text="@string/restart"
-			        android:textColor="#f55a3c" />	
-			        <Button
-			        android:id="@+id/refresh"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentLeft="true"
-			        android:layout_below="@+id/aiuto"
-			        android:background="@null"
-			        android:fontFamily="sans-serif-condensed"
-			        android:text="refresh"
-			        android:textColor="#f55a3c" />	
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
- 
+    <Button
+        android:id="@+id/fine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/aiuto"
+        android:background="@null"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/restart"
+        android:textColor="#f55a3c" />
+
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/aiuto"
+        android:background="@null"
+        android:fontFamily="sans-serif-condensed"
+        android:text="refresh"
+        android:textColor="#f55a3c" />
+
+
 </LinearLayout>

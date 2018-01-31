@@ -1,325 +1,313 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<ScrollView 
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:fillViewport="true"
-    android:background="@drawable/shape"
-    android:layout_marginBottom="3dp"
-	android:layout_marginLeft="10dp"
-	android:layout_marginRight="10dp"
-	android:layout_marginTop="3dp"
-    android:layout_above="@+id/footer">
-    
-    
-   
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-			
-			    <LinearLayout
-			        android:id="@+id/linearLayout1"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:orientation="vertical" >
-			        
-			        <TextView 
-			            android:id="@+id/level"
-			                android:layout_height="wrap_content"
-			            	android:layout_width="match_parent"
-			                android:textColor="#000000" 
-			                android:textSize="16sp"
-			                android:background="@drawable/shape3"
-			                android:fontFamily="sans-serif-condensed"
-			                android:text="@string/livello"
-			                android:gravity="center"
-			                android:layout_marginBottom="5dp"
-			        		android:layout_marginTop="4dp" />
-			        
-
-			       <TableLayout
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_marginBottom="3dp"
-			        android:layout_marginLeft="10dp"
-			        android:layout_marginRight="10dp"
-			        android:layout_marginTop="2dp"
-			        android:padding="1dip" >
-			        <TableRow
-			            android:layout_marginLeft="10dp"
-			        	android:layout_marginRight="10dp"
-			        	android:background="@drawable/shape"
-			        	android:layout_marginTop="1dp"
-			        	android:layout_marginBottom="0dp"
-			        	>
-			
-			            <TextView
-			                android:id="@+id/errori"
-			                android:layout_height="wrap_content"
-			            	android:layout_width="0dp"
-			            	android:layout_weight=".30"
-			                android:textColor="#5e5555" 
-			                android:textSize="16sp"
-			                android:fontFamily="sans-serif-condensed"
-			                android:text="@string/errori" />
-			
-			            <TextView
-			                android:id="@+id/punteggio"
-			                android:layout_height="wrap_content"
-			            	android:layout_width="0dp"
-			            	android:layout_weight=".30"
-			                android:textColor="#5e5555" 
-			                android:textSize="16sp"
-			                android:fontFamily="sans-serif-condensed"
-			                android:text="@string/punteggio" />
-			            
-			            <TextView
-				            android:id="@+id/record"
-				            android:layout_height="wrap_content"
-				            android:layout_width="0dp"
-				            android:layout_weight=".30"
-				            android:fontFamily="sans-serif-condensed"
-				            android:textSize="16sp"
-				            android:textColor="#f55a3c" />
-			
-			        </TableRow>
-			        <TableRow 
-			            android:layout_marginTop="10dp"
-			            android:layout_marginBottom="10dp">
-			        
-			        <ImageButton
-			            android:id="@+id/aiuto"
-			            android:layout_height="wrap_content"
-			            android:layout_width="0dp"
-			            android:layout_weight=".15"
-			            android:layout_margin="0dp"
-			            android:background="@drawable/shape6"
-			            android:src="@drawable/aiuto"
-			            android:onClick="showAiuto"/>
-			
-			        <TextView
-			            android:id="@+id/traduci"
-			            android:layout_width="0dp"
-			            android:layout_weight=".70"
-			            android:gravity="center"
-			            android:layout_height="wrap_content"
-			            android:fontFamily="sans-serif-condensed"
-			            android:textColor="#5e5555" 
-			            android:text="@string/traduci_parola"
-			            android:textSize="21sp" />
-			        
-			        
-			        
-			        <ImageButton
-			            android:id="@+id/soluzione"
-			            android:layout_height="wrap_content"
-			            android:layout_width="0dp"
-			            android:layout_weight=".15"
-			            android:layout_margin="0dp"
-			            android:background="@drawable/shape6"
-			            android:src="@drawable/soluzione"
-			            android:onClick="showSolution"/>
-			     </TableRow>
-			     <TableRow
-			         android:layout_marginTop="0dp">
-			        <ImageButton
-			            android:id="@+id/frase"
-			            android:layout_height="wrap_content"
-			            android:layout_width="0dp"
-			            android:layout_weight=".15"
-			            android:layout_margin="0dp"
-			            android:background="@drawable/shape6"
-			            android:src="@drawable/frase"
-			            android:onClick="showSentence"/>
-			        
-			        <TextView
-			            android:id="@+id/parola_inglese"
-			            android:layout_width="0dp"
-			            android:layout_weight=".70"
-			            android:gravity="center"
-			            android:layout_height="wrap_content"
-			            android:fontFamily="sans-serif-condensed"
-			            android:textColor="#5e5555" 
-			            android:textStyle="bold"
-			            android:textSize="24sp"
-			             />
-			        
-			         <ImageButton
-			            android:id="@+id/audio"
-			            android:layout_height="wrap_content"
-			            android:layout_width="0dp"
-			            android:layout_weight=".15"
-			            android:layout_margin="0dp"
-			            android:background="@drawable/shape6"
-			            android:src="@drawable/audio"
-			            android:onClick="listenToWord"/>
-			         
-			        </TableRow>
-			        </TableLayout>
-			         <LinearLayout
-			        	android:id="@+id/contentLayout"
-			        	android:layout_width="match_parent"
-			        	android:layout_height="wrap_content"
-			        	android:orientation="vertical" >
-			        
-			        
-			             <TextView
-			            android:id="@+id/frasetext"
-			            android:layout_width="match_parent"
-			            android:gravity="center"
-			            android:layout_height="wrap_content"
-			            android:fontFamily="sans-serif-condensed"
-			            android:textColor="#5e5555" 
-			            android:textSize="15sp"
-			             />
-					
-			         <LinearLayout 
-			            android:id="@+id/black"
-			            android:layout_gravity="center"
-			            android:layout_marginTop="15dp"
-			            android:layout_marginLeft="5dp"
-			            android:layout_marginRight="5dp"
-			            android:layout_width="match_parent"
-			        	android:layout_height="wrap_content"
-			        	android:orientation="horizontal">
-			            
-			        </LinearLayout>
-			        
-			        <LinearLayout 
-			            android:id="@+id/black2"
-			            android:layout_marginTop="10dp"
-			            android:layout_marginLeft="5dp"
-			            android:layout_marginRight="5dp"
-			            android:layout_width="match_parent"
-			        	android:layout_height="wrap_content"
-			        	android:orientation="horizontal">
-			            
-			        </LinearLayout>
-
-			        <!-- 
-			        	PRIME SETTE LETTERE
-			         -->			         
-			         <LinearLayout 
-			        android:id="@+id/linearletter"
-			        android:layout_marginTop="32dp"
-			        android:layout_marginLeft="5dp"
-			        android:layout_marginRight="5dp"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:orientation="horizontal" >    
-			    	</LinearLayout>  
-			    	
-			         <!-- 
-			        	SECONDE SETTE LETTERE
-			         -->			    
-			     	<LinearLayout 
-			        android:id="@+id/linearletter2"
-			        android:layout_marginTop="10dp"
-			        android:layout_marginLeft="5dp"
-			        android:layout_marginRight="5dp"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:orientation="horizontal" >    
-			    </LinearLayout> 
-			    
-			     </LinearLayout>
-			     
-			     <!-- 
-			        INDICATORE PAROLA ESATTA
-			      -->
-			    
-			     
-			     <LinearLayout 
-			        android:id="@+id/linearRight"
-			        android:layout_marginLeft="10dp"
-			        android:layout_marginRight="10dp"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_marginTop="10dp"
-			        android:orientation="vertical" >
-			         
-			     <TextView
-			            android:id="@+id/esatto"
-			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content"
-			            android:layout_marginTop="5dp"
-			            android:fontFamily="sans-serif-condensed"
-			            android:gravity="center"
-			            android:text="@string/esatta" 
-			            android:textColor="#5e5555" 
-			            android:textSize="12sp" >
-			            </TextView>
-			         
-				<Button
-			        android:id="@+id/next"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:background="@drawable/button"
-			        android:fontFamily="sans-serif-condensed"
-			        android:text="@string/next"
-			        android:onClick="next"
-			        android:textColor="#ffffff" />	 
-			    </LinearLayout> 
-			    
-			     <!-- 
-			        GAMEOVER
-			      -->
-			    
-			     
-			     <LinearLayout 
-			        android:id="@+id/linearGameover"
-			        android:layout_marginLeft="10dp"
-			        android:layout_marginRight="10dp"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_marginTop="10dp"
-			        android:orientation="vertical" >
-			         
-			     <TextView
-			            android:id="@+id/gameover"
-			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content"
-			            android:layout_marginTop="5dp"
-			            android:fontFamily="sans-serif-condensed"
-			            android:gravity="center"
-			            android:text="@string/gameover" 
-			            android:textColor="#5e5555" 
-			            android:textSize="12sp" >
-			            </TextView>
-			         
-				<Button
-			        android:id="@+id/restart"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:background="@drawable/button"
-			        android:fontFamily="sans-serif-condensed"
-			        android:text="@string/restart"
-			        android:onClick="restart"
-			        android:textColor="#ffffff" />	 
-			    </LinearLayout> 
-			    
-			     
-			     
-			     
-			    
-			    </LinearLayout>
-			    
-			
-			    
-			
-			    	
-			</RelativeLayout>
-	</ScrollView>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/shape"
+        android:fillViewport="true">
 
 
-<RelativeLayout
-    android:id="@+id/footer"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true">
- </RelativeLayout>
- 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/shape3"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:text="@string/livello"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="2dp"
+                    android:padding="1dip">
+
+                    <TableRow
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@drawable/shape">
+
+                        <TextView
+                            android:id="@+id/errori"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".30"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/errori"
+                            android:textColor="#5e5555"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/punteggio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".30"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/punteggio"
+                            android:textColor="#5e5555"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/record"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".30"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textColor="#f55a3c"
+                            android:textSize="16sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp">
+
+                        <ImageButton
+                            android:id="@+id/aiuto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight=".15"
+                            android:background="@drawable/shape6"
+                            android:onClick="showAiuto"
+                            android:src="@drawable/aiuto" />
+
+                        <TextView
+                            android:id="@+id/traduci"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".70"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:text="@string/traduci_parola"
+                            android:textColor="#5e5555"
+                            android:textSize="21sp" />
+
+
+                        <ImageButton
+                            android:id="@+id/soluzione"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight=".15"
+                            android:background="@drawable/shape6"
+                            android:onClick="showSolution"
+                            android:src="@drawable/soluzione" />
+                    </TableRow>
+
+                    <TableRow android:layout_marginTop="0dp">
+
+                        <ImageButton
+                            android:id="@+id/frase"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight=".15"
+                            android:background="@drawable/shape6"
+                            android:onClick="showSentence"
+                            android:src="@drawable/frase" />
+
+                        <TextView
+                            android:id="@+id/parola_inglese"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".70"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:textColor="#5e5555"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/audio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight=".15"
+                            android:background="@drawable/shape6"
+                            android:onClick="listenToWord"
+                            android:src="@drawable/audio" />
+
+                    </TableRow>
+                </TableLayout>
+
+                <LinearLayout
+                    android:id="@+id/contentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/frasetext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:textColor="#5e5555"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:id="@+id/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/black2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                    <!--
+                        PRIME SETTE LETTERE
+                     -->
+                    <LinearLayout
+                        android:id="@+id/linearletter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="32dp"
+                        android:orientation="horizontal"></LinearLayout>
+
+                    <!--
+                       SECONDE SETTE LETTERE
+                    -->
+                    <LinearLayout
+                        android:id="@+id/linearletter2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"></LinearLayout>
+
+                </LinearLayout>
+
+                <!--
+                   INDICATORE PAROLA ESATTA
+                 -->
+
+
+                <LinearLayout
+                    android:id="@+id/linearRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/esatto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/esatta"
+                        android:textColor="#5e5555"
+                        android:textSize="12sp"></TextView>
+
+                    <Button
+                        android:id="@+id/next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:fontFamily="sans-serif-condensed"
+                        android:onClick="next"
+                        android:text="@string/next"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <!--
+                   GAMEOVER
+                 -->
+
+
+                <LinearLayout
+                    android:id="@+id/linearGameover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/gameover"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/gameover"
+                        android:textColor="#5e5555"
+                        android:textSize="12sp"></TextView>
+
+                    <Button
+                        android:id="@+id/restart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:fontFamily="sans-serif-condensed"
+                        android:onClick="restart"
+                        android:text="@string/restart"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"></RelativeLayout>
+
 </RelativeLayout>

@@ -1,193 +1,199 @@
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context="com.chiararipanti.itranslate.StartActivity" >
+    tools:context="com.chiararipanti.itranslate.StartActivity">
 
-<ScrollView 
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:fillViewport="true"
-    android:layout_above="@+id/footer">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:fillViewport="true">
 
-     <LinearLayout
-			        android:id="@+id/linearLayout"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_marginTop="25dp"
-			        android:orientation="vertical" >
-			         <TableLayout
-						        android:layout_width="match_parent"
-						        android:layout_height="wrap_content">
-						        <TableRow
-						            android:layout_marginBottom="20dp">
-						            <LinearLayout
-								        android:layout_width="0dp"
-										android:layout_weight=".70"
-								        android:orientation="vertical" >
-						            <ImageButton 
-								        android:id="@+id/img"
-								        android:src="@drawable/titolo"
-								        android:background="@null"
-								        android:contentDescription="@string/app_name"
-								        android:layout_width="wrap_content"
-										android:layout_height="wrap_content"
-								        />
-						            </LinearLayout>
-						             <LinearLayout
-								        android:layout_width="0dp"
-										android:layout_weight=".15"
-								        android:orientation="vertical" >
-						            <ImageButton 
-						                android:id="@+id/suono"
-						                android:src="@drawable/sound"
-						                android:layout_width="wrap_content"
-						                android:layout_height="wrap_content"
-						                android:background="@drawable/shape5"
-						                android:layout_gravity="center"
-						                android:onClick="volume"/>
-						            </LinearLayout>
-						             <LinearLayout
-								        android:layout_width="0dp"
-										android:layout_weight=".15"
-								        android:orientation="vertical" >
-						            <ImageButton 
-						                
-						                android:src="@drawable/rate"
-						                android:layout_width="wrap_content"
-						                android:layout_height="wrap_content"
-						                android:background="@drawable/shape5"
-						                android:layout_gravity="center"
-						                android:onClick="rate"/>
-						            </LinearLayout>
-						            </TableRow>
-						            </TableLayout>
-			        
-	    
-	<LinearLayout
-			        android:id="@+id/linearLayout1"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_marginBottom="3dp"
-			        android:layout_marginLeft="15dp"
-			        android:layout_marginRight="15dp"
-			        android:layout_marginTop="5dp"
-			        android:orientation="vertical"
-			        android:background="@drawable/shape" >
-						        
-	    <TableLayout
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content">
-				        
-	    <TableRow>	          
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical">
 
-		<Button
-		    android:id="@+id/impara"
-		    android:layout_width="0dp"
-			android:layout_weight=".50"
-		    android:layout_margin="5dp"
-		    android:contentDescription="@string/impara"
-		    android:text="@string/impara"
-		    android:fontFamily="sans-serif-condensed"
-		    android:textSize="13sp"
-		    android:padding="5dip" 
-		    android:background="@drawable/shape7"
-        	android:drawableTop="@drawable/impara"
-		    android:onClick="impara"/>	
-		<Button
-		    android:id="@+id/quizp"
-		    android:layout_width="0dp"
-			android:layout_weight=".50"
-		    android:layout_margin="5dp"
-		    android:background="@drawable/shape7"
-        	android:drawableTop="@drawable/quiz_p"
-		    android:fontFamily="sans-serif-condensed"
-		    android:textSize="12sp"
-		    android:padding="5dip" 
-		    android:text="@string/quizp"
-		    android:gravity="center"
-		    android:onClick="quizp"/>
-		
-		</TableRow>
-		
-	    <TableRow>
-		<Button
-		    android:id="@+id/quiz"
-		    android:layout_width="0dp"
-			android:layout_weight=".50"
-		    android:layout_margin="5dp"
-		    android:background="@drawable/shape7"
-        	android:drawableTop="@drawable/quiz3"
-		    android:fontFamily="sans-serif-condensed"
-		    android:textSize="12sp"
-		    android:padding="5dip" 
-		    android:text="@string/quiz"
-		    android:gravity="center"
-		    android:onClick="quiz"/>
-		
-		<Button
-		    android:id="@+id/speech"
-		    android:layout_width="0dp"
-			android:layout_weight=".50"
-		    android:layout_margin="5dp"
-		    android:background="@drawable/shape7"
-        	android:drawableTop="@drawable/speech"
-		    android:fontFamily="sans-serif-condensed"
-		    android:textSize="12sp"
-		    android:padding="5dip" 
-		    android:text="@string/text_to_speech"
-		    android:gravity="center"
-		    android:onClick="speech"/>
-		
-		
-		</TableRow>
-		
-	    <TableRow>
-	     <Button
-		    android:id="@+id/quizm"
-		    android:layout_width="0dp"
-			android:layout_weight=".50"
-		    android:layout_margin="5dp"
-		    android:background="@drawable/shape7"
-        	android:drawableTop="@drawable/headphones"
-		    android:fontFamily="sans-serif-condensed"
-		    android:textSize="12sp"
-		    android:padding="5dip" 
-		    android:text="@string/quizm"
-		    android:gravity="center"
-		    android:onClick="quizm"/>
-	    
-		<Button
-		    android:id="@+id/quizt"
-		    android:layout_width="0dp"
-			android:layout_weight=".50"
-		    android:layout_margin="5dp"
-		    android:background="@drawable/shape7"
-        	android:drawableTop="@drawable/quizt"
-		    android:fontFamily="sans-serif-condensed"
-		    android:textSize="12sp"
-		    android:text="@string/quizt"
-		    android:padding="5dip" 
-		    android:gravity="center"
-		    android:onClick="quizt"/>
-		
-		
-		
-		</TableRow>
-		</TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-         </LinearLayout>
+                <TableRow android:layout_marginBottom="20dp">
 
-		    </LinearLayout>
- </ScrollView>
- 
-<RelativeLayout
-    android:id="@+id/footer"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true">
- </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight=".70"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/titolo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight=".15"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/suono"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/shape5"
+                            android:onClick="volume"
+                            android:src="@drawable/sound" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight=".15"
+                        android:orientation="vertical">
+
+                        <ImageButton
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/shape5"
+                            android:onClick="rate"
+                            android:src="@drawable/rate" />
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/impara"
+                            android:layout_width="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:contentDescription="@string/impara"
+                            android:drawableTop="@drawable/impara"
+                            android:fontFamily="sans-serif-condensed"
+                            android:onClick="impara"
+                            android:padding="5dip"
+                            android:text="@string/impara"
+                            android:textSize="13sp" />
+
+                        <Button
+                            android:id="@+id/quizp"
+                            android:layout_width="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/quiz_p"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="quizp"
+                            android:padding="5dip"
+                            android:text="@string/quizp"
+                            android:textSize="12sp" />
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/quiz"
+                            android:layout_width="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/quiz3"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="quiz"
+                            android:padding="5dip"
+                            android:text="@string/quiz"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/speech"
+                            android:layout_width="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/speech"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="speech"
+                            android:padding="5dip"
+                            android:text="@string/text_to_speech"
+                            android:textSize="12sp" />
+
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/quizm"
+                            android:layout_width="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/headphones"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="quizm"
+                            android:padding="5dip"
+                            android:text="@string/quizm"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/quizt"
+                            android:layout_width="0dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/quizt"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="quizt"
+                            android:padding="5dip"
+                            android:text="@string/quizt"
+                            android:textSize="12sp" />
+
+
+                    </TableRow>
+                </TableLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"></RelativeLayout>
 
 </RelativeLayout>
