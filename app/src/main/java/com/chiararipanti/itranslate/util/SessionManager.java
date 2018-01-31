@@ -1,7 +1,9 @@
 package com.chiararipanti.itranslate.util;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -12,9 +14,9 @@ import android.util.Log;
 
 /**
  * @author chiararipanti
- * date 04/05/2013
+ *         date 04/05/2013
  */
-public class SessionManager{
+public class SessionManager {
     // Shared Preferences
     private SharedPreferences pref;
 
@@ -39,7 +41,7 @@ public class SessionManager{
     private static final String KEY_VIBRAZIONE = "vibrazione";
 
     // Costruttore
-    public SessionManager(Context context){
+    public SessionManager(Context context) {
         // prendo il contesto
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -48,46 +50,42 @@ public class SessionManager{
 
     }
 
-    public void setVibrazione(Boolean vibrazione)
-    {
+    public void setVibrazione(Boolean vibrazione) {
         editor.putBoolean(KEY_VIBRAZIONE, vibrazione);
         editor.commit();
     }
 
-    public boolean getVibrazione()
-    {
+    public boolean getVibrazione() {
         return pref.getBoolean(KEY_VIBRAZIONE, true);
     }
 
-    public void setSuono(Boolean suono)
-    {
+    public void setSuono(Boolean suono) {
         editor.putBoolean(KEY_SUONO, suono);
         editor.commit();
     }
 
-    public boolean getSuono()
-    {
+    public boolean getSuono() {
         return pref.getBoolean(KEY_SUONO, true);
     }
 
-    public int getPartite(String categoria){
-        categoria="p"+categoria;
+    public int getPartite(String categoria) {
+        categoria = "p" + categoria;
         return pref.getInt(categoria, 0);
     }
 
-    public void incrPartite(String categoria){
-        categoria="p"+categoria;
-        int partite=getPartite(categoria);
+    public void incrPartite(String categoria) {
+        categoria = "p" + categoria;
+        int partite = getPartite(categoria);
         partite++;
         editor.putInt(categoria, partite);
         editor.commit();
     }
 
-    public float getRecord(String categoria){
+    public float getRecord(String categoria) {
         return pref.getFloat(categoria, 0);
     }
 
-    public void setRecord(String categoria, float punteggio){
+    public void setRecord(String categoria, float punteggio) {
         editor.putFloat(categoria, punteggio);
         editor.commit();
     }

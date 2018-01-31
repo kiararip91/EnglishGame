@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * @author chiararipanti
- * date 29/01/18.
+ *         date 29/01/18.
  */
 
 public class AudioRequest extends AsyncTask<String, Void, String> {
@@ -26,11 +26,12 @@ public class AudioRequest extends AsyncTask<String, Void, String> {
     private Activity activity;
     private MediaPlayer mediaPlayer;
 
-    public AudioRequest(Activity activity, MediaPlayer mediaPlayer){
+    public AudioRequest(Activity activity, MediaPlayer mediaPlayer) {
         this.activity = activity;
         this.mediaPlayer = mediaPlayer;
 
     }
+
     @Override
     protected String doInBackground(String... urls) {
 
@@ -41,7 +42,7 @@ public class AudioRequest extends AsyncTask<String, Void, String> {
             statusCode = response.getStatusLine().getStatusCode();
 
             Log.d("test", statusCode + "");
-            if(statusCode==200)
+            if (statusCode == 200)
                 return "ok";
 
         } catch (IOException e) {
@@ -49,28 +50,27 @@ public class AudioRequest extends AsyncTask<String, Void, String> {
         }
         return "errore";
     }
+
     // onPostExecute displays the results of the AsyncTask.
     @Override
     protected void onPostExecute(String result) {
-        if(result.equalsIgnoreCase("ok")){
+        if (result.equalsIgnoreCase("ok")) {
             try {
                 this.mediaPlayer.prepare();
                 this.mediaPlayer.start();
 
-            }
-            catch (SecurityException e) {
+            } catch (SecurityException e) {
                 e.printStackTrace();
-                Toast.makeText(activity,activity.getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, activity.getString(R.string.no_audio), Toast.LENGTH_SHORT).show();
             } catch (IllegalStateException e) {
                 e.printStackTrace();
-                Toast.makeText(activity,activity.getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, activity.getString(R.string.no_audio), Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(activity,activity.getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, activity.getString(R.string.no_audio), Toast.LENGTH_SHORT).show();
             }
-        }
-        else
-            Toast.makeText(activity,activity.getString(R.string.no_audio) , Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(activity, activity.getString(R.string.no_audio), Toast.LENGTH_SHORT).show();
 
     }
 }

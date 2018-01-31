@@ -19,7 +19,7 @@ import com.google.android.gms.ads.AdView;
 
 /**
  * @author chiararipanti
- * date 29/01/2018
+ *         date 29/01/2018
  */
 
 public class EnglishGameUtility {
@@ -38,9 +38,10 @@ public class EnglishGameUtility {
 
     /**
      * Initialize varibales
+     *
      * @param activity
      */
-    public EnglishGameUtility(Activity activity){
+    public EnglishGameUtility(Activity activity) {
         this.wrongSound = MediaPlayer.create(activity, R.raw.wrong);
         this.correctSound = MediaPlayer.create(activity, R.raw.correct);
         this.overSound = MediaPlayer.create(activity, R.raw.over);
@@ -50,26 +51,26 @@ public class EnglishGameUtility {
         this.session = new SessionManager(activity);
     }
 
-    public void soundCorrect(){
-        if(this.session.getSuono()){
+    public void soundCorrect() {
+        if (this.session.getSuono()) {
             this.correctSound.start();
         }
     }
 
     public void soundWrong() {
-        if (this.session.getSuono()){
+        if (this.session.getSuono()) {
             this.wrongSound.start();
         }
     }
 
     public void soundOver() {
-        if (this.session.getSuono()){
+        if (this.session.getSuono()) {
             this.overSound.start();
         }
     }
 
-    public void vibrate(){
-        if(this.session.getVibrazione()){
+    public void vibrate() {
+        if (this.session.getVibrazione()) {
             this.vibrator.vibrate(500);
         }
     }
@@ -82,7 +83,7 @@ public class EnglishGameUtility {
         }
     }
 
-    public void addAdBunner(){
+    public void addAdBunner() {
         AdView adView = new AdView(activity);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(this.activity.getString(R.string.unit_id));
@@ -97,7 +98,7 @@ public class EnglishGameUtility {
         adView.loadAd(adRequest);
     }
 
-    public void manageSettings(){
+    public void manageSettings() {
         LinearLayout ll = new LinearLayout(this.activity);
         ll.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -110,7 +111,7 @@ public class EnglishGameUtility {
         sbSound.setTextOn(this.activity.getString(R.string.sound_on));
         sbSound.setTextOff(this.activity.getString(R.string.sound_off));
 
-        if(session.getSuono())
+        if (session.getSuono())
             sbSound.setChecked(true);
 
         sbSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -128,7 +129,7 @@ public class EnglishGameUtility {
         sbVibra.setTextOn(this.activity.getString(R.string.vibration_on));
         sbVibra.setTextOff(this.activity.getString(R.string.vibration_off));
 
-        if(session.getVibrazione())
+        if (session.getVibrazione())
             sbVibra.setChecked(true);
 
         sbVibra.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -141,8 +142,8 @@ public class EnglishGameUtility {
             }
         });
 
-        ll.addView(sbVibra,layoutParams);
-        ll.addView(sbSound,layoutParams);
+        ll.addView(sbVibra, layoutParams);
+        ll.addView(sbSound, layoutParams);
         AlertDialog.Builder builder;
         AlertDialog alertDialog;
         builder = new AlertDialog.Builder(this.activity);
@@ -158,115 +159,112 @@ public class EnglishGameUtility {
 
     }
 
-    public String substituteSpecialChar(Character c){
+    public String substituteSpecialChar(Character c) {
         String res;
-        switch(c) {
+        switch (c) {
 
             case 'ß':
-                res="sb";
+                res = "sb";
                 break;
 
             case 'á':
-                res="aacuta";
+                res = "aacuta";
                 break;
 
             case 'ó':
-                res="oacuta";
+                res = "oacuta";
                 break;
 
 
             case 'ö':
-                res="opt";
+                res = "opt";
                 break;
-
-
 
 
             case 'ñ':
-                res="ntilde";
+                res = "ntilde";
                 break;
 
             case 'í':
-                res="iacuta";
+                res = "iacuta";
                 break;
 
             case 'é':
-                res="eacuta";
+                res = "eacuta";
                 break;
 
             case 'è':
-                res="egrave";
+                res = "egrave";
                 break;
 
             case 'ê':
-                res="eflex";
+                res = "eflex";
                 break;
 
             case 'ë':
-                res="ept";
+                res = "ept";
                 break;
 
             case 'à':
-                res="agrave";
+                res = "agrave";
                 break;
 
             case 'â':
-                res="aflex";
+                res = "aflex";
                 break;
 
             case 'ä':
-                res="apt";
+                res = "apt";
                 break;
 
             case 'î':
-                res="iflex";
+                res = "iflex";
                 break;
 
             case 'ï':
-                res="ipt";
+                res = "ipt";
                 break;
 
             case 'ô':
-                res="oflex";
+                res = "oflex";
                 break;
 
             case 'ù':
-                res="ugrave";
+                res = "ugrave";
                 break;
 
             case 'û':
-                res="uflex";
+                res = "uflex";
                 break;
 
             case 'ú':
-                res="uacuta";
+                res = "uacuta";
                 break;
 
             case 'ü':
-                res="upt";
+                res = "upt";
                 break;
 
             case 'ÿ':
-                res="ypt";
+                res = "ypt";
                 break;
 
 
-
             default:
-                res=c.toString();
+                res = c.toString();
         }
         return res;
     }
-    
-    public String substituteSpecialCharWordToPronunce(String englishWord){
-        return englishWord.replaceAll("to ","")
-                .replaceAll("\\s","_")
-                .replaceAll("_\\[sb\\]","")
-                .replaceAll("_\\[sth\\]","")
-                .replaceAll("_\\[smb\\]","")
-                .replaceAll("\\[sb\\]","")
-                .replaceAll("\\[sth\\]","")
-                .replaceAll("\\[smb\\]","");
+
+    public String substituteSpecialCharWordToPronunce(String englishWord) {
+        return englishWord.replaceAll("to ", "")
+                .replaceAll("\\s", "_")
+                .replaceAll("_\\[sb\\]", "")
+                .replaceAll("_\\[sth\\]", "")
+                .replaceAll("_\\[smb\\]", "")
+                .replaceAll("\\[sb\\]", "")
+                .replaceAll("\\[sth\\]", "")
+                .replaceAll("\\[smb\\]", "");
     }
 
 }
