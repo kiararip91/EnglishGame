@@ -9,12 +9,6 @@ import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetSentencesFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -28,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +50,6 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     AlertDialog.Builder alertChangeLevel;
     EnglishGameUtility gameUtils;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,7 +215,6 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
         alertChangeLevel = new AlertDialog.Builder(SpeechActivity.this);
         alertChangeLevel.setTitle(getString(R.string.livello));
         alertChangeLevel.setItems(R.array.level_array, new DialogInterface.OnClickListener() {
-            @SuppressLint("SetTextI18n")
             public void onClick(DialogInterface dialog, int which) {
                 livello=which+1;
                 if(livello==1)
