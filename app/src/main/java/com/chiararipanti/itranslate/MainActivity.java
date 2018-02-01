@@ -59,7 +59,28 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     /**
-     * Checked
+     * Layout Elements
+     */
+    LinearLayout firstLineOfRandomButtons;
+    LinearLayout secondLineOfRandomButtons;
+
+    LinearLayout firstLineOfSelectedButtons;
+    LinearLayout secondLineOfSelectedButtons;
+
+    TextView errorsTextView;
+    TextView sentenceTextView;
+    TextView pointTextview;
+    TextView englishWordTextView;
+
+    ImageButton helpButton;
+    ImageButton solutionButton;
+
+    LinearLayout rightAnswerLayout;
+    LinearLayout gameOverLayout;
+    LinearLayout mainContent;
+
+    /**
+     * Game Properties
      */
     private EnglishGameUtility gameUtils;
     private List<Vocabolo> words;
@@ -67,23 +88,9 @@ public class MainActivity extends Activity {
     private Vocabolo word;
 
     /**
-     * Checked
+     * UnChecked
      */
-    LinearLayout ll1;
-    LinearLayout ll2;
-    LinearLayout ll_black;
-    LinearLayout ll_black2;
-    LinearLayout linear_right;
-    LinearLayout linear_gameover;
-    LinearLayout linear_content;
-    TextView englishWordTextView;
-    TextView pointTextview;
-    TextView errorsTextView;
-    TextView recordTextView;
-    TextView levelTextView;
-    TextView sentenceTextView;
-    ImageButton helpButton;
-    ImageButton solutionButton;
+
     Character previousCharacter;
     HashMap<Integer, Button> pushedButtonList;
     String pushedButtonString = "";
@@ -134,30 +141,49 @@ public class MainActivity extends Activity {
 
         pushedButtonList = new HashMap<>();
         record = session.getRecord(category);
-        ll1 = findViewById(R.id.linearletter);
-        ll2 = findViewById(R.id.linearletter2);
-        ll_black = findViewById(R.id.black);
-        ll_black2 = findViewById(R.id.black2);
-        linear_right = findViewById(R.id.linearRight);
-        linear_right.setVisibility(View.GONE);
-        linear_gameover = findViewById(R.id.linearGameover);
-        linear_gameover.setVisibility(View.GONE);
-        linear_content = findViewById(R.id.contentLayout);
-        levelTextView = findViewById(R.id.level);
-        sentenceTextView = findViewById(R.id.frasetext);
-        englishWordTextView = findViewById(R.id.parola_inglese);
-        pointTextview = findViewById(R.id.punteggio);
-        errorsTextView = findViewById(R.id.errori);
-        recordTextView = findViewById(R.id.record);
-        recordTextView.setText(getString(R.string.tuo_record1) + " " + record);
-        helpButton = findViewById(R.id.aiuto);
-        solutionButton = findViewById(R.id.soluzione);
-        points = 0;
-        errors = 0;
+        firstLineOfRandomButtons = findViewById(R.id.firstRandomButtonsLine);
+        secondLineOfRandomButtons = findViewById(R.id.secondRandomButtonsLine);
+        firstLineOfSelectedButtons = findViewById(R.id.firstSelectedButtonsLine);
+        secondLineOfSelectedButtons = findViewById(R.id.secondSelectedButtonsLine);
+
+        mainContent = findViewById(R.id.contentLayout);
         pushedButtonsArray = new ArrayList<>();
+
+
+        /**
+         * Checked
+         */
+
+        //Set Level On the Top
+        TextView levelTextView = findViewById(R.id.level);
         levelTextView.setText(getString(R.string.livello) + ": " + intent.getStringExtra("categoria1"));
+
+        //Initialize Sentence Help TextView
+        sentenceTextView = findViewById(R.id.sentence);
         sentenceTextView.setText("");
 
+        //Initialize Errors TextView
+        errors = 0;
+        errorsTextView = findViewById(R.id.errors);
+
+        //Initialize Points TextView, Help TextView, ShowSolution TextView, EnglishWord TextView
+        points = 0;
+        pointTextview = findViewById(R.id.points);
+        helpButton = findViewById(R.id.helpButton);
+        solutionButton = findViewById(R.id.showSolution);
+        englishWordTextView = findViewById(R.id.englishWord);
+
+        //Initialize Record TextView
+        TextView recordTextView = findViewById(R.id.record);
+        recordTextView.setText(getString(R.string.tuo_record1) + " " + record);
+
+        //Iniitialize Hidden Layout
+        rightAnswerLayout = findViewById(R.id.rigthAnswerLayout);
+        rightAnswerLayout.setVisibility(View.GONE);
+        gameOverLayout = findViewById(R.id.gameoverLayout);
+        gameOverLayout.setVisibility(View.GONE);
+
+        //Start Game
         this.words = this.getWords();
         this.setLetters(words, this.index);
 
@@ -209,19 +235,19 @@ public class MainActivity extends Activity {
         this.word = words.get(index);
         this.listened = false;
         //ripristino le visibilta dei layout
-        ll1.setVisibility(View.VISIBLE);
-        ll2.setVisibility(View.VISIBLE);
+        firstLineOfRandomButtons.setVisibility(View.VISIBLE);
+        secondLineOfRandomButtons.setVisibility(View.VISIBLE);
         pointTextview.setText(getString(R.string.punteggio) + points);
         errorsTextView.setText(getString(R.string.errori) + errors);
-        ll1.removeAllViews();
-        ll2.removeAllViews();
-        ll_black.removeAllViews();
-        ll_black2.removeAllViews();
+        firstLineOfRandomButtons.removeAllViews();
+        secondLineOfRandomButtons.removeAllViews();
+        firstLineOfSelectedButtons.removeAllViews();
+        secondLineOfSelectedButtons.removeAllViews();
         this.pushedButtonsArray = new ArrayList<>();
         this.secondLineNeeded = false;
         this.solutionButton.setClickable(true);
         helpButton.setClickable(true);
-        linear_right.setVisibility(View.GONE);
+        rightAnswerLayout.setVisibility(View.GONE);
 
         //array di botton inizialmente neri
         buttonArrayList = new ArrayList<>();
@@ -322,15 +348,15 @@ public class MainActivity extends Activity {
                             }
                             if (nativeWord.equalsIgnoreCase(stringToConvalidate)) {
                                 buttonLetterSolution.setClickable(false);
-                                linear_right.setVisibility(View.VISIBLE);
+                                rightAnswerLayout.setVisibility(View.VISIBLE);
 
                                 gameUtils.soundCorrect();
                                 gameUtils.vibrate();
 
                                 points = points + 1;
                                 pointTextview.setText(getString(R.string.punteggio) + points);
-                                ll1.setVisibility(View.GONE);
-                                ll2.setVisibility(View.GONE);
+                                firstLineOfRandomButtons.setVisibility(View.GONE);
+                                secondLineOfRandomButtons.setVisibility(View.GONE);
                                 sentenceTextView.setText("");
 
                                 pushedButtonString = "";
@@ -347,10 +373,10 @@ public class MainActivity extends Activity {
                                     gameUtils.vibrate();
 
                                     session.incrPartite(category);
-                                    linear_content.setVisibility(View.GONE);
+                                    mainContent.setVisibility(View.GONE);
                                     helpButton.setClickable(false);
                                     solutionButton.setClickable(false);
-                                    linear_gameover.setVisibility(View.VISIBLE);
+                                    gameOverLayout.setVisibility(View.VISIBLE);
 
                                     if (isNewRecord(points)) {
                                         alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title), getString(R.string.nuovo_record) + points, false);
@@ -452,9 +478,9 @@ public class MainActivity extends Activity {
                 buttonArrayList.add(black);
 
                 if (i < 8) {
-                    ll_black.addView(black);
+                    firstLineOfSelectedButtons.addView(black);
                 } else {
-                    ll_black2.addView(black);
+                    secondLineOfSelectedButtons.addView(black);
                 }
             } else {
                 //Space
@@ -468,9 +494,9 @@ public class MainActivity extends Activity {
                 black.setClickable(false);
                 buttonArrayList.add(black);
                 if (i < 8) {
-                    ll_black.addView(black);
+                    firstLineOfSelectedButtons.addView(black);
                 } else {
-                    ll_black2.addView(black);
+                    secondLineOfSelectedButtons.addView(black);
                 }
             }
         }
@@ -487,10 +513,10 @@ public class MainActivity extends Activity {
             fasullo.setClickable(false);
 
             if (i < 8) {
-                ll_black.addView(fasullo);
+                firstLineOfSelectedButtons.addView(fasullo);
             } else {
                 if (secondLineNeeded) {
-                    ll_black2.addView(fasullo);
+                    secondLineOfSelectedButtons.addView(fasullo);
                 }
             }
 
@@ -554,15 +580,15 @@ public class MainActivity extends Activity {
 
                         if (nativeWord.equalsIgnoreCase(da_convalidare)) {
                             black_button.setClickable(false);
-                            linear_right.setVisibility(View.VISIBLE);
+                            rightAnswerLayout.setVisibility(View.VISIBLE);
 
                             gameUtils.soundCorrect();
                             gameUtils.vibrate();
 
                             points = points + 1;
                             pointTextview.setText(getString(R.string.punteggio) + points);
-                            ll1.setVisibility(View.GONE);
-                            ll2.setVisibility(View.GONE);
+                            firstLineOfRandomButtons.setVisibility(View.GONE);
+                            secondLineOfRandomButtons.setVisibility(View.GONE);
 
                             pushedButtonString = "";
                         } else {
@@ -576,10 +602,10 @@ public class MainActivity extends Activity {
                                 helpsNumber = 0;
                                 solutionsNumber = 0;
                                 session.incrPartite(category);
-                                linear_content.setVisibility(View.GONE);
+                                mainContent.setVisibility(View.GONE);
                                 helpButton.setClickable(false);
                                 solutionButton.setClickable(false);
-                                linear_gameover.setVisibility(View.VISIBLE);
+                                gameOverLayout.setVisibility(View.VISIBLE);
 
                                 if (isNewRecord(points)) {
                                     alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title), getString(R.string.nuovo_record) + points, false);
@@ -623,9 +649,9 @@ public class MainActivity extends Activity {
             lettereCasuali.put(o.hashCode(), pushedButtonList.get(o));
 
             if (num < 8) {
-                ll1.addView(pushedButtonList.get(o));
+                firstLineOfRandomButtons.addView(pushedButtonList.get(o));
             } else {
-                ll2.addView(pushedButtonList.get(o));
+                secondLineOfRandomButtons.addView(pushedButtonList.get(o));
             }
 
             num++;
@@ -677,9 +703,9 @@ public class MainActivity extends Activity {
                 }
                 errors++;
                 errorsTextView.setText(getString(R.string.errori) + " " + errors);
-                linear_right.setVisibility(View.VISIBLE);
-                ll1.setVisibility(View.GONE);
-                ll2.setVisibility(View.GONE);
+                rightAnswerLayout.setVisibility(View.VISIBLE);
+                firstLineOfRandomButtons.setVisibility(View.GONE);
+                secondLineOfRandomButtons.setVisibility(View.GONE);
 
                 gameUtils.soundCorrect();
                 gameUtils.vibrate();
@@ -701,7 +727,7 @@ public class MainActivity extends Activity {
         solutionsNumber++;
     }
 
-    public void showAiuto(View view) {
+    public void showHelp(View view) {
 
         final Vocabolo word = this.word;
 
@@ -818,10 +844,10 @@ public class MainActivity extends Activity {
         points = 0;
         errors = 0;
         errorsTextView.setText(getString(R.string.errori) + " " + errors);
-        linear_content.setVisibility(View.VISIBLE);
+        mainContent.setVisibility(View.VISIBLE);
         helpButton.setClickable(true);
         solutionButton.setClickable(true);
-        linear_gameover.setVisibility(View.GONE);
+        gameOverLayout.setVisibility(View.GONE);
         this.getWords();
         this.setLetters(this.words, this.index);
     }
@@ -833,6 +859,7 @@ public class MainActivity extends Activity {
 
         if (punti > record) {
             session.setRecord(category, punti);
+            TextView recordTextView = findViewById(R.id.record);
             recordTextView.setText(getString(R.string.record) + " " + punti);
             returnValue = true;
         }
