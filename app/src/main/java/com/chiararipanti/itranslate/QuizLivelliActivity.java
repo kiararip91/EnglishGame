@@ -2,18 +2,12 @@ package com.chiararipanti.itranslate;
 
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 /**
@@ -231,66 +225,6 @@ public class QuizLivelliActivity extends Activity {
             p.putExtra("quiz", 51);
             startActivity(p);
         }else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-    }
-
-    private void vocabulary(View view){
-        if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 1);
-            startActivity(p);
-        }else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-    }
-
-    private void families(View view){
-        if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 1);
-            startActivity(p);
-        }else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-    }
-
-    private void clothes(View view){
-        if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 1);
-            startActivity(p);
-        }else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-    }
-
-    private void animals(View view){
-        if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 1);
-            startActivity(p);
-        }else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-    }
-
-    private void food_vocabulary(View view){
-        if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 1);
-            startActivity(p);
-        }else
-            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
-    }
-
-    private void relative_pronouns(View view){
-        if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 38);
-            startActivity(p);
-        } else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 }
