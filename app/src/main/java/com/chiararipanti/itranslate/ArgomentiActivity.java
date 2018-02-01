@@ -70,6 +70,8 @@ public class ArgomentiActivity extends Activity {
 
     EnglishGameUtility gameUtils;
 
+    private static String CATEGORY_PARAM_NAME = "category";
+
     //********************fine bunner pubblicitario******************************
 
     @SuppressLint("SetTextI18n")
@@ -177,64 +179,56 @@ public class ArgomentiActivity extends Activity {
     public void animali(View view)
     {
         Intent e = new Intent(ArgomentiActivity.this, MainActivity.class);
-        e.putExtra("categoria", "animali");
-        e.putExtra("categoria1", (getString(R.string.animali)));
+        e.putExtra(CATEGORY_PARAM_NAME, "animali");
         startActivity(e);
     }
 
     public void cibo(View view)
     {
         Intent e = new Intent(ArgomentiActivity.this, MainActivity.class);
-        e.putExtra("categoria", "cibo");
-        e.putExtra("categoria1", (getString(R.string.cibo)));
+        e.putExtra(CATEGORY_PARAM_NAME, "cibo");
         startActivity(e);
     }
 
     public void viaggi(View view)
     {
         Intent e = new Intent(ArgomentiActivity.this, MainActivity.class);
-        e.putExtra("categoria", "viaggi");
-        e.putExtra("categoria1", (getString(R.string.viaggi)));
+        e.putExtra(CATEGORY_PARAM_NAME, "viaggi");
         startActivity(e);
     }
 
     public void vitaquotidiana(View view)
     {
         Intent e = new Intent(ArgomentiActivity.this, MainActivity.class);
-        e.putExtra("categoria", "vita_quotidiana");
-        e.putExtra("categoria1", (getString(R.string.vita_quotidiana)));
+        e.putExtra(CATEGORY_PARAM_NAME, "vita_quotidiana");
         startActivity(e);
     }
 
     public void principiante(View view)
     {
         Intent p=new Intent(ArgomentiActivity.this, MainActivity.class);
-        p.putExtra("categoria", "principiante");
-        p.putExtra("categoria1", (getString(R.string.principiante)));
+        p.putExtra(CATEGORY_PARAM_NAME, "principiante");
         startActivity(p);
     }
 
     public void base(View view)
     {
         Intent b=new Intent(ArgomentiActivity.this, MainActivity.class);
-        b.putExtra("categoria", "base");
-        b.putExtra("categoria1", (getString(R.string.base)));
+        b.putExtra(CATEGORY_PARAM_NAME, "base");
         startActivity(b);
     }
 
     public void intermedio(View view)
     {
         Intent i=new Intent(ArgomentiActivity.this, MainActivity.class);
-        i.putExtra("categoria", "intermedio");
-        i.putExtra("categoria1", (getString(R.string.intermedio)));
+        i.putExtra(CATEGORY_PARAM_NAME, "intermedio");
         startActivity(i);
     }
 
     public void esperto(View view)
     {
         Intent e = new Intent(ArgomentiActivity.this, MainActivity.class);
-        e.putExtra("categoria", "esperto");
-        e.putExtra("categoria1", (getString(R.string.esperto)));
+        e.putExtra(CATEGORY_PARAM_NAME, "esperto");
         startActivity(e);
     }
 
