@@ -61,23 +61,23 @@ public class MainActivity extends Activity {
     /**
      * Layout Elements
      */
-    LinearLayout firstLineOfRandomButtons;
-    LinearLayout secondLineOfRandomButtons;
+    private LinearLayout firstLineOfRandomButtons;
+    private LinearLayout secondLineOfRandomButtons;
 
-    LinearLayout firstLineOfSelectedButtons;
-    LinearLayout secondLineOfSelectedButtons;
+    private LinearLayout firstLineOfSelectedButtons;
+    private LinearLayout secondLineOfSelectedButtons;
 
-    TextView errorsTextView;
-    TextView sentenceTextView;
-    TextView pointTextview;
-    TextView englishWordTextView;
+    private TextView errorsTextView;
+    private TextView sentenceTextView;
+    private TextView pointTextView;
+    private TextView englishWordTextView;
 
-    ImageButton helpButton;
-    ImageButton solutionButton;
+    private ImageButton helpButton;
+    private ImageButton solutionButton;
 
-    LinearLayout rightAnswerLayout;
-    LinearLayout gameOverLayout;
-    LinearLayout mainContent;
+    private LinearLayout rightAnswerLayout;
+    private LinearLayout gameOverLayout;
+    private LinearLayout mainContent;
 
     /**
      * Game Properties
@@ -87,32 +87,34 @@ public class MainActivity extends Activity {
     private int index;
     private Vocabolo word;
 
-    /**
-     * UnChecked
-     */
-
-    Character previousCharacter;
-    HashMap<Integer, Button> pushedButtonList;
-    String pushedButtonString = "";
-    float record;
-    float points;
-    int errors;
-    Display display;
-    int proportion;
-    boolean secondLineNeeded;
-    int helpsNumber;
+    private float record;
+    private float points;
+    private int errors;
+    private int proportion;
+    private boolean secondLineNeeded;
+    private int helpsNumber;
     int solutionsNumber;
 
-    //array nel quale memorizzo gli identificatori delle lettere premuti
-    ArrayList<Integer> pushedButtonsArray;
-    SessionManager session;
-    ArrayList<String> selectedWord;
-    String category;
-    AlertDialogManager alertDialog;
-    AlertDialogManager settingDialog;
-    MyConnectivityManager connectivityManager;
-    ArrayList<Button> buttonArrayList;
+    private SessionManager session;
+
+    /**
+     * Da Capire se si possono ottimizzare tutte queste altre variabili
+     */
+
     private boolean listened;
+    private Character previousCharacter;
+    private HashMap<Integer, Button> pushedButtonList;
+    private String pushedButtonString = "";
+
+    //array nel quale memorizzo gli identificatori delle lettere premuti
+    private ArrayList<Integer> pushedButtonsArray;
+
+    private ArrayList<String> selectedWord;
+    private String category;
+    private AlertDialogManager alertDialog;
+    private AlertDialogManager settingDialog;
+    private MyConnectivityManager connectivityManager;
+    private ArrayList<Button> buttonArrayList;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -120,33 +122,21 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gameUtils = new EnglishGameUtility(this);
+
         alertDialog = new AlertDialogManager();
         settingDialog = new AlertDialogManager();
         Intent intent = getIntent();
         category = intent.getStringExtra("categoria");
         connectivityManager = new MyConnectivityManager(getApplicationContext());
-        session = new SessionManager(getApplicationContext());
 
-        gameUtils.setHomeButtonEnabled();
-        gameUtils.addAdBunner();
-
+        //DA CAPIRE
+        Display display;
         display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         proportion = size.x / 9;
-        secondLineNeeded = false;
-        helpsNumber = 0;
-        solutionsNumber = 0;
 
         pushedButtonList = new HashMap<>();
-        record = session.getRecord(category);
-        firstLineOfRandomButtons = findViewById(R.id.firstRandomButtonsLine);
-        secondLineOfRandomButtons = findViewById(R.id.secondRandomButtonsLine);
-        firstLineOfSelectedButtons = findViewById(R.id.firstSelectedButtonsLine);
-        secondLineOfSelectedButtons = findViewById(R.id.secondSelectedButtonsLine);
-
-        mainContent = findViewById(R.id.contentLayout);
         pushedButtonsArray = new ArrayList<>();
 
 
@@ -154,21 +144,36 @@ public class MainActivity extends Activity {
          * Checked
          */
 
+        //Initialize Activity
+        gameUtils = new EnglishGameUtility(this);
+        gameUtils.setHomeButtonEnabled();
+        gameUtils.addAdBunner();
+
+        session = new SessionManager(getApplicationContext());
+        record = session.getRecord(category);
+
+        //Buttons Container Layout
+        firstLineOfRandomButtons = findViewById(R.id.firstRandomButtonsLine);
+        secondLineOfRandomButtons = findViewById(R.id.secondRandomButtonsLine);
+        firstLineOfSelectedButtons = findViewById(R.id.firstSelectedButtonsLine);
+        secondLineOfSelectedButtons = findViewById(R.id.secondSelectedButtonsLine);
+
+        //Main Container Layout
+        mainContent = findViewById(R.id.contentLayout);
+
         //Set Level On the Top
         TextView levelTextView = findViewById(R.id.level);
-        levelTextView.setText(getString(R.string.livello) + ": " + intent.getStringExtra("categoria1"));
+        levelTextView.setText(getString(R.string.livello) + ": " + intent.getStringExtra("categoria1")); //TODO: Aggiorna questa stringa
 
         //Initialize Sentence Help TextView
         sentenceTextView = findViewById(R.id.sentence);
         sentenceTextView.setText("");
 
         //Initialize Errors TextView
-        errors = 0;
         errorsTextView = findViewById(R.id.errors);
 
         //Initialize Points TextView, Help TextView, ShowSolution TextView, EnglishWord TextView
-        points = 0;
-        pointTextview = findViewById(R.id.points);
+        pointTextView = findViewById(R.id.points);
         helpButton = findViewById(R.id.helpButton);
         solutionButton = findViewById(R.id.showSolution);
         englishWordTextView = findViewById(R.id.englishWord);
@@ -177,11 +182,20 @@ public class MainActivity extends Activity {
         TextView recordTextView = findViewById(R.id.record);
         recordTextView.setText(getString(R.string.tuo_record1) + " " + record);
 
-        //Iniitialize Hidden Layout
+        //Initialize Hidden Layout
         rightAnswerLayout = findViewById(R.id.rigthAnswerLayout);
         rightAnswerLayout.setVisibility(View.GONE);
         gameOverLayout = findViewById(R.id.gameoverLayout);
         gameOverLayout.setVisibility(View.GONE);
+
+
+
+        //Initialize Variables
+        secondLineNeeded = false;
+        helpsNumber = 0;
+        solutionsNumber = 0;
+        errors = 0;
+        points = 0;
 
         //Start Game
         this.words = this.getWords();
@@ -237,7 +251,7 @@ public class MainActivity extends Activity {
         //ripristino le visibilta dei layout
         firstLineOfRandomButtons.setVisibility(View.VISIBLE);
         secondLineOfRandomButtons.setVisibility(View.VISIBLE);
-        pointTextview.setText(getString(R.string.punteggio) + points);
+        pointTextView.setText(getString(R.string.punteggio) + points);
         errorsTextView.setText(getString(R.string.errori) + errors);
         firstLineOfRandomButtons.removeAllViews();
         secondLineOfRandomButtons.removeAllViews();
@@ -354,7 +368,7 @@ public class MainActivity extends Activity {
                                 gameUtils.vibrate();
 
                                 points = points + 1;
-                                pointTextview.setText(getString(R.string.punteggio) + points);
+                                pointTextView.setText(getString(R.string.punteggio) + points);
                                 firstLineOfRandomButtons.setVisibility(View.GONE);
                                 secondLineOfRandomButtons.setVisibility(View.GONE);
                                 sentenceTextView.setText("");
@@ -586,7 +600,7 @@ public class MainActivity extends Activity {
                             gameUtils.vibrate();
 
                             points = points + 1;
-                            pointTextview.setText(getString(R.string.punteggio) + points);
+                            pointTextView.setText(getString(R.string.punteggio) + points);
                             firstLineOfRandomButtons.setVisibility(View.GONE);
                             secondLineOfRandomButtons.setVisibility(View.GONE);
 
@@ -817,7 +831,7 @@ public class MainActivity extends Activity {
 
                     //scalo i punti dovuti all'aiuto e visualizzo il totale aggiornato
                     points = points - 1;
-                    pointTextview.setText(getString(R.string.punteggio) + " " + points);
+                    pointTextView.setText(getString(R.string.punteggio) + " " + points);
                 }
             });
 
@@ -840,7 +854,7 @@ public class MainActivity extends Activity {
 
     @SuppressLint("SetTextI18n")
     public void restart(View view) {
-        pushedButtonsArray = new ArrayList<Integer>();
+        pushedButtonsArray = new ArrayList<>();
         points = 0;
         errors = 0;
         errorsTextView.setText(getString(R.string.errori) + " " + errors);
