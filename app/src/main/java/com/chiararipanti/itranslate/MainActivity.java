@@ -58,6 +58,8 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 
+    private final String CATEGORY_PARAM_NAME = "category";
+
     /**
      * Layout Elements
      */
@@ -126,7 +128,7 @@ public class MainActivity extends Activity {
         alertDialog = new AlertDialogManager();
         settingDialog = new AlertDialogManager();
         Intent intent = getIntent();
-        category = intent.getStringExtra("categoria");
+        category = intent.getStringExtra(CATEGORY_PARAM_NAME);
         connectivityManager = new MyConnectivityManager(getApplicationContext());
 
         //DA CAPIRE
@@ -163,7 +165,8 @@ public class MainActivity extends Activity {
 
         //Set Level On the Top
         TextView levelTextView = findViewById(R.id.level);
-        levelTextView.setText(getString(R.string.livello) + ": " + intent.getStringExtra("categoria1")); //TODO: Aggiorna questa stringa
+        String categoryUpperCaseFirstLetter = Character.toUpperCase(category.charAt(0)) + category.substring(1);
+        levelTextView.setText(getString(R.string.livello) + ": " + categoryUpperCaseFirstLetter.replace("_", " "));
 
         //Initialize Sentence Help TextView
         sentenceTextView = findViewById(R.id.sentence);
