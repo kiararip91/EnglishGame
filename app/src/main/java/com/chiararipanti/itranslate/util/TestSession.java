@@ -11,7 +11,6 @@ public class TestSession {
     private String correctAnswer;
     private ArrayList<String> alternatives;
 
-    // constructor
     public TestSession(String question, String correctAnswer, ArrayList<String> alternatives) {
         this.question = question;
         this.correctAnswer = correctAnswer;
