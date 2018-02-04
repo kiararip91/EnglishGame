@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "547606714064",
+    "firebase_url": "https://provafirebase-f7f30.firebaseio.com",
+    "project_id": "provafirebase-f7f30",
+    "storage_bucket": "provafirebase-f7f30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547606714064:android:d83d866d14df1bfd",
+        "android_client_info": {
+          "package_name": "com.example.chiararipanti.test2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547606714064-t2g1eju2l5c78t8p0re5t4o3a5pl85ss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBDmYk_ZUlHVqEXWCZP2gBfDLr8i1q9c4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
