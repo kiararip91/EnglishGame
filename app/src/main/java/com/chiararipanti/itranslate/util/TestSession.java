@@ -7,7 +7,6 @@ import java.util.ArrayList;
  *         date 04/05/2013
  */
 public class TestSession {
-    private int type;
     private String question;
     private String correctAnswer;
     private ArrayList<String> alternatives;
@@ -21,10 +20,6 @@ public class TestSession {
 
     public String getQuestion() {
         return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
     public ArrayList<String> getAlternatives() {
