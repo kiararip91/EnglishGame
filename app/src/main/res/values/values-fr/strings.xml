@@ -25,8 +25,8 @@
     <string name="errore">Ops! il y avait une erreur, s\'il vous plaît essayer plus tard! </string>
     <string name="errori">Erreurs: </string>
     <string name="punteggio">Score: </string>
-    <string name="record">Record</string>
-    <string name="partite">Match</string>
+    <!--<string name="record">Record: %1$.2f</string>-->
+    <string name="partite">Match: %1$d</string>
     <string name="tuo_record1">Record: </string>
     <string name="gameover">GAME OVER</string>
     <string name="next">NEXT</string>

@@ -16,24 +16,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.chiararipanti.itranslate.db.Canzone;
+import com.chiararipanti.itranslate.db.Song;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 
-public class GetCanzoniFromDB extends AsyncTask<String, Void, ArrayList<Canzone>> {
-    ArrayList<Canzone> canzoni;
+public class GetCanzoniFromDB extends AsyncTask<String, Void, ArrayList<Song>> {
+    ArrayList<Song> canzoni;
     final String TAG = "GetCanzoiFromDB";
 
 
     public GetCanzoniFromDB(Context context) {
-        canzoni = new ArrayList<Canzone>();
+        canzoni = new ArrayList<Song>();
 
     }
 
-    protected ArrayList<Canzone> doInBackground(String... params) {
+    protected ArrayList<Song> doInBackground(String... params) {
         //String stringa_ingrediente="";
         InputStream is = null;
         String result = "";
@@ -87,7 +87,7 @@ public class GetCanzoniFromDB extends AsyncTask<String, Void, ArrayList<Canzone>
                     alternative.add(alter[1]);
                     alternative.add(alter[2]);
                     alternative.add(alter[3]);
-                    Canzone canzone = new Canzone(titolo, autore, traduzione, alternative);
+                    Song canzone = new Song(titolo, autore, traduzione, alternative);
                     canzoni.add(canzone);
                 }
             } catch (JSONException e) {
@@ -104,7 +104,7 @@ public class GetCanzoniFromDB extends AsyncTask<String, Void, ArrayList<Canzone>
 
 
     @Override
-    protected void onPostExecute(ArrayList<Canzone> result) {
+    protected void onPostExecute(ArrayList<Song> result) {
 
         //Log.v(TAG,"post");
     } //fine onPost

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context="com.chiararipanti.itranslate.TestoActivity">
+    tools:context="com.chiararipanti.itranslate.SongTextActivity">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -31,7 +31,7 @@
                 <TableRow>
 
                     <TextView
-                        android:id="@+id/it_tv"
+                        android:id="@+id/italian_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -40,7 +40,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:id="@+id/eng_tv"
+                        android:id="@+id/english_text"
                         android:layout_width="0dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
@@ -57,6 +57,6 @@
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

@@ -1,3 +1,4 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,13 +8,13 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/footer"
+        android:fillViewport="true"
+        android:background="@drawable/shape"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="3dp"
-        android:background="@drawable/shape"
-        android:fillViewport="true">
+        android:layout_above="@+id/footer">
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -24,662 +25,653 @@
 
             <TextView
                 android:id="@+id/elementary"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 android:background="@drawable/shape3"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:text="@string/elementary"
-                android:textColor="#000000"
-                android:textSize="14sp" />
+                android:layout_marginTop="2dp" />
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                android:background="@drawable/shape"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/shape"
-                android:padding="1dip">
+                android:padding="1dip" >
 
 
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/verbs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/verbs"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="verbs"
-                            android:text="@string/verbs"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="verbs"/>
 
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/adjectives"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/adjectives"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="adjectives"
-                            android:text="@string/adjectives"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="adjectives"/>
 
 
                     </LinearLayout>
                 </TableRow>
-
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
 
                         <Button
                             android:id="@+id/question_words"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="question_words"
+                            android:layout_height="wrap_content"
                             android:text="@string/question_words"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="question_words"/>
 
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/past_simple"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="past_simple"
+                            android:layout_height="wrap_content"
                             android:text="@string/past_simple"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="past_simple"/>
 
                     </LinearLayout>
                 </TableRow>
 
 
-            </TableLayout>
 
+            </TableLayout>
             <TextView
                 android:id="@+id/preintermediate"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 android:background="@drawable/shape3"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:text="@string/preintermediate"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="2dp" />
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                android:background="@drawable/shape"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/shape"
-                android:padding="1dip">
+                android:padding="1dip" >
 
 
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/regular_irregular_verbs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/regular_irregular_verbs"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="regular_irregular_verbs"
-                            android:text="@string/regular_irregular_verbs"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="regular_irregular_verbs"/>
 
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/negative_forms"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/negative_forms"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="negative_forms"
-                            android:text="@string/negative_forms"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="negative_forms"/>
 
 
                     </LinearLayout>
                 </TableRow>
-
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
 
                         <Button
                             android:id="@+id/some_any_much_many"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="some_any_much_many"
+                            android:layout_height="wrap_content"
                             android:text="@string/some_any_much_many"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="some_any_much_many"/>
 
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/articles"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="articles"
+                            android:layout_height="wrap_content"
                             android:text="@string/articles"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="articles"/>
 
                     </LinearLayout>
                 </TableRow>
             </TableLayout>
-
             <TextView
                 android:id="@+id/intermediate"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 android:background="@drawable/shape3"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:text="@string/intermediate"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="2dp" />
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                android:background="@drawable/shape"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/shape"
-                android:padding="1dip">
+                android:padding="1dip" >
 
 
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/prepositions"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/prepositions"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="prepositions"
-                            android:text="@string/prepositions"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="relative_pronouns"/> <!--fixme -->
 
                         <TextView
                             android:id="@+id/record_prep"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/relative_pronouns"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/relative_pronouns"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="relative_pronouns"
-                            android:text="@string/relative_pronouns"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="relative_pronouns"/>
 
                         <TextView
                             android:id="@+id/record_rp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
                 </TableRow>
-
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
 
                         <Button
                             android:id="@+id/common_verbs"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="common_verbs"
+                            android:layout_height="wrap_content"
                             android:text="@string/common_verbs"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="common_verbs"/>
 
                         <TextView
                             android:id="@+id/record_cv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/modal_verbs"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="modal_verbs"
+                            android:layout_height="wrap_content"
                             android:text="@string/modal_verbs"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
-
+                            android:gravity="center"
+                            android:onClick="modal_verbs"/>
                         <TextView
                             android:id="@+id/record_mv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
                 </TableRow>
             </TableLayout>
-
             <TextView
                 android:id="@+id/upperintermediate"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 android:background="@drawable/shape3"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:text="@string/upperintermediate"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="2dp" />
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                android:background="@drawable/shape"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/shape"
-                android:padding="1dip">
+                android:padding="1dip" >
 
 
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/idioms"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/idioms"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="idioms"
-                            android:text="@string/idioms"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="idioms"/>
 
                         <TextView
                             android:id="@+id/record_i"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/word_conversion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/word_conversion"
                             android:background="@null"
                             android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="word_conversion"
-                            android:text="@string/word_conversion"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="word_conversion"/>
 
                         <TextView
                             android:id="@+id/record_wc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
                 </TableRow>
-
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
 
                         <Button
                             android:id="@+id/on_pv"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="on_pv"
+                            android:layout_height="wrap_content"
                             android:text="@string/on_pv"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="on_pv"/>
 
                         <TextView
                             android:id="@+id/record_opv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/out_pv"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="out_pv"
+                            android:layout_height="wrap_content"
                             android:text="@string/out_pv"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
-
+                            android:gravity="center"
+                            android:onClick="out_pv"/>
                         <TextView
                             android:id="@+id/record_outpv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
                 </TableRow>
             </TableLayout>
-
             <TextView
                 android:id="@+id/advanced"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:textColor="#000000"
+                android:textSize="14sp"
                 android:background="@drawable/shape3"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:text="@string/advanced"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="2dp" />
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                android:background="@drawable/shape"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/shape"
-                android:padding="1dip">>
-
+                android:padding="1dip" >>
                 <TableRow
-                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp">
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    >
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="2dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape7">
 
                         <Button
                             android:id="@+id/word_conversion_be"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="word_conversion_be"
+                            android:layout_height="wrap_content"
                             android:text="@string/word_conversion_be"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
+                            android:gravity="center"
+                            android:onClick="word_conversion_be"/>
 
                         <TextView
                             android:id="@+id/record_wcb"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_margin="3dp"
                         android:layout_weight=".50"
-                        android:background="@drawable/shape7"
-                        android:orientation="vertical">
-
+                        android:layout_margin="3dp"
+                        android:background="@drawable/shape7">
                         <Button
                             android:id="@+id/antonyms_and_synonyms"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:background="@null"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="antonyms_and_synonyms"
+                            android:layout_height="wrap_content"
                             android:text="@string/antonyms_and_synonyms"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
                             android:textColor="#000000"
-                            android:textSize="14sp" />
-
+                            android:gravity="center"
+                            android:onClick="antonyms_and_synonyms"/>
                         <TextView
                             android:id="@+id/record_aas"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
                             android:text="@string/record"
-                            android:textSize="11sp" />
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="11sp"
+                            />
                     </LinearLayout>
                 </TableRow>
             </TableLayout>
@@ -692,6 +684,7 @@
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true">
+    </RelativeLayout>
 
 </RelativeLayout>

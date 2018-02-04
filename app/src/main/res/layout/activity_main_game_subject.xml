@@ -1,0 +1,398 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:fillViewport="true">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/shape"
+            android:padding="1dip">
+
+            <TableRow
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/naive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/principiante"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/principiante"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_naive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_naive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/base"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/base"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/base"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_base"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_base"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/intermediate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/intermedio"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/intermedio"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_intermediate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_intermediate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/expert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/esperto"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/esperto"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_expert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_expert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </TableRow>
+
+
+            <TableRow
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/life"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/vita"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/vita_quotidiana"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_life"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_life"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/animals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/animali"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/animali"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_animals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_animals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+
+                    <Button
+                        android:id="@+id/travel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:background="@null"
+                        android:drawableTop="@drawable/viaggi"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/viaggi"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_travel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_travel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight=".50"
+                    android:background="@drawable/shape7"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/food"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/cibo"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="goToGame"
+                        android:text="@string/cibo"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/game_number_food"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/partite"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/record_food"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/record"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+    <!--FIXME: qui la pubblicita nasconda una parte della scrollview -->
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

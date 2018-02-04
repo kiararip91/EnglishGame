@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-import com.chiararipanti.itranslate.db.Vocabolo;
+import com.chiararipanti.itranslate.db.Word;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
+import com.chiararipanti.itranslate.util.GetWordsFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 
 import android.annotation.SuppressLint;
@@ -21,7 +21,6 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,14 +32,15 @@ import android.widget.Toast;
  * @author chiararipanti
  * date 04/05/2013
  */
-public class ImparaActivity extends Activity {
+//FIXME: Va in eccezione, non ci sono parole recuperate
+public class LearnActivity extends Activity {
     /**
      * Declaring variables
      */
     String category;
-    ArrayList<Vocabolo> words;
-    int netx;
-    Vocabolo word;
+    ArrayList<Word> words;
+    int next;
+    Word word;
     MyConnectivityManager connectivityManager;
     AlertDialogManager alertDialog;
     TextView wordTranslationTextView;
@@ -59,7 +59,7 @@ public class ImparaActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_impara);
+        setContentView(R.layout.activity_learn);
 
         /*
           Checked
@@ -74,7 +74,7 @@ public class ImparaActivity extends Activity {
          */
 
         category = getIntent().getStringExtra("categoria");
-        netx = 0;
+        next = 0;
 
         showSolution = false;
 
@@ -100,16 +100,11 @@ public class ImparaActivity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent=new Intent(this,StartActivity.class);
-            startActivity(intent);
+            Intent startActivityIntent = new Intent(this,StartActivity.class);
+            startActivity(startActivityIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -117,33 +112,33 @@ public class ImparaActivity extends Activity {
 
     public void getWords(){
         //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
-        GetVocaboliFromDB getvocTask=new GetVocaboliFromDB(this,category);
+        GetWordsFromDB getvocTask=new GetWordsFromDB(category);
         try {
             getvocTask.execute();
             words = getvocTask.get();
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            alertDialog.showAlertDialog(ImparaActivity.this, "OPS!", getString(R.string.errore), false);
+            alertDialog.showAlertDialog(LearnActivity.this, "OPS!", getString(R.string.errore), false);
         } catch (ExecutionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            alertDialog.showAlertDialog(ImparaActivity.this, "OPS!",  getString(R.string.errore), false);
+            alertDialog.showAlertDialog(LearnActivity.this, "OPS!",  getString(R.string.errore), false);
         }
-        word = words.get(netx);
+        word = words.get(next);
     }
 
     public void setWord(){
         this.listened = false;
-        wordTranslationTextView.setText(word.getLingua_nativa());
-        wordEnglishTextView.setText(word.getInglese());
-        wordTranslationTextView.setText(word.getLingua_nativa());
-        sentenceTextView.setText(word.getFrase());
+        wordTranslationTextView.setText(word.getNativeTranslation());
+        wordEnglishTextView.setText(word.getEnglishWord());
+        wordTranslationTextView.setText(word.getNativeTranslation());
+        sentenceTextView.setText(word.getSentence());
 
         this.mediaPlayer = new MediaPlayer();
         AudioRequest ar = new AudioRequest(this, mediaPlayer);
 
-        String english = word.getInglese().toLowerCase();
+        String english = word.getEnglishWord().toLowerCase();
         english = gameUtils.substituteSpecialCharWordToPronunce(english);
 
         String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + english + "--_gb_1.mp3";
@@ -154,13 +149,13 @@ public class ImparaActivity extends Activity {
                 ar.execute(url);
                 this.listened = true;
 
-                new DownloadImageTask((ImageView) findViewById(R.id.immagine)).execute(word.getImg());
+                new DownloadImageTask((ImageView) findViewById(R.id.immagine)).execute(word.getImage());
             }
             else{
                 Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
-            Log.e("IMPARAACTIVITY", "fail to load madiaPlayer");
+            Log.e("LearnActivity", "fail to load madiaPlayer");
         }
     }
 
@@ -174,31 +169,31 @@ public class ImparaActivity extends Activity {
             else{
                 nextButton.setText(getString(R.string.soluzione));
                 wordTranslationTextView.setVisibility(View.GONE);
-                netx++;
+                next++;
                 
-                if(netx < 10)
-                    word = words.get(netx);
+                if(next < 10)
+                    word = words.get(next);
                 else{
                     if(connectivityManager.check()){
-                        GetVocaboliFromDB getVocaboli=new GetVocaboliFromDB(this, category);
+                        GetWordsFromDB getVocaboli=new GetWordsFromDB(category);
                         getVocaboli.execute();
                         try {
                             words = getVocaboli.get();
-                            netx=0;
-                            word = words.get(netx);
+                            next=0;
+                            word = words.get(next);
                         } catch (InterruptedException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
-                            alertDialog.showAlertDialog(ImparaActivity.this, "OPS!", getString(R.string.errore), false);
+                            alertDialog.showAlertDialog(LearnActivity.this, "OPS!", getString(R.string.errore), false);
                         } catch (ExecutionException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
-                            alertDialog.showAlertDialog(ImparaActivity.this, "OPS!", getString(R.string.errore), false);
+                            alertDialog.showAlertDialog(LearnActivity.this, "OPS!", getString(R.string.errore), false);
                         }
 
                     }
                     else{
-                        alertDialog.showAlertDialog(ImparaActivity.this, getString(R.string.attenzione), getString(R.string.attiva_connessione), true);
+                        alertDialog.showAlertDialog(LearnActivity.this, getString(R.string.attenzione), getString(R.string.attiva_connessione), true);
 
                     }
 

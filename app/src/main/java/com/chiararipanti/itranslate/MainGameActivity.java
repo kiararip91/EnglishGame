@@ -5,50 +5,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import com.chiararipanti.itranslate.db.Vocabolo;
+import com.chiararipanti.itranslate.db.Word;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.util.GetVocaboliFromDB;
+import com.chiararipanti.itranslate.util.GetWordsFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +38,7 @@ import android.widget.Toast;
  * @author chiararipanti
  *         date 04/05/2013
  */
-public class MainActivity extends Activity {
+public class MainGameActivity extends Activity {
 
     private final String CATEGORY_PARAM_NAME = "category";
 
@@ -85,9 +67,9 @@ public class MainActivity extends Activity {
      * Game Properties
      */
     private EnglishGameUtility gameUtils;
-    private List<Vocabolo> words;
+    private List<Word> words;
     private int index;
-    private Vocabolo word;
+    private Word word;
 
     private float record;
     private float points;
@@ -102,7 +84,7 @@ public class MainActivity extends Activity {
     /**
      * Da Capire se si possono ottimizzare tutte queste altre variabili
      */
-
+    private final String TAG = "MainGameActivity";
     private boolean listened;
     private Character previousCharacter;
     private HashMap<Integer, Button> pushedButtonList;
@@ -114,7 +96,6 @@ public class MainActivity extends Activity {
     private ArrayList<String> selectedWord;
     private String category;
     private AlertDialogManager alertDialog;
-    private AlertDialogManager settingDialog;
     private MyConnectivityManager connectivityManager;
     private ArrayList<Button> buttonArrayList;
 
@@ -122,11 +103,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_main_game);
 
         alertDialog = new AlertDialogManager();
-        settingDialog = new AlertDialogManager();
+        AlertDialogManager settingDialog = new AlertDialogManager();
         Intent intent = getIntent();
         category = intent.getStringExtra(CATEGORY_PARAM_NAME);
         connectivityManager = new MyConnectivityManager(getApplicationContext());
@@ -225,8 +205,8 @@ public class MainActivity extends Activity {
     /**
      * Retrieve a list of word form DataSource
      */
-    private List<Vocabolo> getWords() {
-        List<Vocabolo> words = new ArrayList<>();
+    private List<Word> getWords() {
+        List<Word> words = new ArrayList<>();
 
         if (!connectivityManager.check()) {
             Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
@@ -234,21 +214,20 @@ public class MainActivity extends Activity {
             startActivity(intent1);
         } else {
             this.index = 0;
-            GetVocaboliFromDB getvocTask = new GetVocaboliFromDB(this, category);
+            GetWordsFromDB getvocTask = new GetWordsFromDB(category);
             words = new ArrayList<>();
             try {
                 getvocTask.execute();
                 words = getvocTask.get();
             } catch (Exception e) {
-                String TAG = "MainActivity";
                 Log.e(TAG, "Error in retriving vocaboli " + e.getMessage());
-                alertDialog.showAlertDialog(MainActivity.this, "OPS!", getString(R.string.errore), false);
+                alertDialog.showAlertDialog(MainGameActivity.this, "OPS!", getString(R.string.errore), false);
             }
         }
         return words;
     }
 
-    public void setLetters(List<Vocabolo> words, int index) {
+    public void setLetters(List<Word> words, int index) {
         this.word = words.get(index);
         this.listened = false;
         //ripristino le visibilta dei layout
@@ -273,7 +252,7 @@ public class MainActivity extends Activity {
         selectedWord = new ArrayList<>();
 
         //lettere di cui e composta la parola in italiano
-        String[] nativeWords = this.word.getLingua_nativa().split(",");
+        String[] nativeWords = this.word.getNativeTranslation().split(",");
 
         //prendo la prima traduzione, ignoro i sinonimi
         final String nativeWord = nativeWords[0];
@@ -308,7 +287,7 @@ public class MainActivity extends Activity {
                     public void onClick(View v) {
                         int letterNumber = selectedWord.size();
 
-                        //Word is not ended
+                        //Song is not ended
                         if (letterNumber < nativeWord.length() - 1) {
                             Character car_italiano = nativeWord.charAt(selectedWord.size());
                             //The selected letter is not a space
@@ -357,7 +336,7 @@ public class MainActivity extends Activity {
                             img.setBackground(getResources().getDrawable(R.drawable.black));
                             //img.setClickable(false);
 
-                            //Word-Convalidation
+                            //Song-Convalidation
                             String stringToConvalidate = "";
 
                             for (int i = 0; i < selectedWord.size(); i++) {
@@ -396,7 +375,7 @@ public class MainActivity extends Activity {
                                     gameOverLayout.setVisibility(View.VISIBLE);
 
                                     if (isNewRecord(points)) {
-                                        alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title), getString(R.string.nuovo_record) + points, false);
+                                        alertDialog.showAlertDialog(MainGameActivity.this, getString(R.string.nuovo_record_title), getString(R.string.nuovo_record) + points, false);
                                     }
                                 } else {
                                     errorsTextView.setText(getString(R.string.errori) + errors);
@@ -625,7 +604,7 @@ public class MainActivity extends Activity {
                                 gameOverLayout.setVisibility(View.VISIBLE);
 
                                 if (isNewRecord(points)) {
-                                    alertDialog.showAlertDialog(MainActivity.this, getString(R.string.nuovo_record_title), getString(R.string.nuovo_record) + points, false);
+                                    alertDialog.showAlertDialog(MainGameActivity.this, getString(R.string.nuovo_record_title), getString(R.string.nuovo_record) + points, false);
                                 }
                             } else {
                                 errorsTextView.setText(getString(R.string.errori) + errors);
@@ -674,7 +653,7 @@ public class MainActivity extends Activity {
             num++;
         }
 
-        englishWordTextView.setText(word.getInglese());
+        englishWordTextView.setText(word.getEnglishWord());
     }
 
     public void next(View view) {
@@ -690,7 +669,7 @@ public class MainActivity extends Activity {
 
         solutionButton.setClickable(false);
         AlertDialog.Builder alertD = new AlertDialog.Builder(
-                MainActivity.this);
+                MainGameActivity.this);
         alertD.setTitle(getString(R.string.soluzione));
         alertD.setMessage(getString(R.string.soluzione_msg));
         alertD.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -699,10 +678,10 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                String[] prima = word.getLingua_nativa().split(",");
+                String[] translations = word.getNativeTranslation().split(",");
 
                 //Take the first translation, ignoring sysnonimous
-                final String nativeWord = prima[0];
+                final String nativeWord = translations[0];
                 String[] letters = nativeWord.toLowerCase().split("(?!^)");
 
                 for (int i = 0; i < letters.length; i++) {
@@ -746,10 +725,10 @@ public class MainActivity extends Activity {
 
     public void showHelp(View view) {
 
-        final Vocabolo word = this.word;
+        final Word word = this.word;
 
         if (helpsNumber < 3) {
-            AlertDialog.Builder alertD = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder alertD = new AlertDialog.Builder(MainGameActivity.this);
             alertD.setTitle(getString(R.string.aiuto));
             alertD.setMessage(getString(R.string.aiuto_msg));
             alertD.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -760,8 +739,8 @@ public class MainActivity extends Activity {
                     dialog.dismiss();
 
                     //Estraggo la traduzione, ignoro i sinonimi
-                    String[] prima = word.getLingua_nativa().split(",");
-                    final String nativeWord = prima[0];
+                    String[] translations = word.getNativeTranslation().split(",");
+                    final String nativeWord = translations[0];
 
                     //estraggo le singole lettere
                     String[] letters = nativeWord.toLowerCase().split("(?!^)");
@@ -775,7 +754,7 @@ public class MainActivity extends Activity {
                     if (stringToShow.matches(".*\\s+.*")) {
 
                         AlertDialogManager alertD = new AlertDialogManager();
-                        alertD.showAlertDialog(MainActivity.this, "Help", getString(R.string.prime_lettere) + stringToShow, false);
+                        alertD.showAlertDialog(MainGameActivity.this, "Help", getString(R.string.prime_lettere) + stringToShow, false);
                     } else {
                         //reset delle lettere inserite dall utente
                         selectedWord = new ArrayList<>();
@@ -851,7 +830,7 @@ public class MainActivity extends Activity {
             helpsNumber++;
 
         } else {
-            alertDialog.showAlertDialog(MainActivity.this, getString(R.string.aiuti_terminati_title), getString(R.string.aiuti_terminati), false);
+            alertDialog.showAlertDialog(MainGameActivity.this, getString(R.string.aiuti_terminati_title), getString(R.string.aiuti_terminati), false);
         }
     }
 
@@ -886,12 +865,12 @@ public class MainActivity extends Activity {
     }
 
     public void showSentence(View view) {
-        sentenceTextView.setText(this.word.getFrase());
+        sentenceTextView.setText(this.word.getSentence());
     }
 
     public void listenToWord(View view) {
 
-        String englishWord = this.word.getInglese().toLowerCase();
+        String englishWord = this.word.getEnglishWord().toLowerCase();
         englishWord = gameUtils.substituteSpecialCharWordToPronunce(englishWord);
 
         String url = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + englishWord + "--_gb_1.mp3";
@@ -900,7 +879,6 @@ public class MainActivity extends Activity {
         try {
             mediaPlayer.setDataSource(url);
         } catch (IOException e) {
-            String TAG = "MainActivity";
             Log.e(TAG, "Unable to load audio");
         }
         if (!this.listened) {
@@ -916,7 +894,6 @@ public class MainActivity extends Activity {
                 mediaPlayer.prepare();
                 mediaPlayer.start();
             } catch (IOException e) {
-                String TAG = "MainActivity";
                 Log.e(TAG, "Unable to load audio");
             }
         }

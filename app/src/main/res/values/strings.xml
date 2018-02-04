@@ -61,8 +61,8 @@
     <string name="errore">Ops! Si e\' verificato un errore, prova piu\' tardi! </string>
     <string name="errori">Errori: </string>
     <string name="punteggio">Punti: </string>
-    <string name="record">Record</string>
-    <string name="partite">Partite</string>
+    <string name="record">Record: %1$.2f</string>
+    <string name="partite">Partite: %1$d</string>
     <string name="tuo_record1">Record: </string>
     <string name="gameover">GAME OVER</string>
     <string name="next">NEXT</string>
@@ -99,7 +99,7 @@
     <string name="impara">Impara parole</string>
     <string name="title_activity_livelli">Livelli</string>
     <string name="title_activity_argomenti">Argomenti</string>
-    <string name="title_activity_traduzione">TraduzioneActivity</string>
+    <string name="title_activity_traduzione">TranslationActivity</string>
     <string name="aiuto_usato">Hai già usato questo aiuto in questa partita!</string>
     <string name="prime_lettere">Le prime lettere della parola sono: </string>
     <string name="aiuti_terminati">Hai esaurito gli aiuti per questa partita</string>
@@ -107,7 +107,7 @@
     <string name="testo_non_disp">Il testo di questa canzone non e\' disponibile</string>
     <string name="testo_non_disp_title">Testo non disponibile</string>
     <string name="attendi">Attendi</string>
-    <string name="caricamento">Caricamento in corso...</string>
+    <string name="caricamento">Caricamento in corso…</string>
     <string name="esatta">ESATTA!!!</string>
     <string name="sbagliata">Wrong, try again!!</string>
     <string name="text_to_speech">Listening/Speaking</string>
@@ -116,13 +116,13 @@
     <string name="tap_on_mic">Tap on mic to speak</string>
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_quiz_livelli">QuizLivelliActivity</string>
+    <string name="title_activity_quiz_livelli">TestSubjectsActivity</string>
     <string name="title_activity_quiz_traduzione">QuizTraduzioneActivity</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_impara">ImparaActivity</string>
-    <string name="title_activity_imparaargomenti">ImparaargomentiActivity</string>
-    <string name="title_activity_testo">TestoActivity</string>
-    <string name="title_activity_musica">MusicaActivity</string>
+    <string name="title_activity_main">MainGameActivity</string>
+    <string name="title_activity_impara">LearnActivity</string>
+    <string name="title_activity_imparaargomenti">LearnSubjectsActivity</string>
+    <string name="title_activity_testo">SongTextActivity</string>
+    <string name="title_activity_musica">MusicActivity</string>
     <string name="title_activity_speech">SpeechActivity</string>
     <string name="sound">Sound</string>
     <string name="ok">OK</string>
@@ -131,5 +131,9 @@
     <string name="sound_off">Sound OFF</string>
     <string name="vibration_on">Vibration ON</string>
     <string name="vibration_off">Vibration OFF</string>
+    <string name="solution">solution</string>
+    <string name="help">help</string>
+    <string name="show_sentence">Show Sentence</string>
+    <string name="listen">Listen</string>
 
 </resources>

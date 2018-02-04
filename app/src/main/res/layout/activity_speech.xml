@@ -25,7 +25,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape3"
@@ -43,7 +42,7 @@
                     <TableRow>
 
                         <TextView
-                            android:id="@+id/level1"
+                            android:id="@+id/level"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight=".80"
@@ -102,7 +101,7 @@
                             android:src="@drawable/ico_sound" />
 
                         <ImageButton
-                            android:id="@+id/btnSpeak1"
+                            android:id="@+id/speak_button"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="0dp"

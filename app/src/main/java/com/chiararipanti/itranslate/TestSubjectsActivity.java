@@ -5,38 +5,41 @@ import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+//TODO: 1) Descrizione Attività, 2) A che corrispondono questi numeri
+//FIXME: Crasha su un sacco di categorie, capire quali
 
 /**
  * @author chiararipanti
  * date 04/05/2013
  */
-public class QuizLivelliActivity extends Activity {
+public class TestSubjectsActivity extends Activity {
 
     /**
      * Declaring variables
      */
-    MyConnectivityManager connectivityManager;
-    EnglishGameUtility gameUtils;
+    private MyConnectivityManager connectivityManager;
+    private Intent quizIntent;
+
+    private String INTENT_PARAM = "quiz";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_livelli);
+        setContentView(R.layout.activity_test_subjects);
 
         connectivityManager=new MyConnectivityManager(getApplicationContext());
 
-        gameUtils = new EnglishGameUtility(this);
+        EnglishGameUtility gameUtils = new EnglishGameUtility(this);
         gameUtils.setHomeButtonEnabled();
         gameUtils.addAdBunner();
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        quizIntent = new Intent(getApplicationContext(), TestActivity.class);
+
     }
 
     @Override
@@ -52,30 +55,24 @@ public class QuizLivelliActivity extends Activity {
 
     public void verbs(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 10);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 10);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void adjectives(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 11);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 11);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void question_words(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 12);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 12);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
@@ -83,10 +80,8 @@ public class QuizLivelliActivity extends Activity {
 
     public void past_simple(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 13);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 13);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
@@ -94,10 +89,8 @@ public class QuizLivelliActivity extends Activity {
 
     public void regular_irregular_verbs(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 20);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 20);
+            startActivity(quizIntent);
         }
         else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
@@ -105,40 +98,32 @@ public class QuizLivelliActivity extends Activity {
 
     public void negative_forms(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 21);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 21);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void some_any_much_many(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 22);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 22);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void articles(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 25);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 25);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void prepositions(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 36);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 36);
+            startActivity(quizIntent);
         }
         else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
@@ -146,10 +131,8 @@ public class QuizLivelliActivity extends Activity {
 
     public void common_verbs(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 30);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 30);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
@@ -157,10 +140,8 @@ public class QuizLivelliActivity extends Activity {
 
     public void modal_verbs(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 37);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 37);
+            startActivity(quizIntent);
         }
         else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
@@ -168,40 +149,40 @@ public class QuizLivelliActivity extends Activity {
 
     public void idioms(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 40);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 40);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void word_conversion(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 42);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 42);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void on_pv(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 32);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 32);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
 
     public void out_pv(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 33);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 33);
+            startActivity(quizIntent);
+        }else
+            Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
+    }
+
+    public void relative_pronouns(View view){ //FIXME: Capire a che numero corrisponde
+        if(connectivityManager.check()){
+            quizIntent.putExtra(INTENT_PARAM, 33);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
@@ -209,10 +190,8 @@ public class QuizLivelliActivity extends Activity {
 
     public void word_conversion_be(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizTraduzioneActivity.class);
-            p.putExtra("quiz", 50);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 50);
+            startActivity(quizIntent);
         }
         else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
@@ -220,11 +199,10 @@ public class QuizLivelliActivity extends Activity {
 
     public void antonyms_and_synonyms(View view){
         if(connectivityManager.check()){
-            Intent p;
-            p=new Intent(QuizLivelliActivity.this, QuizActivity.class);
-            p.putExtra("quiz", 51);
-            startActivity(p);
+            quizIntent.putExtra(INTENT_PARAM, 51);
+            startActivity(quizIntent);
         }else
             Toast.makeText(getApplicationContext(),getString(R.string.attiva_connessione) , Toast.LENGTH_SHORT).show();
     }
+
 }

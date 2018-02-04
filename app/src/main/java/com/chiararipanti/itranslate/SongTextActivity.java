@@ -1,75 +1,78 @@
 package com.chiararipanti.itranslate;
 
 import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
  * @author chiararipanti
- * date 04/05/2013
+ *         date 04/05/2013
  */
-public class TestoActivity extends Activity {
+//TODO: Controlla utilita variabili, nomi metodi asynctTask static, stringa parmaterizzata
+public class SongTextActivity extends Activity {
 
     /**
      * Declaring Variables
      */
     String url;
-    TextView it_tv;
-    TextView eng_tv;
-    Elements ing;
-    Elements it;
-    String testo_italiano;
-    String testo_inglese;
-    String autore;
-    String titolo;
-    ProgressDialog caricamento;
+    TextView italianTextTexView;
+    TextView englishTextTextView;
+    String italianTranslation; //FIXME: to remove
+    String originalText; //FIXME: to remove
+    ProgressDialog progressDialog;
     AlertDialog.Builder alertDialog;
     EnglishGameUtility gameUtils;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_testo);
-        it_tv = findViewById(R.id.it_tv);
-        eng_tv = findViewById(R.id.eng_tv);
-        testo_italiano="";
-        testo_inglese="";
-        Intent intent=getIntent();
-        autore=intent.getStringExtra("autore");
-        titolo=intent.getStringExtra("titolo");
-        url= "http://www.testitradotti.it/canzoni/"+autore+"/"+titolo;
-        Log.v("url", url);
-        caricamento = new ProgressDialog(TestoActivity.this);
-        caricamento.setTitle(R.string.attendi);
-        caricamento.setMessage(getString(R.string.caricamento));
-        caricamento.show();
+        setContentView(R.layout.activity_song_text);
 
+        /*
+         * Set up layout
+         */
+        italianTextTexView = findViewById(R.id.italian_text);
+        englishTextTextView = findViewById(R.id.english_text);
+
+        /*
+         * Set up activity
+         */
         gameUtils = new EnglishGameUtility(this);
         gameUtils.setHomeButtonEnabled();
         gameUtils.addAdBunner();
 
+        /*
+         * Initialize variables
+         */
+        italianTranslation = "";
+        originalText = "";
+        Intent intent = getIntent();
+        String songAuthor = intent.getStringExtra("autore");
+        String title = intent.getStringExtra("titolo");
+        url = "http://www.testitradotti.it/canzoni/" + songAuthor + "/" + title;
+        progressDialog = new ProgressDialog(SongTextActivity.this);
+        progressDialog.setTitle(R.string.attendi);
+        progressDialog.setMessage(getString(R.string.caricamento));
+        progressDialog.show();
+
         alertDialog = new AlertDialog.Builder(
-                TestoActivity.this);
+                SongTextActivity.this);
         alertDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
 
@@ -84,7 +87,7 @@ public class TestoActivity extends Activity {
         //Messaggio mostrato
         alertDialog.setMessage(getString(R.string.testo_non_disp));
 
-        new GetTesto().execute();
+        new GetSongText().execute();
 
     }
 
@@ -103,45 +106,48 @@ public class TestoActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected class GetTesto extends AsyncTask<Void, Void, Void> {
+    protected class GetSongText extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
 
             try {
+                Elements englishElement;
+                Elements italianElement;
                 // Connect to the web site
                 Document document = Jsoup.connect(url).get();
                 // Using Elements to get the class data
-                ing = document.select("div[class=lyric]");
-                Elements p=ing.select("p");
+                englishElement = document.select("div[class=lyric]");
+                Elements paragraph = englishElement.select("p");
 
-                for(Element elem : p){
-                    testo_italiano = testo_italiano + elem.text().toString() + "\n";
+                for (Element elem : paragraph) {
+                    italianTranslation = new StringBuilder(italianTranslation).append(elem.text()).append("\n").toString();
                 }
 
-                it = document.select("div[class=translation]");
-                Elements p2 = it.select("p");
+                italianElement = document.select("div[class=translation]");
+                Elements paragraph2 = italianElement.select("p");
 
-                for(Element elem : p2){
-                    testo_inglese = testo_inglese + elem.text().toString() + "\n";
+                for (Element elem : paragraph2) {
+                    originalText = new StringBuilder().append(originalText).append(elem.text()).append("\n").toString();
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                caricamento.dismiss();
+                progressDialog.dismiss();
             }
             return null;
+            //TODO: ritrona la traduzione dall asyncttask, cosi non devo dichiarare la variabile fuori
         }
 
         @Override
         protected void onPostExecute(Void result) {
             // Set downloaded image into ImageView
-            if(testo_italiano.equals(""))
+            if (italianTranslation.equals(""))
                 alertDialog.show();
-            else{
-                it_tv.setText(testo_italiano);
-                eng_tv.setText(testo_inglese);
-                caricamento.dismiss();
+            else {
+                italianTextTexView.setText(italianTranslation);
+                englishTextTextView.setText(originalText);
+                progressDialog.dismiss();
             }
         }
     }

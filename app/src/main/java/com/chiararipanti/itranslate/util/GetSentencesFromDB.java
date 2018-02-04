@@ -19,7 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.chiararipanti.itranslate.MainActivity;
+import com.chiararipanti.itranslate.MainGameActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;

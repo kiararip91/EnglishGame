@@ -23,8 +23,8 @@
     <string name="errore">Ops! Es war ein Fehler, versuchen Sie es später noch einmal! </string>
     <string name="errori">Fehler: </string>
     <string name="punteggio">Punkte: </string>
-    <string name="record">Record</string>
-    <string name="partite">Spiele</string>
+    <!--<string name="record">Record: %1$.2f</string>-->
+    <string name="partite">Spiele: %1$d</string>
     <string name="tuo_record1">Record: </string>
     <string name="gameover">GAME OVER</string>
     <string name="next">NEXT</string>

@@ -16,57 +16,49 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.chiararipanti.itranslate.db.Quiz;
-
-import android.content.Context;
+import com.chiararipanti.itranslate.db.TestSession;
 import android.os.AsyncTask;
 import android.util.Log;
 
+//TODO: Integra con FireBase
+public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<TestSession>> {
+    private ArrayList<TestSession> quizs;
+    private int type;
 
-public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<Quiz>> {
-    ArrayList<Quiz> quizs;
-    final String TAG = "GetQuizFromDB";
-    int type;
 
-
-    public GetQuizFromDB(Context context, int type) {
+    public GetQuizFromDB(int type) {
         this.type = type;
-        quizs = new ArrayList<Quiz>();
-
+        quizs = new ArrayList<>();
     }
 
-    protected ArrayList<Quiz> doInBackground(String... params) {
-        //String stringa_ingrediente="";
+    protected ArrayList<TestSession> doInBackground(String... params) {
         InputStream is = null;
         String result = "";
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
         nameValuePairs.add(new BasicNameValuePair("type", type + ""));
-        Log.v(TAG, "type:" + type);
-        Log.v(TAG, "prima del try");
+        String TAG = "GetQuizFromDB";
+
         try {
             HttpClient client = new DefaultHttpClient();
             HttpPost request = new HttpPost("http://sfidaricette.altervista.org/getQuiz.php");
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(nameValuePairs);
             request.setEntity(formEntity);
-            Log.v(TAG, "prima di execute");
             //execute httpPost
             HttpResponse response = client.execute(request);
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
         } catch (Exception e) {
-            Log.e(TAG, "sono nel catch1");
+            Log.e(TAG, e.getMessage());
         }
 
-			   
-		        /*converto la risposta in stringa*/
+		/*converto la risposta in stringa*/
         if (is != null) {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
 
                 is.close();
@@ -74,41 +66,28 @@ public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<Quiz>> {
 
                 ////Log.v("risposta",result);
             } catch (Exception e) {
-                Log.e(TAG, "sono nel catch2");
+                Log.e(TAG, e.getMessage());
             }
 
-
             //parsing dei dati in formato json
-            //Log.v(TAG,"prima di try");
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    String text = json_data.getString("text");
-                    Log.v(TAG, text);
-                    String[] alter = json_data.getString("alternative").split(",");
-                    Log.v(TAG, "c");
-                    String traduzione = alter[0];
-                    Log.v(TAG, "c");
-                    ArrayList<String> alternative = new ArrayList();
-                    Log.v(TAG, "c");
-                    alternative.add(alter[1]);
-                    alternative.add(alter[2]);
-                    alternative.add(alter[3]);
-                    Log.v(TAG, "text" + text);
-                    Quiz quiz = new Quiz(text, traduzione, alternative);
-                    Log.v(TAG, "c");
-                    quizs.add(quiz);
-                    Log.v(TAG, "c");
+                    String question = json_data.getString("text");
+                    String[] alternativesArray = json_data.getString("alternative").split(",");
+                    String answer = alternativesArray[0];
+                    ArrayList<String> wrongAlternatives = new ArrayList<>();
+                    wrongAlternatives.add(alternativesArray[1]);
+                    wrongAlternatives.add(alternativesArray[2]);
+                    wrongAlternatives.add(alternativesArray[3]);
+                    TestSession test = new TestSession(question, answer, wrongAlternatives);
+                    quizs.add(test);
                 }
-                Log.v(TAG, "fine for");
             } catch (JSONException e) {
-                Log.v(TAG, "catch");
+                Log.e(TAG, e.getMessage());
             }
 
-
-        } else {
-            //Log.e(TAG,"non ho trovato niente");
         }
         return quizs;
 
@@ -116,8 +95,6 @@ public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<Quiz>> {
 
 
     @Override
-    protected void onPostExecute(ArrayList<Quiz> result) {
-
-        //Log.v(TAG,"post");
+    protected void onPostExecute(ArrayList<TestSession> result) {
     } //fine onPost
 } //fine AsyncTask

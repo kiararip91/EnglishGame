@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
@@ -15,12 +14,7 @@
         android:background="@drawable/shape"
         android:fillViewport="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <LinearLayout
-                android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -34,27 +28,30 @@
                     android:background="@drawable/shape3"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center"
-                    android:text="QUIZ"
+                    android:text="@string/musica"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/text"
+                    android:id="@+id/song_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:text="@string/titolo_canzone"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/testo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/prop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
                     android:background="@android:color/transparent"
+                    android:onClick="showSongText"
+                    android:text="@string/testo_canzone"
                     android:textColor="#f55a3c"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -66,9 +63,10 @@
 
 
                         <Button
-                            android:id="@+id/b1"
+                            android:id="@+id/first_option"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="1dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="6dp"
                             android:layout_weight=".50"
@@ -77,9 +75,10 @@
                             android:onClick="next" />
 
                         <Button
-                            android:id="@+id/b2"
+                            android:id="@+id/second_option"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="1dp"
                             android:layout_marginLeft="6dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight=".50"
@@ -92,9 +91,10 @@
 
 
                         <Button
-                            android:id="@+id/b3"
+                            android:id="@+id/third_option"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="1dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="6dp"
                             android:layout_weight=".50"
@@ -103,10 +103,11 @@
                             android:onClick="next" />
 
                         <Button
-                            android:id="@+id/b4"
+                            android:id="@+id/forth_option"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
+                            android:layout_marginStart="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight=".50"
                             android:background="@drawable/shape_button"
@@ -114,16 +115,13 @@
                             android:onClick="next" />
                     </TableRow>
                 </TableLayout>
-
             </LinearLayout>
-        </RelativeLayout>
-
     </ScrollView>
 
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

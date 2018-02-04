@@ -19,26 +19,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.chiararipanti.itranslate.db.QuizTraduzione;
+import com.chiararipanti.itranslate.db.Translation;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 
-public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<QuizTraduzione>> {
-    ArrayList<QuizTraduzione> quizs;
+public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<Translation>> {
+    ArrayList<Translation> quizs;
     final String TAG = "GetQuizTraduzioneFromDB";
     int type;
 
 
     public GetQuizTraduzioneFromDB(Context context, int type) {
         this.type = type;
-        quizs = new ArrayList<QuizTraduzione>();
+        quizs = new ArrayList<Translation>();
 
     }
 
-    protected ArrayList<QuizTraduzione> doInBackground(String... params) {
+    protected ArrayList<Translation> doInBackground(String... params) {
         //String stringa_ingrediente="";
         InputStream is = null;
         String result = "";
@@ -91,7 +91,7 @@ public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<Q
                     String traduzione = json_data.getString("soluzione");
                     Log.v(TAG, "c");
                     Log.v(TAG, "text" + text);
-                    QuizTraduzione quizTraduzione = new QuizTraduzione(text, traduzione);
+                    Translation quizTraduzione = new Translation(text, traduzione);
                     Log.v(TAG, "c");
                     quizs.add(quizTraduzione);
                     Log.v(TAG, "c");
@@ -111,7 +111,7 @@ public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<Q
 
 
     @Override
-    protected void onPostExecute(ArrayList<QuizTraduzione> result) {
+    protected void onPostExecute(ArrayList<Translation> result) {
 
         //Log.v(TAG,"post");
     } //fine onPost

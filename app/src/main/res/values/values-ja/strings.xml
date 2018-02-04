@@ -24,8 +24,8 @@
     <string name="errore">エラーがありました。しばらくしてからもう一度お試しください！ </string>
     <string name="errori">エラー: </string>
     <string name="punteggio">点数: </string>
-    <string name="record">録音</string>
-    <string name="partite">マッチ</string>
+    <!--<string name="record">録音</string>-->
+    <string name="partite">マッチ: %1$d</string>
     <string name="tuo_record1">録音: </string>
     <string name="gameover">GAME OVER</string>
     <string name="next">NEXT</string>

@@ -61,8 +61,8 @@
     <string name="errore">Ops! Si e\' verificato un errore, prova piu\' tardi! </string>
     <string name="errori">Errori: </string>
     <string name="punteggio">Punti: </string>
-    <string name="record">Record</string>
-    <string name="partite">Partite</string>
+   <!-- <string name="record">Record: %1$.2f</string>-->
+    <string name="partite">Partite: %1$d</string>
     <string name="tuo_record1">Record: </string>
     <string name="gameover">GAME OVER</string>
     <string name="next">NEXT</string>
@@ -100,7 +100,7 @@
     <string name="impara">Impara parole</string>
     <string name="title_activity_livelli">Livelli</string>
     <string name="title_activity_argomenti">Argomenti</string>
-    <string name="title_activity_traduzione">TraduzioneActivity</string>
+    <string name="title_activity_traduzione">TranslationActivity</string>
     <string name="aiuto_usato">Hai già usato questo aiuto in questa partita!</string>
     <string name="prime_lettere">Le prime lettere della parola sono: </string>
     <string name="aiuti_terminati">Hai esaurito gli aiuti per questa partita</string>
@@ -117,7 +117,7 @@
     <string name="tap_on_mic">Tap on mic to speak</string>
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_quiz_livelli">QuizLivelliActivity</string>
+    <string name="title_activity_quiz_livelli">TestSubjectsActivity</string>
     <string name="title_activity_quiz_traduzione">QuizTraduzioneActivity</string>
 
 </resources>

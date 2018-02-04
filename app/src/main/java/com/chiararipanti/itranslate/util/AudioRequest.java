@@ -1,7 +1,6 @@
 package com.chiararipanti.itranslate.util;
 
 import android.app.Activity;
-import android.app.Application;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -22,7 +21,6 @@ import java.io.IOException;
  */
 
 public class AudioRequest extends AsyncTask<String, Void, String> {
-    private int statusCode;
     private Activity activity;
     private MediaPlayer mediaPlayer;
 
@@ -39,7 +37,7 @@ public class AudioRequest extends AsyncTask<String, Void, String> {
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpResponse response = httpclient.execute(new HttpGet(urls[0]));
-            statusCode = response.getStatusLine().getStatusCode();
+            int statusCode = response.getStatusLine().getStatusCode();
 
             Log.d("test", statusCode + "");
             if (statusCode == 200)

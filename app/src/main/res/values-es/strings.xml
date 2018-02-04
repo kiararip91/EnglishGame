@@ -24,8 +24,8 @@
     <string name="errore">Ooops ! Fue un error, inténtalo de nuevo más tarde! </string>
     <string name="errori">Errores: </string>
     <string name="punteggio">Puntos: </string>
-    <string name="record">Record</string>
-    <string name="partite">Partidos</string>
+    <!--<string name="record">Record %1$d</string>-->
+    <string name="partite">Partidos: %1$d</string>
     <string name="tuo_record1">Record: </string>
     <string name="gameover">GAME OVER</string>
     <string name="next">NEXT</string>

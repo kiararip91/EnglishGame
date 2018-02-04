@@ -1,78 +1,63 @@
 package com.chiararipanti.itranslate;
 
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
-
-import com.chiararipanti.itranslate.db.Quiz;
+import com.chiararipanti.itranslate.db.TestSession;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetQuizFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
-import com.chiararipanti.itranslate.util.SessionManager;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
+//TODO: controlla variabili inutili, integra con fireBase
 /**
  * @author chiararipanti
  * date 04/05/2013
  */
-public class QuizActivity extends Activity {
+public class TestActivity extends Activity {
 
     /**
      * Declaring variables
      */
     MyConnectivityManager connectivityManager;
-    SessionManager session;
     int tipoQuiz;
     int quizTot;
     int quizNow;
-    Quiz quiz;
-    ArrayList<Quiz> quizs;
-    int prossimo;
+    TestSession test;
+    ArrayList<TestSession> testSessions;
+    int next;
     int score;
-    TextView prop;
-    TextView text;
-    Button b1;
-    Button b2;
-    Button b3;
-    Button b4;
+    TextView remainingProportionTextView;
+    TextView quizQuestionTextView;
+    Button firstOptionButton;
+    Button secondOptionButton;
+    Button thirdOptionButton;
+    Button forthOptionButton;
     AlertDialog.Builder alertBuilder;
     EnglishGameUtility gameUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
+        setContentView(R.layout.activity_test);
         gameUtils = new EnglishGameUtility(this);
-        session = new SessionManager(getApplicationContext());
-        text = findViewById(R.id.text);
-        b1 = findViewById(R.id.b1);
-        b2 = findViewById(R.id.b2);
-        b3 = findViewById(R.id.b3);
-        b4 = findViewById(R.id.b4);
-        prop = findViewById(R.id.prop);
-        alertBuilder = new AlertDialog.Builder(QuizActivity.this);
+        quizQuestionTextView = findViewById(R.id.quiz_question);
+        firstOptionButton = findViewById(R.id.first_option);
+        secondOptionButton = findViewById(R.id.second_option);
+        thirdOptionButton = findViewById(R.id.third_option);
+        forthOptionButton = findViewById(R.id.forth_option);
+        remainingProportionTextView = findViewById(R.id.remaining_proportion);
+        alertBuilder = new AlertDialog.Builder(TestActivity.this);
         score = 0;
         connectivityManager=new MyConnectivityManager(getApplicationContext());
 
@@ -82,6 +67,7 @@ public class QuizActivity extends Activity {
         quizNow = 1;
 
         populateQuiz(tipoQuiz);
+        setUpQuiz();
 
         gameUtils = new EnglishGameUtility(this);
         gameUtils.setHomeButtonEnabled();
@@ -103,43 +89,42 @@ public class QuizActivity extends Activity {
     }
 
     private void populateQuiz(int type){
-        GetQuizFromDB getquizsTask=new GetQuizFromDB(this, type);
+        GetQuizFromDB getquizsTask = new GetQuizFromDB(type);
         try {
             getquizsTask.execute();
-            quizs=getquizsTask.get();
+            testSessions = getquizsTask.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        quiz=quizs.get(prossimo);
-        quizTot=quizs.size();
-        prop.setText(quizNow + "\\" + quizTot);
-        impostaQuiz();
+        test = testSessions.get(next);
+        quizTot = testSessions.size();
+        remainingProportionTextView.setText(new StringBuilder().append(quizNow).append("\\").append(quizTot));
     }
 
-    public void impostaQuiz(){
-        prop.setText(quizNow + "\\" + quizTot);
-        text.setText(quiz.getText());
-        ArrayList<String> alt=quiz.get_alternative();
-        alt.add(quiz.getCorrectAnswer());
-        Collections.shuffle(alt);
-        b1.setText(alt.get(0));
-        b2.setText(alt.get(1));
-        b3.setText(alt.get(2));
-        b4.setText(alt.get(3));
+    public void setUpQuiz(){
+        remainingProportionTextView.setText(new StringBuilder().append(quizNow).append("\\").append(quizTot));
+        quizQuestionTextView.setText(test.getQuestion());
+        ArrayList<String> alternatives = test.getAlternatives();
+        alternatives.add(test.getCorrectAnswer());
+        Collections.shuffle(alternatives);
+        firstOptionButton.setText(alternatives.get(0));
+        secondOptionButton.setText(alternatives.get(1));
+        thirdOptionButton.setText(alternatives.get(2));
+        forthOptionButton.setText(alternatives.get(3));
     }
 
     public void next(View view){
         quizNow++;
-        final Button b = (Button)view;
-        String buttonText = b.getText().toString();
-        if(buttonText.equals(quiz.getCorrectAnswer())){
-            b.setBackgroundColor(Color.GREEN);
+        final Button selectedButton = (Button)view;
+        String buttonText = selectedButton.getText().toString();
+        if(buttonText.equals(test.getCorrectAnswer())){
+            selectedButton.setBackgroundColor(Color.GREEN);
             score++;
             gameUtils.soundCorrect();
         }else{
-            b.setBackgroundColor(Color.RED);
+            selectedButton.setBackgroundColor(Color.RED);
             gameUtils.soundWrong();
         }
 
@@ -147,19 +132,19 @@ public class QuizActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                b.setBackgroundResource(R.drawable.shape_button);
-                prossimo++;
-                if(prossimo+1<=quizTot){
-                    quiz=quizs.get(prossimo);
-                    impostaQuiz();
+                selectedButton.setBackgroundResource(R.drawable.shape_button);
+                next++;
+                if(next+1<=quizTot){
+                    test = testSessions.get(next);
+                    setUpQuiz();
                 } else{
                     alertBuilder.setTitle("The END");
                     alertBuilder
                             .setMessage("Final SCORE: "+score)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent i=new Intent(QuizActivity.this, QuizLivelliActivity.class);
-                                    startActivity(i);
+                                    Intent quizLevelIntent = new Intent(TestActivity.this, TestSubjectsActivity.class);
+                                    startActivity(quizLevelIntent);
                                 }
                             });
                     alertBuilder.show();

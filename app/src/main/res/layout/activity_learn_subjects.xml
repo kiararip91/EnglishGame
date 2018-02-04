@@ -1,0 +1,210 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.chiararipanti.itranslate.LearnSubjectsActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape"
+                    android:padding="1dip">
+
+                    <TableRow
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="7dp">
+
+                        <Button
+                            android:id="@+id/principiante"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight=".30"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/principiante"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="principiante"
+                            android:text="@string/principiante"
+                            android:textSize="15sp" />
+
+
+                        <Button
+                            android:id="@+id/base"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight=".30"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/base"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="base"
+                            android:text="@string/base"
+                            android:textSize="15sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginBottom="7dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp">
+
+                        <Button
+                            android:id="@+id/intermedio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight=".30"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/intermedio"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="intermedio"
+                            android:text="@string/intermedio"
+                            android:textSize="15sp" />
+
+
+                        <Button
+                            android:id="@+id/esperto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight=".30"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/esperto"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:onClick="esperto"
+                            android:text="@string/esperto"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape"
+                    android:padding="1dip">
+
+                    <TableRow
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="7dp">
+
+                        <Button
+                            android:id="@+id/animali"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:contentDescription="@string/animali"
+                            android:drawableTop="@drawable/animali"
+                            android:fontFamily="sans-serif-condensed"
+                            android:onClick="animali"
+                            android:text="@string/animali"
+                            android:textSize="13sp" />
+
+                        <Button
+                            android:id="@+id/viaggi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:contentDescription="@string/viaggi"
+                            android:drawableTop="@drawable/viaggi"
+                            android:fontFamily="sans-serif-condensed"
+                            android:onClick="viaggi"
+                            android:text="@string/viaggi"
+                            android:textSize="13sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginBottom="7dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp">
+
+                        <Button
+                            android:id="@+id/vita"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:drawableTop="@drawable/vita"
+                            android:fontFamily="sans-serif-condensed"
+                            android:onClick="vita"
+                            android:text="@string/vita_quotidiana"
+                            android:textSize="13sp" />
+
+                        <Button
+                            android:id="@+id/cibo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight=".50"
+                            android:background="@drawable/shape7"
+                            android:contentDescription="@string/cibo"
+                            android:drawableTop="@drawable/cibo"
+                            android:fontFamily="sans-serif-condensed"
+                            android:onClick="cibo"
+                            android:text="@string/cibo"
+                            android:textSize="13sp" />
+                    </TableRow>
+
+
+                </TableLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"></RelativeLayout>
+
+</RelativeLayout>

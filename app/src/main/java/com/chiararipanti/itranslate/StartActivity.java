@@ -27,8 +27,8 @@ import android.widget.Toast;
  * Entry point of the App
  *
  *
- * TODO:
- *  - Rivedi Codice
+ * TODO: cambia nomi variabili e metodi e risorse
+ *  - Rivedi Codice (Rinomina variabili/metodi)
  */
 
 /**
@@ -111,7 +111,7 @@ public class StartActivity extends Activity {
 
     public void quizm(View view){
         if(connectivityManager.check()){
-            Intent intent=new Intent(this,MusicaActivity.class);
+            Intent intent=new Intent(this,MusicActivity.class);
             startActivity(intent);
         }else {
             //FIXME: Metti messaggio nel file delle stringhe
@@ -124,18 +124,18 @@ public class StartActivity extends Activity {
     }
 
     public void impara(View view){
-        Intent intent=new Intent(this,ImparaargomentiActivity.class);
+        Intent intent=new Intent(this,LearnSubjectsActivity.class);
         intent.putExtra("action", "impara");
         startActivity(intent);
     }
 
     public void quizp(View view){
-        Intent intent=new Intent(this,ArgomentiActivity.class);
+        Intent intent=new Intent(this,MainGameSubjectActivity.class);
         startActivity(intent);
     }
 
     public void quizt(View view){
-        Intent e=new Intent(StartActivity.this, ImparaargomentiActivity.class);
+        Intent e=new Intent(getApplicationContext(), LearnSubjectsActivity.class);
         e.putExtra("action", "traduci");
         startActivity(e);
     }
@@ -154,7 +154,7 @@ public class StartActivity extends Activity {
     public void quiz(View view){
 
         if(connectivityManager.check()){
-            Intent e=new Intent(StartActivity.this, QuizLivelliActivity.class);
+            Intent e=new Intent(StartActivity.this, TestSubjectsActivity.class);
             startActivity(e);
         }else {
             //FIXME: Metti messaggio nel file delle stringhe

@@ -9,6 +9,7 @@ import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.GetSentencesFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -27,24 +28,27 @@ import android.widget.Toast;
 
 /**
  * @author chiararipanti
- * date 04/05/2013
+ *         date 04/05/2013
  */
+
+//TODO: Controlla variabili, metodi e logica, concatenazione stringhe risorsa
+
 public class SpeechActivity extends Activity implements TextToSpeech.OnInitListener {
 
     /**
      * Declaring Variables
      */
-    private TextToSpeech tts;
+    private TextToSpeech textToPronounce;
     private ImageButton audio;
-    private TextView level_tv;
+    private TextView levelTextView;
     private TextView txtText;
     private TextView txtSpeechInput;
     private final int REQ_CODE_SPEECH_INPUT = 100;
-    String sent;
-    AlertDialog ad;
+    String sentence;
+    AlertDialog aletDialog;
     ArrayList<String> sentences;
-    int prossimo;
-    int livello;
+    int next;
+    int level;
     AlertDialogManager alertDialog;
     MyConnectivityManager connectivityManager;
     AlertDialog.Builder alertChangeLevel;
@@ -59,19 +63,20 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
         gameUtils.setHomeButtonEnabled();
         gameUtils.addAdBunner();
 
-        tts = new TextToSpeech(this, this);
+        textToPronounce = new TextToSpeech(this, this);
         audio = findViewById(R.id.audio);
-        level_tv = findViewById(R.id.level1);
-        level_tv.setText(getString(R.string.livello) + ": " + getString(R.string.principiante));
-        livello=1;
+        levelTextView = findViewById(R.id.level);
+        levelTextView.setText(getString(R.string.livello) + ": " + getString(R.string.principiante));
+        level = 1;
         txtText = findViewById(R.id.txtText);
         txtSpeechInput = findViewById(R.id.txtSpeechInput);
-        ImageButton btnSpeak1 = findViewById(R.id.btnSpeak1);
-        sentences= new ArrayList<>();
-        alertDialog=new AlertDialogManager();
-        prossimo=0;
-        connectivityManager=new MyConnectivityManager(getApplicationContext());
-        btnSpeak1.setOnClickListener(new View.OnClickListener() {
+        ImageButton speakButton = findViewById(R.id.speak_button);
+        sentences = new ArrayList<>();
+        alertDialog = new AlertDialogManager();
+        next = 0;
+        connectivityManager = new MyConnectivityManager(getApplicationContext());
+
+        speakButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
@@ -107,10 +112,9 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     }
 
 
-
     /**
      * Receiving speech input
-     * */
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,18 +124,18 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
                 if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtSpeechInput.setText(result.get(0));
-                    sent=sent.replace(".", "");
-                    sent=sent.replace(",", "");
-                    sent=sent.replace("?", "");
-                    String res=result.get(0);
-                    res=res.replace(".", "");
-                    res=res.replace(",", "");
-                    res=res.replace("?", "");
-                    if(res.equalsIgnoreCase(sent)){
-                        Toast.makeText(getApplicationContext(),getString(R.string.esatta),Toast.LENGTH_SHORT).show();
-                        prossimo();
-                    }else
-                        Toast.makeText(getApplicationContext(),getString(R.string.sbagliata),Toast.LENGTH_SHORT).show();
+                    sentence = sentence.replace(".", "");
+                    sentence = sentence.replace(",", "");
+                    sentence = sentence.replace("?", "");
+                    String res = result.get(0);
+                    res = res.replace(".", "");
+                    res = res.replace(",", "");
+                    res = res.replace("?", "");
+                    if (res.equalsIgnoreCase(sentence)) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.esatta), Toast.LENGTH_SHORT).show();
+                        next();
+                    } else
+                        Toast.makeText(getApplicationContext(), getString(R.string.sbagliata), Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
@@ -140,9 +144,9 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
 
     @Override
     public void onDestroy() {
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
+        if (textToPronounce != null) {
+            textToPronounce.stop();
+            textToPronounce.shutdown();
         }
         super.onDestroy();
     }
@@ -155,7 +159,7 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            int result = tts.setLanguage(Locale.US);
+            int result = textToPronounce.setLanguage(Locale.US);
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "Language is not supported");
@@ -172,7 +176,7 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent=new Intent(this,StartActivity.class);
+            Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
             return true;
         }
@@ -181,17 +185,16 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
 
     private void speakOut() {
         String text = txtText.getText().toString();
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        textToPronounce.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
-    public void getSentences()
-    {
-        if(connectivityManager.check()){
+    public void getSentences() {
+        if (connectivityManager.check()) {
             //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
-            GetSentencesFromDB getSentTask=new GetSentencesFromDB(this,livello);
+            GetSentencesFromDB getSentTask = new GetSentencesFromDB(this, level);
             try {
                 getSentTask.execute();
-                sentences=getSentTask.get();
+                sentences = getSentTask.get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 alertDialog.showAlertDialog(SpeechActivity.this, "OPS!", getString(R.string.errore), false);
@@ -200,50 +203,50 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
                 alertDialog.showAlertDialog(SpeechActivity.this, "OPS!", getString(R.string.errore), false);
             }
 
-            sent=sentences.get(prossimo);
-            txtText.setText(sent);
+            sentence = sentences.get(next);
+            txtText.setText(sentence);
             speakOut();
         } else
             alertDialog.showAlertDialog(SpeechActivity.this, getString(R.string.attenzione), getString(R.string.attiva_connessione), false);
     }
 
     public void next(View view) {
-        prossimo();
+        next();
     }
 
     public void changeLevel(View view) {
-        alertChangeLevel = new AlertDialog.Builder(SpeechActivity.this);
+        alertChangeLevel = new AlertDialog.Builder(getApplicationContext());
         alertChangeLevel.setTitle(getString(R.string.livello));
         alertChangeLevel.setItems(R.array.level_array, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                livello=which+1;
-                if(livello==1)
-                    level_tv.setText(getString(R.string.livello)+": "+getString(R.string.principiante));
-                else if(livello==2)
-                    level_tv.setText(getString(R.string.livello)+": "+getString(R.string.intermedio));
-                else if(livello==3)
-                    level_tv.setText(getString(R.string.livello)+": "+getString(R.string.esperto));
+                level = which + 1;
+                if (level == 1)
+                    levelTextView.setText(getString(R.string.livello) + ": " + getString(R.string.principiante));
+                else if (level == 2)
+                    levelTextView.setText(getString(R.string.livello) + ": " + getString(R.string.intermedio));
+                else if (level == 3)
+                    levelTextView.setText(getString(R.string.livello) + ": " + getString(R.string.esperto));
                 getSentences();
-                ad.dismiss();
+                aletDialog.dismiss();
             }
         });
 
-        ad = alertChangeLevel.show();
+        aletDialog = alertChangeLevel.show();
     }
 
-    public void prossimo(){
-        prossimo++;
+    public void next() {
+        next++;
 
-        if(prossimo<20)
-            sent=sentences.get(prossimo);
+        if (next < 20)
+            sentence = sentences.get(next);
         else {
-            if(connectivityManager.check()){
-                GetSentencesFromDB getSentTask=new GetSentencesFromDB(this,livello);
+            if (connectivityManager.check()) {
+                GetSentencesFromDB getSentTask = new GetSentencesFromDB(this, level);
                 getSentTask.execute();
                 try {
-                    sentences=getSentTask.get();
-                    prossimo=0;
-                    sent=sentences.get(prossimo);
+                    sentences = getSentTask.get();
+                    next = 0;
+                    sentence = sentences.get(next);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     alertDialog.showAlertDialog(SpeechActivity.this, "OPS!", getString(R.string.errore), false);
@@ -256,7 +259,7 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
                 alertDialog.showAlertDialog(SpeechActivity.this, getString(R.string.attenzione), getString(R.string.attiva_connessione), true);
             }
         }
-        txtText.setText(sent);
+        txtText.setText(sentence);
         speakOut();
     }
 }
