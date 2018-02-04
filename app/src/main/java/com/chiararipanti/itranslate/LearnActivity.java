@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-import com.chiararipanti.itranslate.db.Word;
+import com.chiararipanti.itranslate.util.Word;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.util.GetWordsFromDB;
+import com.chiararipanti.itranslate.db.GetWordsFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 
 import android.annotation.SuppressLint;

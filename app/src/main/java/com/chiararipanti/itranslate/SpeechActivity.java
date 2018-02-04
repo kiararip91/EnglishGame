@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.util.GetSentencesFromDB;
+import com.chiararipanti.itranslate.db.GetSentencesFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 
 import android.app.Activity;

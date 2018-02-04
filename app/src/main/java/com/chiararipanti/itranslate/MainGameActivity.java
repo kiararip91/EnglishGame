@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import com.chiararipanti.itranslate.db.Word;
+import com.chiararipanti.itranslate.util.Word;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.util.GetWordsFromDB;
+import com.chiararipanti.itranslate.db.GetWordsFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
 

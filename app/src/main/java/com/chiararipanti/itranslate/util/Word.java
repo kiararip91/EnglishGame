@@ -1,4 +1,4 @@
-package com.chiararipanti.itranslate.db;
+package com.chiararipanti.itranslate.util;
 
 /**
  * @author chiararipanti

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
-import com.chiararipanti.itranslate.db.Song;
+import com.chiararipanti.itranslate.util.Song;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.util.GetCanzoniFromDB;
+import com.chiararipanti.itranslate.db.GetCanzoniFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
 
