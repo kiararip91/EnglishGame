@@ -183,7 +183,8 @@ public class MainGameActivity extends Activity {
         points = 0;
 
         //Start Game
-        this.getWordsAndSetLetters();
+        this.words = this.getWords();
+        this.setLetters(words, this.index);
 
     }
 
@@ -206,7 +207,7 @@ public class MainGameActivity extends Activity {
     /**
      * Retrieve a list of word form DataSource
      */
-    private void getWordsAndSetLetters() {
+    private List<Word> getWords() {
         List<Word> words = new ArrayList<>();
 
         if (!connectivityManager.check()) {
@@ -225,7 +226,7 @@ public class MainGameActivity extends Activity {
                 alertDialog.showAlertDialog(MainGameActivity.this, "OPS!", getString(R.string.errore), false);
             }
         }
-        this.setLetters(words, this.index);
+        return words;
     }
 
     public void setLetters(List<Word> words, int index) {
@@ -660,10 +661,11 @@ public class MainGameActivity extends Activity {
     public void next(View view) {
 
         if (this.index++ == 20) {
-            this.getWordsAndSetLetters();
-        }else{
-            this.setLetters(this.words, this.index);
+            this.words = this.getWords();
         }
+
+        this.setLetters(this.words, this.index);
+
     }
 
     public void showSolution(View view) {
@@ -845,7 +847,8 @@ public class MainGameActivity extends Activity {
         helpButton.setClickable(true);
         solutionButton.setClickable(true);
         gameOverLayout.setVisibility(View.GONE);
-        this.getWordsAndSetLetters();
+        this.words = this.getWords();
+        this.setLetters(words, this.index);
     }
 
     @SuppressLint("SetTextI18n")
