@@ -1,6 +1,9 @@
 package com.chiararipanti.itranslate;
 
+import java.util.ArrayList;
 import java.util.Locale;
+
+import com.chiararipanti.itranslate.db.GetWordsFromDataSource;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
@@ -57,6 +60,7 @@ public class StartActivity extends Activity {
     @Override
     public void onStart() {
         super.onStart();
+
         // Check if user is signed in (non-null) or register him.
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();

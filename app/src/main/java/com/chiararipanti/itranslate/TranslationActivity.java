@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import java.util.concurrent.ExecutionException;
 
-import com.chiararipanti.itranslate.util.Word;
+import com.chiararipanti.itranslate.model.Word;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.db.GetWordsFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
@@ -52,7 +52,7 @@ public class TranslationActivity extends Activity {
         gameUtils.addAdBunner();
 
         imm = (InputMethodManager) getSystemService(this.getApplicationContext().INPUT_METHOD_SERVICE);
-        italianWordTextView = findViewById(R.id.italian_text);
+        italianWordTextView = findViewById(R.id.parola_italiano);
         englishWordTextView = findViewById(R.id.traduzione);
         connectivityManager = new MyConnectivityManager(getApplicationContext());
         Intent intent = getIntent();
@@ -63,8 +63,8 @@ public class TranslationActivity extends Activity {
         levelTextView.setText(intent.getStringExtra("category1"));
 
         if (connectivityManager.check()) {
-            getWords();
-            setupWord();
+            this.getWords();
+            this.setupWord();
         } else
             Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
     }
@@ -84,7 +84,8 @@ public class TranslationActivity extends Activity {
     }
 
     public void setupWord() {
-        italianWordTextView.setText(word.getNativeTranslation());
+        String nativeTranslation = word.getNativeTranslation();
+        italianWordTextView.setText(nativeTranslation);
         englishWordTextView.setText("");
         helpTextView.setVisibility(View.GONE);
         View view = this.getCurrentFocus();

@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.chiararipanti.itranslate.util.Word;
+import com.chiararipanti.itranslate.model.Word;
 
 
 public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
@@ -46,11 +46,10 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
 
 
     protected ArrayList<Word> doInBackground(String... params) {
-
         InputStream is = null;
         String result = "";
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("type", type));
+        nameValuePairs.add(new BasicNameValuePair("tipo", type));
         Log.v(TAG, "language" + language);
         nameValuePairs.add(new BasicNameValuePair("language", language));
         try {
@@ -107,7 +106,6 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
         return words;
 
     }
-
 
     @Override
     protected void onPostExecute(ArrayList<Word> result) {

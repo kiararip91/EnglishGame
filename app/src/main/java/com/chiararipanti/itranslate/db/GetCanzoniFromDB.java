@@ -20,7 +20,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.chiararipanti.itranslate.util.Song;
+import com.chiararipanti.itranslate.model.Song;
 
 
 public class GetCanzoniFromDB extends AsyncTask<String, Void, ArrayList<Song>> {

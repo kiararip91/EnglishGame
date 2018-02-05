@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import com.chiararipanti.itranslate.util.Word;
+import com.chiararipanti.itranslate.model.Word;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
@@ -33,6 +33,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 
 /**
  * @author chiararipanti
@@ -181,8 +183,7 @@ public class MainGameActivity extends Activity {
         points = 0;
 
         //Start Game
-        this.words = this.getWords();
-        this.setLetters(words, this.index);
+        this.getWordsAndSetLetters();
 
     }
 
@@ -205,7 +206,7 @@ public class MainGameActivity extends Activity {
     /**
      * Retrieve a list of word form DataSource
      */
-    private List<Word> getWords() {
+    private void getWordsAndSetLetters() {
         List<Word> words = new ArrayList<>();
 
         if (!connectivityManager.check()) {
@@ -224,7 +225,7 @@ public class MainGameActivity extends Activity {
                 alertDialog.showAlertDialog(MainGameActivity.this, "OPS!", getString(R.string.errore), false);
             }
         }
-        return words;
+        this.setLetters(words, this.index);
     }
 
     public void setLetters(List<Word> words, int index) {
@@ -657,12 +658,12 @@ public class MainGameActivity extends Activity {
     }
 
     public void next(View view) {
-        this.index++;
 
         if (this.index++ == 20) {
-            this.getWords();
+            this.getWordsAndSetLetters();
+        }else{
+            this.setLetters(this.words, this.index);
         }
-        this.setLetters(this.words, this.index);
     }
 
     public void showSolution(View view) {
@@ -844,8 +845,7 @@ public class MainGameActivity extends Activity {
         helpButton.setClickable(true);
         solutionButton.setClickable(true);
         gameOverLayout.setVisibility(View.GONE);
-        this.getWords();
-        this.setLetters(this.words, this.index);
+        this.getWordsAndSetLetters();
     }
 
     @SuppressLint("SetTextI18n")
@@ -870,7 +870,7 @@ public class MainGameActivity extends Activity {
 
     public void listenToWord(View view) {
 
-        String englishWord = this.word.getEnglishWord().toLowerCase();
+        String englishWord = this.word.getNativeTranslation().toLowerCase();
         englishWord = gameUtils.substituteSpecialCharWordToPronunce(englishWord);
 
         String url = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + englishWord + "--_gb_1.mp3";

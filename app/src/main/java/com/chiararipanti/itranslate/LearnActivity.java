@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-import com.chiararipanti.itranslate.util.Word;
+import com.chiararipanti.itranslate.model.Word;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.AudioRequest;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 /**
  * @author chiararipanti
@@ -73,7 +74,7 @@ public class LearnActivity extends Activity {
           Checked
          */
 
-        category = getIntent().getStringExtra("categoria");
+        category = getIntent().getStringExtra("category");
         next = 0;
 
         showSolution = false;
@@ -131,14 +132,14 @@ public class LearnActivity extends Activity {
     public void setWord(){
         this.listened = false;
         wordTranslationTextView.setText(word.getNativeTranslation());
-        wordEnglishTextView.setText(word.getEnglishWord());
+        wordEnglishTextView.setText(word.getNativeTranslation());
         wordTranslationTextView.setText(word.getNativeTranslation());
         sentenceTextView.setText(word.getSentence());
 
         this.mediaPlayer = new MediaPlayer();
         AudioRequest ar = new AudioRequest(this, mediaPlayer);
 
-        String english = word.getEnglishWord().toLowerCase();
+        String english = word.getNativeTranslation().toLowerCase();
         english = gameUtils.substituteSpecialCharWordToPronunce(english);
 
         String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + english + "--_gb_1.mp3";
