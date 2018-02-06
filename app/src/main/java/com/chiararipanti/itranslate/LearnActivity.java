@@ -84,9 +84,9 @@ public class LearnActivity extends Activity {
         alertDialog = new AlertDialogManager();
 
         nextButton = (findViewById(R.id.next));
-        wordTranslationTextView = findViewById(R.id.parola_italiano);
+        wordTranslationTextView = findViewById(R.id.native_word);
         wordTranslationTextView.setVisibility(View.GONE);
-        wordEnglishTextView = findViewById(R.id.parola_inglese);
+        wordEnglishTextView = findViewById(R.id.english_word);
         sentenceTextView = findViewById(R.id.frase);
 
         TextView levelTextView = findViewById(R.id.level);
