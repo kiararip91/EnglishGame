@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,11 +12,6 @@
         android:layout_marginTop="3dp"
         android:background="@drawable/shape"
         android:fillViewport="true">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -36,50 +30,49 @@
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
-                <TableLayout
+
+                <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginTop="8dp"
                     android:padding="1dip">
 
-                    <TableRow
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp">
+                    <ImageButton
+                        android:id="@+id/aiuto"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:layout_weight=".15"
+                        android:background="@drawable/shape6"
+                        android:contentDescription="@string/aiuto"
+                        android:onClick="showAiuto"
+                        android:src="@drawable/aiuto" />
 
-                        <ImageButton
-                            android:id="@+id/aiuto"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="0dp"
-                            android:layout_weight=".15"
-                            android:background="@drawable/shape6"
-                            android:onClick="showAiuto"
-                            android:src="@drawable/aiuto" />
+                    <TextView
+                        android:id="@+id/traduci"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:text="@string/traduci_parola"
+                        android:textColor="#5e5555"
+                        android:textSize="21sp" />
 
-                        <TextView
-                            android:id="@+id/traduci"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight=".70"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:text="@string/traduci_parola"
-                            android:textColor="#5e5555"
-                            android:textSize="21sp" />
-
-
-                        <ImageButton
-                            android:id="@+id/soluzione"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="0dp"
-                            android:layout_weight=".15"
-                            android:background="@drawable/shape6"
-                            android:onClick="showSolution"
-                            android:src="@drawable/soluzione" />
-                    </TableRow>
-                </TableLayout>
+                    <ImageButton
+                        android:id="@+id/soluzione"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:layout_weight=".15"
+                        android:background="@drawable/shape6"
+                        android:contentDescription="@string/action_settings"
+                        android:onClick="showSolution"
+                        android:src="@drawable/soluzione" />
+                </TableRow>
 
                 <TextView
                     android:id="@+id/native_text"
@@ -124,12 +117,7 @@
                     android:onClick="conferma"
                     android:text="@string/conferma"
                     android:textColor="#ffffff" />
-
-
             </LinearLayout>
-
-
-        </RelativeLayout>
     </ScrollView>
 
 
@@ -137,6 +125,6 @@
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
