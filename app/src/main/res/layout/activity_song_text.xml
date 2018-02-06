@@ -16,35 +16,29 @@
         android:background="@drawable/shape"
         android:fillViewport="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <TableRow>
 
+            <TextView
+                android:id="@+id/italian_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_weight=".50"
+                android:background="@drawable/shape"
+                android:gravity="center"
+                android:layout_marginStart="5dp" />
 
-            <TableRow>
-
-                <TextView
-                    android:id="@+id/italian_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_weight=".50"
-                    android:background="@drawable/shape"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/english_text"
-                    android:layout_width="0dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight=".50"
-                    android:background="@drawable/shape"
-                    android:gravity="center" />
-            </TableRow>
-        </LinearLayout>
+            <TextView
+                android:id="@+id/english_text"
+                android:layout_width="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight=".50"
+                android:background="@drawable/shape"
+                android:gravity="center" />
+        </TableRow>
     </ScrollView>
 
     <RelativeLayout
