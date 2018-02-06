@@ -16,14 +16,12 @@
         android:layout_above="@+id/footer">
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/elementary"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:textColor="#000000"
@@ -44,13 +42,11 @@
                 android:layout_marginTop="3dp"
                 android:padding="1dip" >
 
-
                 <TableRow
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginBottom="0dp"
-                    >
+                    android:layout_marginBottom="0dp">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -69,8 +65,6 @@
                             android:textColor="#000000"
                             android:gravity="center"
                             android:onClick="verbs"/>
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -90,8 +84,6 @@
                             android:textColor="#000000"
                             android:gravity="center"
                             android:onClick="adjectives"/>
-
-
                     </LinearLayout>
                 </TableRow>
                 <TableRow
@@ -119,8 +111,6 @@
                             android:textColor="#000000"
                             android:gravity="center"
                             android:onClick="question_words"/>
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -143,8 +133,6 @@
 
                     </LinearLayout>
                 </TableRow>
-
-
 
             </TableLayout>
             <TextView
@@ -215,16 +203,14 @@
                             android:textColor="#000000"
                             android:gravity="center"
                             android:onClick="negative_forms"/>
-
-
                     </LinearLayout>
                 </TableRow>
+
                 <TableRow
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginBottom="0dp"
-                    >
+                    android:layout_marginBottom="0dp">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -244,8 +230,6 @@
                             android:textColor="#000000"
                             android:gravity="center"
                             android:onClick="some_any_much_many"/>
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -454,8 +438,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginBottom="0dp"
-                    >
+                    android:layout_marginBottom="0dp">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -674,8 +657,6 @@
                     </LinearLayout>
                 </TableRow>
             </TableLayout>
-
-
         </LinearLayout>
     </ScrollView>
 
@@ -685,5 +666,4 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
     </RelativeLayout>
-
 </RelativeLayout>
