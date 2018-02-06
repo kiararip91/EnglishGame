@@ -18,182 +18,174 @@
             android:layout_marginTop="25dp"
             android:orientation="vertical">
 
-            <TableLayout
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
-                <TableRow android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight=".70"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight=".70"
-                        android:orientation="vertical">
+                    <ImageButton
+                        android:id="@+id/img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/titolo" />
+                </LinearLayout>
 
-                        <ImageButton
-                            android:id="@+id/img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/titolo" />
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight=".15"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight=".15"
-                        android:orientation="vertical">
+                    <ImageButton
+                        android:id="@+id/suono"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape5"
+                        android:contentDescription="@string/sound"
+                        android:onClick="volume"
+                        android:src="@drawable/sound" />
+                </LinearLayout>
 
-                        <ImageButton
-                            android:id="@+id/suono"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/shape5"
-                            android:onClick="volume"
-                            android:src="@drawable/sound" />
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight=".15"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight=".15"
-                        android:orientation="vertical">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape5"
+                        android:contentDescription="@string/action_settings"
+                        android:onClick="rate"
+                        android:src="@drawable/rate" />
+                </LinearLayout>
+            </TableRow>
 
-                        <ImageButton
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/shape5"
-                            android:onClick="rate"
-                            android:src="@drawable/rate" />
-                    </LinearLayout>
-                </TableRow>
-            </TableLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout1"
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/shape"
-                android:orientation="vertical">
+                android:background="@drawable/shape">
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TableRow>
 
-                    <TableRow>
+                    <Button
+                        android:id="@+id/impara"
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape7"
+                        android:contentDescription="@string/impara"
+                        android:drawableTop="@drawable/impara"
+                        android:fontFamily="sans-serif-condensed"
+                        android:onClick="impara"
+                        android:padding="5dip"
+                        android:text="@string/impara"
+                        android:textSize="13sp" />
 
-                        <Button
-                            android:id="@+id/impara"
-                            android:layout_width="0dp"
-                            android:layout_margin="5dp"
-                            android:layout_weight=".50"
-                            android:background="@drawable/shape7"
-                            android:contentDescription="@string/impara"
-                            android:drawableTop="@drawable/impara"
-                            android:fontFamily="sans-serif-condensed"
-                            android:onClick="impara"
-                            android:padding="5dip"
-                            android:text="@string/impara"
-                            android:textSize="13sp" />
+                    <Button
+                        android:id="@+id/quizp"
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape7"
+                        android:drawableTop="@drawable/quiz_p"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="quizp"
+                        android:padding="5dip"
+                        android:text="@string/quizp"
+                        android:textSize="12sp" />
 
-                        <Button
-                            android:id="@+id/quizp"
-                            android:layout_width="0dp"
-                            android:layout_margin="5dp"
-                            android:layout_weight=".50"
-                            android:background="@drawable/shape7"
-                            android:drawableTop="@drawable/quiz_p"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="quizp"
-                            android:padding="5dip"
-                            android:text="@string/quizp"
-                            android:textSize="12sp" />
+                </TableRow>
 
-                    </TableRow>
+                <TableRow>
 
-                    <TableRow>
+                    <Button
+                        android:id="@+id/quiz"
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape7"
+                        android:drawableTop="@drawable/quiz3"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="quiz"
+                        android:padding="5dip"
+                        android:text="@string/quiz"
+                        android:textSize="12sp" />
 
-                        <Button
-                            android:id="@+id/quiz"
-                            android:layout_width="0dp"
-                            android:layout_margin="5dp"
-                            android:layout_weight=".50"
-                            android:background="@drawable/shape7"
-                            android:drawableTop="@drawable/quiz3"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="quiz"
-                            android:padding="5dip"
-                            android:text="@string/quiz"
-                            android:textSize="12sp" />
-
-                        <Button
-                            android:id="@+id/speech"
-                            android:layout_width="0dp"
-                            android:layout_margin="5dp"
-                            android:layout_weight=".50"
-                            android:background="@drawable/shape7"
-                            android:drawableTop="@drawable/speech"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="speech"
-                            android:padding="5dip"
-                            android:text="@string/text_to_speech"
-                            android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/speech"
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape7"
+                        android:drawableTop="@drawable/speech"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="speech"
+                        android:padding="5dip"
+                        android:text="@string/text_to_speech"
+                        android:textSize="12sp" />
 
 
-                    </TableRow>
+                </TableRow>
 
-                    <TableRow>
+                <TableRow>
 
-                        <Button
-                            android:id="@+id/quizm"
-                            android:layout_width="0dp"
-                            android:layout_margin="5dp"
-                            android:layout_weight=".50"
-                            android:background="@drawable/shape7"
-                            android:drawableTop="@drawable/headphones"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="quizm"
-                            android:padding="5dip"
-                            android:text="@string/quizm"
-                            android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/quizm"
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape7"
+                        android:drawableTop="@drawable/headphones"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="quizm"
+                        android:padding="5dip"
+                        android:text="@string/quizm"
+                        android:textSize="12sp" />
 
-                        <Button
-                            android:id="@+id/quizt"
-                            android:layout_width="0dp"
-                            android:layout_margin="5dp"
-                            android:layout_weight=".50"
-                            android:background="@drawable/shape7"
-                            android:drawableTop="@drawable/quizt"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:onClick="quizt"
-                            android:padding="5dip"
-                            android:text="@string/quizt"
-                            android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/quizt"
+                        android:layout_width="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape7"
+                        android:drawableTop="@drawable/quizt"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:onClick="quizt"
+                        android:padding="5dip"
+                        android:text="@string/quizt"
+                        android:textSize="12sp" />
 
 
-                    </TableRow>
-                </TableLayout>
-
-            </LinearLayout>
+                </TableRow>
+            </TableLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
