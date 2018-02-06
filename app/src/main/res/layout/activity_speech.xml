@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,145 +13,140 @@
         android:background="@drawable/shape"
         android:fillViewport="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/linearLayout1"
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@drawable/shape3"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="@string/text_to_speech"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape3"
+                    android:id="@+id/level"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".80"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center"
-                    android:text="@string/text_to_speech"
+                    android:text="@string/livello"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/level"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight=".80"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:text="@string/livello"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-
-                        <ImageButton
-                            android:id="@+id/settings"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="0dp"
-                            android:layout_weight=".20"
-                            android:background="@null"
-                            android:onClick="changeLevel"
-                            android:src="@drawable/ic_action_stat" />
-                    </TableRow>
-                </TableLayout>
+                <ImageButton
+                    android:id="@+id/settings"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="0dp"
+                    android:layout_weight=".20"
+                    android:background="@null"
+                    android:contentDescription="@string/action_settings"
+                    android:onClick="changeLevel"
+                    android:src="@drawable/ic_action_stat" />
+            </TableLayout>
 
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shape"
-                    android:padding="1dip">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape"
+                android:padding="1dip">
 
-                    <TableRow
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp">
+                <TableRow
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
 
-                        <TextView
-                            android:id="@+id/txtText"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center"
-                            android:textSize="20sp" />
-                    </TableRow>
+                    <TextView
+                        android:id="@+id/txtText"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:textSize="20sp" />
+                </TableRow>
 
-                    <TableRow
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp">
+                <TableRow
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
 
-                        <ImageButton
-                            android:id="@+id/audio"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="0dp"
-                            android:layout_weight=".50"
-                            android:background="@null"
-                            android:src="@drawable/ico_sound" />
+                    <ImageButton
+                        android:id="@+id/audio"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+                        android:layout_weight=".50"
+                        android:background="@null"
+                        android:contentDescription="@string/sound"
+                        android:src="@drawable/ico_sound" />
 
-                        <ImageButton
-                            android:id="@+id/speak_button"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="0dp"
-                            android:layout_weight=".50"
-                            android:background="@null"
-                            android:src="@drawable/ico_mic" />
-                    </TableRow>
-                </TableLayout>
+                    <ImageButton
+                        android:id="@+id/speak_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:layout_weight=".50"
+                        android:background="@null"
+                        android:contentDescription="@string/sound"
+                        android:src="@drawable/ico_mic" />
+                </TableRow>
+            </TableLayout>
 
-                <TextView
-                    android:id="@+id/txtSpeechInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center"
-                    android:textColor="#2d2049"
-                    android:textSize="20sp"
-                    android:textStyle="normal" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/tap_on_mic"
-                    android:textColor="#ffffff"
-                    android:textSize="5dp"
-                    android:textStyle="normal" />
+            <TextView
+                android:id="@+id/txtSpeechInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:textColor="#2d2049"
+                android:textSize="20sp"
+                android:textStyle="normal" />
 
 
-                <Button
-                    android:id="@+id/conferma"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button"
-                    android:fontFamily="sans-serif-condensed"
-                    android:onClick="next"
-                    android:text="@string/next"
-                    android:textColor="#ffffff" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/tap_on_mic"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:textStyle="normal" />
 
-        </RelativeLayout>
+
+            <Button
+                android:id="@+id/conferma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                android:fontFamily="sans-serif-condensed"
+                android:onClick="next"
+                android:text="@string/next"
+                android:textColor="#ffffff" />
+        </LinearLayout>
     </ScrollView>
-
 
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
