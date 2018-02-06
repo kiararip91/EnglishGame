@@ -87,7 +87,7 @@ public class LearnActivity extends Activity {
         wordTranslationTextView = findViewById(R.id.native_word);
         wordTranslationTextView.setVisibility(View.GONE);
         wordEnglishTextView = findViewById(R.id.english_word);
-        sentenceTextView = findViewById(R.id.frase);
+        sentenceTextView = findViewById(R.id.sentence);
 
         TextView levelTextView = findViewById(R.id.level);
         levelTextView.setText(labelcategory);
