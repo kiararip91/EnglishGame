@@ -17,8 +17,8 @@
         android:fillViewport="true">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -55,13 +55,14 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:contentDescription="sound"
                             android:layout_weight=".15"
                             android:background="@drawable/shape6"
                             android:onClick="listenToWord"
                             android:src="@drawable/audio" />
 
                         <TextView
-                            android:id="@+id/parola_inglese"
+                            android:id="@+id/english_word"
                             android:layout_width="0dp"
                             android:layout_weight=".85"
                             android:fontFamily="sans-serif-condensed"
@@ -72,7 +73,7 @@
                     </TableRow>
 
                     <TextView
-                        android:id="@+id/frase"
+                        android:id="@+id/sentence"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -80,30 +81,26 @@
                         android:gravity="center"
                         android:textColor="#5e5555"
                         android:textSize="16sp" />
-
-                    <TableRow>
-
-                    </TableRow>
                 </TableLayout>
-
 
                 <ImageView
                     android:id="@+id/immagine"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:contentDescription="@string/annulla"
                     android:layout_marginTop="5dp" />
 
 
                 <TextView
-                    android:id="@+id/parola_italiano"
+                    android:id="@+id/native_word"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/shape8"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center"
-                    android:text="Gatto"
+                    android:text="@string/gatto"
                     android:textColor="#5e5555"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -127,6 +124,6 @@
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
