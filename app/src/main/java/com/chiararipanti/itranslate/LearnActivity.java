@@ -75,6 +75,7 @@ public class LearnActivity extends Activity {
          */
 
         category = getIntent().getStringExtra("category");
+        String labelcategory = (Character.toUpperCase(category.charAt(0)) + category.substring(1)).replace("_", " ");
         next = 0;
 
         showSolution = false;
@@ -89,7 +90,7 @@ public class LearnActivity extends Activity {
         sentenceTextView = findViewById(R.id.frase);
 
         TextView levelTextView = findViewById(R.id.level);
-        levelTextView.setText(getIntent().getStringExtra("categoria1"));
+        levelTextView.setText(labelcategory);
 
         if(connectivityManager.check()){
             getWords();
@@ -132,14 +133,13 @@ public class LearnActivity extends Activity {
     public void setWord(){
         this.listened = false;
         wordTranslationTextView.setText(word.getNativeTranslation());
-        wordEnglishTextView.setText(word.getNativeTranslation());
-        wordTranslationTextView.setText(word.getNativeTranslation());
+        wordEnglishTextView.setText(word.getEnglishWord());
         sentenceTextView.setText(word.getSentence());
 
         this.mediaPlayer = new MediaPlayer();
         AudioRequest ar = new AudioRequest(this, mediaPlayer);
 
-        String english = word.getNativeTranslation().toLowerCase();
+        String english = word.getEnglishWord().toLowerCase();
         english = gameUtils.substituteSpecialCharWordToPronunce(english);
 
         String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + english + "--_gb_1.mp3";
@@ -168,6 +168,7 @@ public class LearnActivity extends Activity {
                 wordTranslationTextView.setVisibility(View.VISIBLE);
             }
             else{
+                showSolution = false; //inutile
                 nextButton.setText(getString(R.string.soluzione));
                 wordTranslationTextView.setVisibility(View.GONE);
                 next++;
