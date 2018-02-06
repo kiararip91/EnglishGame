@@ -135,5 +135,6 @@
     <string name="help">help</string>
     <string name="show_sentence">Show Sentence</string>
     <string name="listen">Listen</string>
+    <string name="gatto">Gatto</string>
 
 </resources>
