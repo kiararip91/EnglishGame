@@ -11,17 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-//TODO: Refactoring variables e resources, elimina putExtra1
+//TODO: fFai un unico metodo parametrizzato con intent e click bottone, Fai update db e passa interi invece di stringhe
 
 public class LearnSubjectsActivity extends Activity {
-    Button principianteb;
-    Button baseb;
-    Button intermediob;
-    Button espertob;
-    Button animalib;
-    Button viaggib;
-    Button vitab;
-    Button cibob;
+    Button naiveButton;
+    Button baseButton;
+    Button intermediateButton;
+    Button expertButton;
+    Button animalButton;
+    Button travelButton;
+    Button lifeButton;
+    Button foodButton;
     MyConnectivityManager connectivityManager;
     String action;
     SessionManager session;
@@ -35,14 +35,14 @@ public class LearnSubjectsActivity extends Activity {
         gameUtils.addAdBunner();
         gameUtils.setHomeButtonEnabled();
 
-        principianteb = findViewById(R.id.principiante);
-        baseb = findViewById(R.id.base);
-        intermediob = findViewById(R.id.intermedio);
-        espertob = findViewById(R.id.esperto);
-        animalib = findViewById(R.id.animali);
-        viaggib = findViewById(R.id.viaggi);
-        vitab = findViewById(R.id.life);
-        cibob = findViewById(R.id.cibo);
+        naiveButton = findViewById(R.id.naive);
+        baseButton = findViewById(R.id.base);
+        intermediateButton = findViewById(R.id.intermediate);
+        expertButton = findViewById(R.id.expert);
+        animalButton = findViewById(R.id.animal);
+        travelButton = findViewById(R.id.travel);
+        lifeButton = findViewById(R.id.life);
+        foodButton = findViewById(R.id.food);
 
         connectivityManager = new MyConnectivityManager(getApplicationContext());
 
@@ -64,14 +64,13 @@ public class LearnSubjectsActivity extends Activity {
 
     public void principiante(View view) {
         if (connectivityManager.check()) {
-            Intent p;
+            Intent destinationActivity;
             if (action.equals("impara"))
-                p = new Intent(getApplicationContext(), LearnActivity.class);
+                destinationActivity = new Intent(getApplicationContext(), LearnActivity.class);
             else
-                p = new Intent(getApplicationContext(), TranslationActivity.class);
-            p.putExtra("categoria1", getString(R.string.principiante));
-            p.putExtra("category", "principiante");
-            startActivity(p);
+                destinationActivity = new Intent(getApplicationContext(), TranslationActivity.class);
+            destinationActivity.putExtra("category", "principiante");
+            startActivity(destinationActivity);
         } else
             Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
 
@@ -85,7 +84,6 @@ public class LearnSubjectsActivity extends Activity {
                 b = new Intent(getApplicationContext(), LearnActivity.class);
             else
                 b = new Intent(getApplicationContext(), TranslationActivity.class);
-            b.putExtra("categoria1", getString(R.string.base));
             b.putExtra("category", "base");
             startActivity(b);
         } else
@@ -101,7 +99,6 @@ public class LearnSubjectsActivity extends Activity {
                 i = new Intent(getApplicationContext(), LearnActivity.class);
             else
                 i = new Intent(getApplicationContext(), TranslationActivity.class);
-            i.putExtra("categoria1", getString(R.string.intermedio));
             i.putExtra("category", "intermedio");
             startActivity(i);
         } else
@@ -117,7 +114,6 @@ public class LearnSubjectsActivity extends Activity {
                 e = new Intent(getApplicationContext(), LearnActivity.class);
             else
                 e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("categoria1", getString(R.string.esperto));
             e.putExtra("category", "esperto");
             startActivity(e);
         } else
@@ -133,7 +129,6 @@ public class LearnSubjectsActivity extends Activity {
                 e = new Intent(getApplicationContext(), LearnActivity.class);
             else
                 e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("categoria1", getString(R.string.cibo));
             e.putExtra("category", "cibo");
             startActivity(e);
         } else
@@ -149,7 +144,6 @@ public class LearnSubjectsActivity extends Activity {
                 e = new Intent(getApplicationContext(), LearnActivity.class);
             else
                 e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("categoria1", getString(R.string.viaggi));
             e.putExtra("category", "viaggi");
             startActivity(e);
         } else
@@ -165,7 +159,6 @@ public class LearnSubjectsActivity extends Activity {
                 e = new Intent(getApplicationContext(), LearnActivity.class);
             else
                 e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("categoria1", getString(R.string.vita_quotidiana));
             e.putExtra("category", "vita_quotidiana");
             startActivity(e);
         } else
@@ -179,7 +172,6 @@ public class LearnSubjectsActivity extends Activity {
                 e = new Intent(getApplicationContext(), LearnActivity.class);
             else
                 e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("categoria1", getString(R.string.animali));
             e.putExtra("category", "animali");
             startActivity(e);
         } else

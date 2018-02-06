@@ -82,7 +82,7 @@
                 </TableLayout>
 
                 <TextView
-                    android:id="@+id/parola_italiano"
+                    android:id="@+id/native_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
@@ -92,7 +92,7 @@
                     android:textSize="24sp" />
 
                 <EditText
-                    android:id="@+id/traduzione"
+                    android:id="@+id/english_translation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"

@@ -43,7 +43,7 @@
                         android:layout_marginTop="7dp">
 
                         <Button
-                            android:id="@+id/principiante"
+                            android:id="@+id/naive"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="3dp"
@@ -83,7 +83,7 @@
                         android:layout_marginTop="5dp">
 
                         <Button
-                            android:id="@+id/intermedio"
+                            android:id="@+id/intermediate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -96,9 +96,8 @@
                             android:text="@string/intermedio"
                             android:textSize="15sp" />
 
-
                         <Button
-                            android:id="@+id/esperto"
+                            android:id="@+id/expert"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -131,7 +130,7 @@
                         android:layout_marginTop="7dp">
 
                         <Button
-                            android:id="@+id/animali"
+                            android:id="@+id/animal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="3dp"
@@ -146,7 +145,7 @@
                             android:textSize="13sp" />
 
                         <Button
-                            android:id="@+id/viaggi"
+                            android:id="@+id/travel"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="3dp"
@@ -168,7 +167,7 @@
                         android:layout_marginTop="5dp">
 
                         <Button
-                            android:id="@+id/vita"
+                            android:id="@+id/life"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -181,7 +180,7 @@
                             android:textSize="13sp" />
 
                         <Button
-                            android:id="@+id/cibo"
+                            android:id="@+id/food"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -205,6 +204,6 @@
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

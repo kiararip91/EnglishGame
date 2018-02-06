@@ -1,9 +1,7 @@
 package com.chiararipanti.itranslate;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
-import com.chiararipanti.itranslate.db.GetWordsFromDataSource;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;

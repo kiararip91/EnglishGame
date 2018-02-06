@@ -52,15 +52,16 @@ public class TranslationActivity extends Activity {
         gameUtils.addAdBunner();
 
         imm = (InputMethodManager) getSystemService(this.getApplicationContext().INPUT_METHOD_SERVICE);
-        italianWordTextView = findViewById(R.id.parola_italiano);
-        englishWordTextView = findViewById(R.id.traduzione);
+        italianWordTextView = findViewById(R.id.native_text);
+        englishWordTextView = findViewById(R.id.english_translation);
         connectivityManager = new MyConnectivityManager(getApplicationContext());
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
         next = 0;
         helpTextView = findViewById(R.id.help);
         levelTextView = findViewById(R.id.level);
-        levelTextView.setText(intent.getStringExtra("category1"));
+        String labelcategory = (Character.toUpperCase(category.charAt(0)) + category.substring(1)).replace("_", " ");
+        levelTextView.setText(labelcategory);
 
         if (connectivityManager.check()) {
             this.getWords();
