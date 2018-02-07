@@ -86,6 +86,7 @@ public class EnglishGameUtility {
     public void addAdBunner() {
         AdView adView = new AdView(activity);
         adView.setAdSize(AdSize.SMART_BANNER);
+
         adView.setAdUnitId(this.activity.getString(R.string.unit_id));
         // Add the AdView to the view hierarchy.
         RelativeLayout layout = activity.findViewById(R.id.footer);
@@ -93,7 +94,7 @@ public class EnglishGameUtility {
 
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device.
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE").build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice("ACDD6E382D5BA4DDE40A75FCA5553789").build();
         // Start loading the ad in the background.
         adView.loadAd(adRequest);
     }
