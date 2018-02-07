@@ -92,17 +92,17 @@ public class MainGameSubjectActivity extends Activity {
         recordExpertTextView.setText(getString(R.string.record, recordExpertValue));
 
 
-        float gameNumbersNaiveValue = session.getPartite(getString(R.string.principiante));
-        //gameNumberNaiveTextView.setText(getString(R.string.partite, gameNumbersNaiveValue));
+        int gameNumbersNaiveValue = session.getPartite(getString(R.string.principiante));
+        gameNumberNaiveTextView.setText(getString(R.string.partite, gameNumbersNaiveValue));
 
-        float gameNumbersBaseValue = session.getPartite(getString(R.string.base));
-        //gameNumberBaseTextView.setText(getString(R.string.partite, gameNumbersBaseValue));
+        int gameNumbersBaseValue = session.getPartite(getString(R.string.base));
+        gameNumberBaseTextView.setText(getString(R.string.partite, gameNumbersBaseValue));
 
-        float gameNumbersIntermediateValue = session.getPartite(getString(R.string.intermedio));
-        //gameNumberIntermediateTextView.setText(getString(R.string.partite, gameNumbersIntermediateValue));
+        int gameNumbersIntermediateValue = session.getPartite(getString(R.string.intermedio));
+        gameNumberIntermediateTextView.setText(getString(R.string.partite, gameNumbersIntermediateValue));
 
-        float gameNumbersExpertValue = session.getPartite(getString(R.string.esperto));
-        //gameNumberExpertTextView.setText(getString(R.string.partite, gameNumbersExpertValue));
+        int gameNumbersExpertValue = session.getPartite(getString(R.string.esperto));
+        gameNumberExpertTextView.setText(getString(R.string.partite, gameNumbersExpertValue));
 
     }
 
