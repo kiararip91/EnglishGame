@@ -1,0 +1,6 @@
+*******************     ENGLISH GAME     *******************
+
+[FEBBRAIO 2018]
+    - Terminare Refactoring codice
+    - Refactoring DataBase
+    - Rilasciare nuova versione app
