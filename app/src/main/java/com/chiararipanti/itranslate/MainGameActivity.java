@@ -165,7 +165,7 @@ public class MainGameActivity extends Activity {
 
         //Initialize Record TextView
         TextView recordTextView = findViewById(R.id.record);
-        recordTextView.setText(getString(R.string.tuo_record1) + " " + record);
+        recordTextView.setText(getString(R.string.record, record));
 
         //Initialize Hidden Layout
         rightAnswerLayout = findViewById(R.id.rigthAnswerLayout);
@@ -859,7 +859,7 @@ public class MainGameActivity extends Activity {
         if (punti > record) {
             session.setRecord(category, punti);
             TextView recordTextView = findViewById(R.id.record);
-            recordTextView.setText(getString(R.string.record) + " " + punti);
+            recordTextView.setText(getString(R.string.record, punti));
             returnValue = true;
         }
 

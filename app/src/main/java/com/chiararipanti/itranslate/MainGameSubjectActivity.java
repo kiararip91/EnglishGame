@@ -44,29 +44,29 @@ public class MainGameSubjectActivity extends Activity {
         TextView gameNumberTravelTextView = findViewById(R.id.game_number_travel);
         TextView gameNumberFoodTextView = findViewById(R.id.game_number_food);
 
-        float recordLifeValue = session.getRecord(getString(R.string.vita_quotidiana));
+        float recordLifeValue = session.getRecord(getString(R.string.vita_quotidiana).toLowerCase());
         recordLifeTextView.setText(getString(R.string.record, recordLifeValue));
 
-        float recordAnimalValue = session.getRecord(getString(R.string.animali));
+        float recordAnimalValue = session.getRecord(getString(R.string.animali).toLowerCase());
         recordAnimalsTextView.setText(getString(R.string.record, recordAnimalValue));
 
-        float recordTravelValue = session.getRecord(getString(R.string.viaggi));
+        float recordTravelValue = session.getRecord(getString(R.string.viaggi).toLowerCase());
         recordTravelTextView.setText(getString(R.string.record, recordTravelValue));
 
-        float recordFoodValue = session.getRecord(getString(R.string.cibo));
+        float recordFoodValue = session.getRecord(getString(R.string.cibo).toLowerCase());
         recordFoodTextView.setText(getString(R.string.record, recordFoodValue));
 
 
-        int gameNumberLifeValue = session.getPartite(getString(R.string.vita_quotidiana));
+        int gameNumberLifeValue = session.getPartite(getString(R.string.vita_quotidiana).toLowerCase());
         gameNumberLifeTextView.setText(getString(R.string.partite, gameNumberLifeValue));
 
-        int gameNumberAnimalsvalue = session.getPartite(getString(R.string.animali));
+        int gameNumberAnimalsvalue = session.getPartite(getString(R.string.animali).toLowerCase());
         gameNumberAnimalsTextView.setText(getString(R.string.partite, gameNumberAnimalsvalue));
 
-        int gameNumberTravelValue = session.getPartite(getString(R.string.viaggi));
+        int gameNumberTravelValue = session.getPartite(getString(R.string.viaggi).toLowerCase());
         gameNumberTravelTextView.setText(getString(R.string.partite, gameNumberTravelValue));
 
-        int gameNumberFoodValue = session.getPartite(getString(R.string.cibo));
+        int gameNumberFoodValue = session.getPartite(getString(R.string.cibo).toLowerCase());
         gameNumberFoodTextView.setText(getString(R.string.partite, gameNumberFoodValue));
 
         TextView recordNaiveTextView = findViewById(R.id.record_naive);
@@ -79,29 +79,29 @@ public class MainGameSubjectActivity extends Activity {
         TextView gameNumberIntermediateTextView = findViewById(R.id.game_number_intermediate);
         TextView gameNumberExpertTextView = findViewById(R.id.game_number_expert);
 
-        float recordNaiveValue = session.getRecord(getString(R.string.principiante));
+        float recordNaiveValue = session.getRecord(getString(R.string.principiante).toLowerCase());
         recordNaiveTextView.setText(getString(R.string.record, recordNaiveValue));
 
-        float recordBaseValue = session.getRecord(getString(R.string.base));
+        float recordBaseValue = session.getRecord(getString(R.string.base).toLowerCase());
         recordBaseTextView.setText(getString(R.string.record, recordBaseValue));
 
-        float recordIntermediateValue = session.getRecord(getString(R.string.intermedio));
+        float recordIntermediateValue = session.getRecord(getString(R.string.intermedio).toLowerCase());
         recordIntermediateTextView.setText(getString(R.string.record, recordIntermediateValue));
 
-        float recordExpertValue = session.getRecord(getString(R.string.esperto));
+        float recordExpertValue = session.getRecord(getString(R.string.esperto).toLowerCase());
         recordExpertTextView.setText(getString(R.string.record, recordExpertValue));
 
 
-        int gameNumbersNaiveValue = session.getPartite(getString(R.string.principiante));
+        int gameNumbersNaiveValue = session.getPartite(getString(R.string.principiante).toLowerCase());
         gameNumberNaiveTextView.setText(getString(R.string.partite, gameNumbersNaiveValue));
 
-        int gameNumbersBaseValue = session.getPartite(getString(R.string.base));
+        int gameNumbersBaseValue = session.getPartite(getString(R.string.base).toLowerCase());
         gameNumberBaseTextView.setText(getString(R.string.partite, gameNumbersBaseValue));
 
-        int gameNumbersIntermediateValue = session.getPartite(getString(R.string.intermedio));
+        int gameNumbersIntermediateValue = session.getPartite(getString(R.string.intermedio).toLowerCase());
         gameNumberIntermediateTextView.setText(getString(R.string.partite, gameNumbersIntermediateValue));
 
-        int gameNumbersExpertValue = session.getPartite(getString(R.string.esperto));
+        int gameNumbersExpertValue = session.getPartite(getString(R.string.esperto).toLowerCase());
         gameNumberExpertTextView.setText(getString(R.string.partite, gameNumbersExpertValue));
 
     }
