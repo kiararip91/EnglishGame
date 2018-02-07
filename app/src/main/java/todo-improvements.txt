@@ -1,6 +1,12 @@
 *******************     ENGLISH GAME     *******************
 
 [FEBBRAIO 2018]
+
+    URGENT/BUG
+    - Layout Scroll Viene nascosto dal footer pubblicitario
+    - Mostrare settings
+    - Recactoring DB
+
+    GENERAL
     - Terminare Refactoring codice
-    - Refactoring DataBase
     - Rilasciare nuova versione app
