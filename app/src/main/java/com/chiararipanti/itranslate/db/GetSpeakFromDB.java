@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.chiararipanti.itranslate.MainGameActivity;
+import com.chiararipanti.itranslate.util.EnglishGameConstraint;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,13 +29,15 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 
-public class GetSentencesFromDB extends AsyncTask<String, Void, ArrayList<String>> {
-    int level;
-    ArrayList<String> sentences;
-    final String TAG = "GetSentencesFromDB";
+public class GetSpeakFromDB extends AsyncTask<String, Void, ArrayList<String>> {
+    private int level;
+    private ArrayList<String> sentences;
+    private final String TAG = "GetSpeakFromDB";
+    private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
+    private String requestResource = "getSpeakByLevel.php";
 
 
-    public GetSentencesFromDB(Context context, int level) {
+    public GetSpeakFromDB(Context context, int level) {
         this.level = level;
         sentences = new ArrayList<String>();
 
@@ -43,14 +46,14 @@ public class GetSentencesFromDB extends AsyncTask<String, Void, ArrayList<String
 
     protected ArrayList<String> doInBackground(String... params) {
 
-        //String stringa_ingrediente="";
         InputStream is = null;
         String result = "";
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("level", level + ""));
         try {
             HttpClient client = new DefaultHttpClient();
-            HttpPost request = new HttpPost("http://sfidaricette.altervista.org/getSentencesByLevel.php");
+
+            HttpPost request = new HttpPost(requestBaseUrl + requestResource);
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(nameValuePairs);
             request.setEntity(formEntity);
 
@@ -59,7 +62,7 @@ public class GetSentencesFromDB extends AsyncTask<String, Void, ArrayList<String
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
         } catch (Exception e) {
-            Log.e(TAG, "sono nel catch");
+            Log.e(TAG, e.getMessage());
         }
 
 			   
@@ -76,19 +79,18 @@ public class GetSentencesFromDB extends AsyncTask<String, Void, ArrayList<String
                 is.close();
                 result = sb.toString();
 
-                Log.v("risposta", result);
             } catch (Exception e) {
                 Log.e(TAG, "sono nel catch");
             }
 
 
             //parsing dei dati in formato json
-            Log.v(TAG, "prima di try");
+            //FIXME: Parsing automatico dal json
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    sentences.add(json_data.getString("sent"));
+                    sentences.add(json_data.getString("sentence"));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, "catch");

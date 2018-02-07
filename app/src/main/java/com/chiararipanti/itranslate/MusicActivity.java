@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.chiararipanti.itranslate.model.Song;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.db.GetCanzoniFromDB;
+import com.chiararipanti.itranslate.db.GetSongsFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
 
@@ -92,7 +92,7 @@ public class MusicActivity extends Activity {
 
     public void getSongs() {
         //attraverso l'asynctask memorizzo dieci vocaboli della categoria scelta
-        GetCanzoniFromDB getsongsTask = new GetCanzoniFromDB(this);
+        GetSongsFromDB getsongsTask = new GetSongsFromDB(this);
         try {
             getsongsTask.execute();
             songs = getsongsTask.get();
@@ -139,7 +139,7 @@ public class MusicActivity extends Activity {
                 else {
                     //TODO: Richiama il getSong
                     if (connectivityManager.check()) {
-                        GetCanzoniFromDB getCanzoni = new GetCanzoniFromDB(getApplicationContext());
+                        GetSongsFromDB getCanzoni = new GetSongsFromDB(getApplicationContext());
                         getCanzoni.execute();
                         try {
                             songs = getCanzoni.get();

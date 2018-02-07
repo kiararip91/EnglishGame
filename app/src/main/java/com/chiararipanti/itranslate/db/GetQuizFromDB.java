@@ -20,12 +20,14 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.chiararipanti.itranslate.util.EnglishGameConstraint;
 import com.chiararipanti.itranslate.util.TestSession;
 
-//TODO: Integra con FireBase
 public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<TestSession>> {
     private ArrayList<TestSession> quizs;
     private int type;
+    private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
+    private String requestResource = "getQuizChooseByType.php";
 
 
     public GetQuizFromDB(int type) {
@@ -42,7 +44,7 @@ public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<TestSession
 
         try {
             HttpClient client = new DefaultHttpClient();
-            HttpPost request = new HttpPost("http://sfidaricette.altervista.org/getQuiz.php");
+            HttpPost request = new HttpPost(requestBaseUrl + requestResource);
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(nameValuePairs);
             request.setEntity(formEntity);
             //execute httpPost
@@ -72,12 +74,13 @@ public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<TestSession
             }
 
             //parsing dei dati in formato json
+            //FIXME: Parsing automatico json/class
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    String question = json_data.getString("text");
-                    String[] alternativesArray = json_data.getString("alternative").split(",");
+                    String question = json_data.getString("question");
+                    String[] alternativesArray = json_data.getString("alternatives").split(",");
                     String answer = alternativesArray[0];
                     ArrayList<String> wrongAlternatives = new ArrayList<>();
                     wrongAlternatives.add(alternativesArray[1]);

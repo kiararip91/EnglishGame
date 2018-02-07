@@ -24,12 +24,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.chiararipanti.itranslate.model.Translation;
+import com.chiararipanti.itranslate.util.EnglishGameConstraint;
 
-
+//TODO: Capire perche non viene usata e ottimizzare/pulire codice
 public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<Translation>> {
     ArrayList<Translation> quizs;
     final String TAG = "GetQuizTraduzioneFromDB";
     int type;
+    private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
+    private String requestResource = "getQuizGapByType.php";
 
 
     public GetQuizTraduzioneFromDB(Context context, int type) {
@@ -42,10 +45,10 @@ public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<T
         InputStream is = null;
         String result = "";
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("tipo", type + ""));
+        nameValuePairs.add(new BasicNameValuePair("type", type + ""));
         try {
             HttpClient client = new DefaultHttpClient();
-            HttpPost request = new HttpPost("http://sfidaricette.altervista.org/getQuizTraduzione.php");
+            HttpPost request = new HttpPost(requestBaseUrl + requestResource);
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(nameValuePairs);
             request.setEntity(formEntity);
             //execute httpPost
@@ -70,7 +73,6 @@ public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<T
                 is.close();
                 result = sb.toString();
 
-                ////Log.v("risposta",result);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
@@ -80,8 +82,8 @@ public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<T
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    String text = json_data.getString("text");
-                    String traduzione = json_data.getString("soluzione");
+                    String text = json_data.getString("question");
+                    String traduzione = json_data.getString("answer");
                     Translation quizTraduzione = new Translation(text, traduzione);
                     quizs.add(quizTraduzione);
                 }

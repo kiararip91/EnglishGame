@@ -4,9 +4,10 @@
 
     URGENT/BUG
     - Layout Scroll Viene nascosto dal footer pubblicitario
-    - Mostrare settings
-    - Recactoring DB
+    - Rendi dinamico recupero livelli e parsing risultati da json
 
     GENERAL
     - Terminare Refactoring codice
     - Rilasciare nuova versione app
+    - Traduzioni
+    - Altri dati nel db

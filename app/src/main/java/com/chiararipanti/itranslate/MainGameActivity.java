@@ -14,6 +14,7 @@ import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.db.GetWordsFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import com.chiararipanti.itranslate.util.SessionManager;
+import com.google.android.gms.ads.AdRequest;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

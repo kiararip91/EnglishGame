@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import com.chiararipanti.itranslate.db.GetSpeakFromDB;
 import com.chiararipanti.itranslate.util.AlertDialogManager;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.db.GetSentencesFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 
 import android.app.Activity;
@@ -191,7 +191,7 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     public void getSentences() {
         if (connectivityManager.check()) {
             //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
-            GetSentencesFromDB getSentTask = new GetSentencesFromDB(this, level);
+            GetSpeakFromDB getSentTask = new GetSpeakFromDB(this, level);
             try {
                 getSentTask.execute();
                 sentences = getSentTask.get();
@@ -241,7 +241,7 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
             sentence = sentences.get(next);
         else {
             if (connectivityManager.check()) {
-                GetSentencesFromDB getSentTask = new GetSentencesFromDB(this, level);
+                GetSpeakFromDB getSentTask = new GetSpeakFromDB(this, level);
                 getSentTask.execute();
                 try {
                     sentences = getSentTask.get();

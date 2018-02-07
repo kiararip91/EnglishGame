@@ -21,14 +21,17 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.chiararipanti.itranslate.model.Song;
+import com.chiararipanti.itranslate.util.EnglishGameConstraint;
 
 
-public class GetCanzoniFromDB extends AsyncTask<String, Void, ArrayList<Song>> {
+public class GetSongsFromDB extends AsyncTask<String, Void, ArrayList<Song>> {
     ArrayList<Song> canzoni;
-    final String TAG = "GetCanzoiFromDB";
+    final String TAG = "GetCanzoniFromDB";
+    private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
+    private String requestResource = "getSongs.php";
 
 
-    public GetCanzoniFromDB(Context context) {
+    public GetSongsFromDB(Context context) {
         canzoni = new ArrayList<Song>();
 
     }

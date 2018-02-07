@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.chiararipanti.itranslate.model.Word;
+import com.chiararipanti.itranslate.util.EnglishGameConstraint;
 
 
 public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
@@ -29,6 +30,8 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
     private ArrayList<Word> words;
     private final String TAG = "GetwordsFromDB";
     private String language;
+    private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
+    private String requestResource = "getWordsByLevel.php";
 
 
     public GetWordsFromDB(String type) {
@@ -49,12 +52,13 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
         InputStream is = null;
         String result = "";
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("tipo", type));
+        nameValuePairs.add(new BasicNameValuePair("level", "1")); // FIXME
         Log.v(TAG, "language" + language);
         nameValuePairs.add(new BasicNameValuePair("language", language));
         try {
             HttpClient client = new DefaultHttpClient();
-            HttpPost request = new HttpPost("http://sfidaricette.altervista.org/getVocabolibycategoria.php");
+            Log.v(TAG, "url" + requestBaseUrl + requestResource);
+            HttpPost request = new HttpPost(requestBaseUrl + requestResource);
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(nameValuePairs);
             request.setEntity(formEntity);
 
@@ -85,15 +89,15 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
             }
 
 
-            //parsing dei dati in formato json
+            //FIXME: Parsing automatico json --> classe
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
                     String nativeLanguage = json_data.getString(language);
-                    String englishWord = json_data.getString("inglese");
-                    String sentence = json_data.getString("frase");
-                    String image = json_data.getString("img");
+                    String englishWord = json_data.getString("english");
+                    String sentence = json_data.getString("sentence");
+                    String image = json_data.getString("image");
 
                     Word word = new Word(englishWord, nativeLanguage, sentence, image);
                     words.add(word);

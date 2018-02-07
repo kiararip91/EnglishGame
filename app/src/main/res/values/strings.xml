@@ -2,6 +2,7 @@
 <resources>
 
     <!-- englishgame -->
+    <string name="http_request_base_url">http://englishgameitranslate.altervista.org/</string>
     <string name="unit_id">ca-app-pub-8281150817879473/6797982542</string>
     <!-- itranslate -->
     <!-- <string name="unit_id">ca-app-pub-8281150817879473/7385933343</string> -->
