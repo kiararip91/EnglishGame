@@ -1,14 +1,16 @@
 package com.chiararipanti.itranslate.db;
 
 import java.io.BufferedReader;
+
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -17,31 +19,35 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.chiararipanti.itranslate.model.QuizGap;
+import com.chiararipanti.itranslate.model.Translation;
 import com.chiararipanti.itranslate.util.EnglishGameConstraint;
-import com.chiararipanti.itranslate.util.TestSession;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<TestSession>> {
-    private ArrayList<TestSession> quizs;
-    private int type;
+//TODO: Capire perche non viene usata e ottimizzare/pulire codice
+public class GetQuizGapFromDB extends AsyncTask<String, Void, ArrayList<QuizGap>> {
+    ArrayList<QuizGap> quizGaps;
+    final String TAG = "GetQuizGapFromDB";
+    int type;
     private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
-    private String requestResource = "getQuizChooseByType.php";
+    private String requestResource = "getQuizGapByType.php";
 
 
-    public GetQuizFromDB(int type) {
+    public GetQuizGapFromDB(Context context, int type) {
         this.type = type;
-        quizs = new ArrayList<>();
+        quizGaps = new ArrayList<>();
+
     }
 
-    protected ArrayList<TestSession> doInBackground(String... params) {
+    protected ArrayList<QuizGap> doInBackground(String... params) {
         InputStream is = null;
         String result = "";
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("type", type + ""));
-        String TAG = "GetQuizFromDB";
-
         try {
             HttpClient client = new DefaultHttpClient();
             HttpPost request = new HttpPost(requestBaseUrl + requestResource);
@@ -55,51 +61,44 @@ public class GetQuizFromDB extends AsyncTask<String, Void, ArrayList<TestSession
             Log.e(TAG, e.getMessage());
         }
 
-		/*converto la risposta in stringa*/
+			   
+		        /*converto la risposta in stringa*/
         if (is != null) {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line;
+                String line = null;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line).append("\n");
+                    sb.append(line + "\n");
                 }
 
                 is.close();
                 result = sb.toString();
 
-                ////Log.v("risposta",result);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
 
-            //parsing dei dati in formato json
-            //FIXME: Parsing automatico json/class
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    String question = json_data.getString("question");
-                    String[] alternativesArray = json_data.getString("alternatives").split(",");
-                    String answer = alternativesArray[0];
-                    ArrayList<String> wrongAlternatives = new ArrayList<>();
-                    wrongAlternatives.add(alternativesArray[1]);
-                    wrongAlternatives.add(alternativesArray[2]);
-                    wrongAlternatives.add(alternativesArray[3]);
-                    TestSession test = new TestSession(question, answer, wrongAlternatives);
-                    quizs.add(test);
+                    ObjectMapper mapper = new ObjectMapper();
+                    QuizGap quizGap = mapper.readValue(String.valueOf(json_data), QuizGap.class);
+                    quizGaps.add(quizGap);
                 }
-            } catch (JSONException e) {
-                Log.e(TAG, e.getMessage());
+            } catch (Exception e) {
+                Log.v(TAG, e.getMessage());
             }
 
-        }
-        return quizs;
 
+        } else {
+            Log.e(TAG,"Null response");
+        }
+        return quizGaps;
     }
 
 
     @Override
-    protected void onPostExecute(ArrayList<TestSession> result) {
-    } //fine onPost
-} //fine AsyncTask
+    protected void onPostExecute(ArrayList<QuizGap> result) {}
+}

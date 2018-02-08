@@ -2,10 +2,13 @@ package com.chiararipanti.itranslate;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import com.chiararipanti.itranslate.model.QuizChoose;
 import com.chiararipanti.itranslate.util.TestSession;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
-import com.chiararipanti.itranslate.db.GetQuizFromDB;
+import com.chiararipanti.itranslate.db.GetQuizChooseFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,8 +37,8 @@ public class TestActivity extends Activity {
     int tipoQuiz;
     int quizTot;
     int quizNow;
-    TestSession test;
-    ArrayList<TestSession> testSessions;
+    QuizChoose quizChoose;
+    ArrayList<QuizChoose> quizChooses;
     int next;
     int score;
     TextView remainingProportionTextView;
@@ -96,25 +99,25 @@ public class TestActivity extends Activity {
     }
 
     private void populateQuiz(int type){
-        GetQuizFromDB getquizsTask = new GetQuizFromDB(type);
+        GetQuizChooseFromDB getquizsTask = new GetQuizChooseFromDB(type);
         try {
             getquizsTask.execute();
-            testSessions = getquizsTask.get();
+            quizChooses = getquizsTask.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        test = testSessions.get(next);
-        quizTot = testSessions.size();
+        quizChoose = quizChooses.get(next);
+        quizTot = quizChooses.size();
         remainingProportionTextView.setText(new StringBuilder().append(quizNow).append("\\").append(quizTot));
     }
 
     public void setUpQuiz(){
         remainingProportionTextView.setText(new StringBuilder().append(quizNow).append("\\").append(quizTot));
-        quizQuestionTextView.setText(test.getQuestion());
-        ArrayList<String> alternatives = test.getAlternatives();
-        alternatives.add(test.getCorrectAnswer());
+        quizQuestionTextView.setText(quizChoose.getQuestion());
+        List<String> alternatives = quizChoose.getAlternatives();
+        alternatives.add(quizChoose.getSolution());
         Collections.shuffle(alternatives);
         firstOptionButton.setText(alternatives.get(0));
         secondOptionButton.setText(alternatives.get(1));
@@ -126,7 +129,7 @@ public class TestActivity extends Activity {
         quizNow++;
         final Button selectedButton = (Button)view;
         String buttonText = selectedButton.getText().toString();
-        if(buttonText.equals(test.getCorrectAnswer())){
+        if(buttonText.equals(quizChoose.getSolution())){
             selectedButton.setBackgroundColor(Color.GREEN);
             score++;
             gameUtils.soundCorrect();
@@ -142,7 +145,7 @@ public class TestActivity extends Activity {
                 selectedButton.setBackgroundResource(R.drawable.shape_button);
                 next++;
                 if(next+1<=quizTot){
-                    test = testSessions.get(next);
+                    quizChoose = quizChooses.get(next);
                     setUpQuiz();
                 } else{
                     alertBuilder.setTitle("The END");

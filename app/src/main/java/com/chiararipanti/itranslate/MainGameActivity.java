@@ -262,7 +262,7 @@ public class MainGameActivity extends Activity {
         selectedWord = new ArrayList<>();
 
         //lettere di cui e composta la parola in italiano
-        String[] nativeWords = this.word.getNativeTranslation().split(",");
+        String[] nativeWords = this.word.getItalian().split(",");
 
         //prendo la prima traduzione, ignoro i sinonimi
         final String nativeWord = nativeWords[0];
@@ -663,7 +663,7 @@ public class MainGameActivity extends Activity {
             num++;
         }
 
-        englishWordTextView.setText(word.getEnglishWord());
+        englishWordTextView.setText(word.getEnglish());
     }
 
     public void next(View view) {
@@ -689,7 +689,7 @@ public class MainGameActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                String[] translations = word.getNativeTranslation().split(",");
+                String[] translations = word.getItalian().split(",");
 
                 //Take the first translation, ignoring sysnonimous
                 final String nativeWord = translations[0];
@@ -750,7 +750,7 @@ public class MainGameActivity extends Activity {
                     dialog.dismiss();
 
                     //Estraggo la traduzione, ignoro i sinonimi
-                    String[] translations = word.getNativeTranslation().split(",");
+                    String[] translations = word.getItalian().split(",");
                     final String nativeWord = translations[0];
 
                     //estraggo le singole lettere
@@ -881,7 +881,7 @@ public class MainGameActivity extends Activity {
 
     public void listenToWord(View view) {
 
-        String englishWord = this.word.getNativeTranslation().toLowerCase();
+        String englishWord = this.word.getItalian().toLowerCase();
         englishWord = gameUtils.substituteSpecialCharWordToPronunce(englishWord);
 
         String url = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + englishWord + "--_gb_1.mp3";

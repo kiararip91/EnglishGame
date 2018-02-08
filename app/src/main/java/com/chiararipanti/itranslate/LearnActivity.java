@@ -139,14 +139,14 @@ public class LearnActivity extends Activity {
 
     public void setWord(){
         this.listened = false;
-        wordTranslationTextView.setText(word.getNativeTranslation());
-        wordEnglishTextView.setText(word.getEnglishWord());
+        wordTranslationTextView.setText(word.getItalian());
+        wordEnglishTextView.setText(word.getEnglish());
         sentenceTextView.setText(word.getSentence());
 
         this.mediaPlayer = new MediaPlayer();
         AudioRequest ar = new AudioRequest(this, mediaPlayer);
 
-        String english = word.getEnglishWord().toLowerCase();
+        String english = word.getEnglish().toLowerCase();
         english = gameUtils.substituteSpecialCharWordToPronunce(english);
 
         String url="https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + english + "--_gb_1.mp3";

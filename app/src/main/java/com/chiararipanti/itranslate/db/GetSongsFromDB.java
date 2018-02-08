@@ -1,6 +1,8 @@
 package com.chiararipanti.itranslate.db;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -22,28 +24,30 @@ import android.util.Log;
 
 import com.chiararipanti.itranslate.model.Song;
 import com.chiararipanti.itranslate.util.EnglishGameConstraint;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class GetSongsFromDB extends AsyncTask<String, Void, ArrayList<Song>> {
-    ArrayList<Song> canzoni;
-    final String TAG = "GetCanzoniFromDB";
+    ArrayList<Song> songs;
+    final String TAG = "GetSongsFromDB";
     private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
     private String requestResource = "getSongs.php";
 
 
     public GetSongsFromDB(Context context) {
-        canzoni = new ArrayList<Song>();
+        songs = new ArrayList<Song>();
 
     }
 
     protected ArrayList<Song> doInBackground(String... params) {
-        //String stringa_ingrediente="";
         InputStream is = null;
         String result = "";
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         try {
             HttpClient client = new DefaultHttpClient();
-            HttpPost request = new HttpPost("http://sfidaricette.altervista.org/getCanzoni.php");
+            HttpPost request = new HttpPost(requestBaseUrl + requestResource);
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(nameValuePairs);
             request.setEntity(formEntity);
 
@@ -52,11 +56,9 @@ public class GetSongsFromDB extends AsyncTask<String, Void, ArrayList<Song>> {
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
         } catch (Exception e) {
-            //Log.e(TAG,"sono nel catch");
+            Log.e(TAG,e.getMessage());
         }
 
-			   
-		        /*converto la risposta in stringa*/
         if (is != null) {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
@@ -68,47 +70,31 @@ public class GetSongsFromDB extends AsyncTask<String, Void, ArrayList<Song>> {
 
                 is.close();
                 result = sb.toString();
+                Log.d(TAG, result);
 
-                ////Log.v("risposta",result);
             } catch (Exception e) {
-                //Log.e(TAG,"sono nel catch");
+                Log.e(TAG, e.getMessage());
             }
 
-
-            //parsing dei dati in formato json
-            //Log.v(TAG,"prima di try");
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    String autore = json_data.getString("autore");
-                    String titolo = json_data.getString("titolo");
-                    String[] alter = json_data.getString("alternative").split(",");
-                    Log.v(TAG, "1");
-                    String traduzione = alter[0];
-                    ArrayList<String> alternative = new ArrayList();
-                    alternative.add(alter[1]);
-                    alternative.add(alter[2]);
-                    alternative.add(alter[3]);
-                    Song canzone = new Song(titolo, autore, traduzione, alternative);
-                    canzoni.add(canzone);
+                    ObjectMapper mapper = new ObjectMapper();
+                    Song song = mapper.readValue(String.valueOf(json_data), Song.class);
+                    songs.add(song);
                 }
-            } catch (JSONException e) {
-                //Log.v(TAG,"catch");
+            } catch (Exception e) {
+                Log.e(TAG,e.getMessage());
             }
 
 
         } else {
-            //Log.e(TAG,"non ho trovato niente");
+            Log.e(TAG,"No Songs founded");
         }
-        return canzoni;
-
+        return songs;
     }
 
-
     @Override
-    protected void onPostExecute(ArrayList<Song> result) {
-
-        //Log.v(TAG,"post");
-    } //fine onPost
+    protected void onPostExecute(ArrayList<Song> result) {}
 } //fine AsyncTask

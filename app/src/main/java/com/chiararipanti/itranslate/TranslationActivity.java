@@ -86,7 +86,7 @@ public class TranslationActivity extends Activity {
     }
 
     public void setupWord() {
-        String nativeTranslation = word.getNativeTranslation();
+        String nativeTranslation = word.getItalian();
         italianWordTextView.setText(nativeTranslation);
         englishWordTextView.setText("");
         helpTextView.setVisibility(View.GONE);
@@ -123,7 +123,7 @@ public class TranslationActivity extends Activity {
 
     public void conferma(View view) {
 
-        if (englishWordTextView.getText().toString().equalsIgnoreCase(word.getEnglishWord())) {
+        if (englishWordTextView.getText().toString().equalsIgnoreCase(word.getEnglish())) {
             next++;
             Toast.makeText(getApplicationContext(), getString(R.string.esatta), Toast.LENGTH_SHORT).show();
             gameUtils.soundCorrect();
@@ -161,16 +161,16 @@ public class TranslationActivity extends Activity {
     }
 
     public void showSolution(View view) {
-        englishWordTextView.setText(word.getEnglishWord());
+        englishWordTextView.setText(word.getEnglish());
     }
 
     public void showAiuto(View view) {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         helpTextView.setVisibility(View.VISIBLE);
-        int lenght = word.getEnglishWord().length();
-        String help = word.getEnglishWord().substring(0, 2) + " ";
+        int lenght = word.getEnglish().length();
+        String help = word.getEnglish().substring(0, 2) + " ";
         for (int i = 2; i < lenght; i++) {
-            if (Character.isWhitespace(word.getEnglishWord().charAt(i)))
+            if (Character.isWhitespace(word.getEnglish().charAt(i)))
                 help = help.concat(" ");
             else
                 help = help.concat("_ ");

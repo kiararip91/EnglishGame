@@ -23,6 +23,7 @@ import android.util.Log;
 
 import com.chiararipanti.itranslate.model.Word;
 import com.chiararipanti.itranslate.util.EnglishGameConstraint;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
@@ -88,21 +89,15 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
                 Log.e(TAG,e.getMessage());
             }
 
-
-            //FIXME: Parsing automatico json --> classe
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    String nativeLanguage = json_data.getString(language);
-                    String englishWord = json_data.getString("english");
-                    String sentence = json_data.getString("sentence");
-                    String image = json_data.getString("image");
-
-                    Word word = new Word(englishWord, nativeLanguage, sentence, image);
+                    ObjectMapper mapper = new ObjectMapper();
+                    Word word = mapper.readValue(String.valueOf(json_data), Word.class);
                     words.add(word);
                 }
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 Log.e(TAG,e.getMessage());
             }
 
@@ -112,7 +107,5 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Word> result) {
-
-    } //fine onPost
+    protected void onPostExecute(ArrayList<Word> result) {}
 } //fine AsyncTask

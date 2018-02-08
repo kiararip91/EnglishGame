@@ -1,16 +1,14 @@
 package com.chiararipanti.itranslate.db;
 
 import java.io.BufferedReader;
-
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -19,33 +17,33 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.chiararipanti.itranslate.model.Translation;
+import com.chiararipanti.itranslate.model.QuizChoose;
 import com.chiararipanti.itranslate.util.EnglishGameConstraint;
+import com.chiararipanti.itranslate.util.TestSession;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-//TODO: Capire perche non viene usata e ottimizzare/pulire codice
-public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<Translation>> {
-    ArrayList<Translation> quizs;
-    final String TAG = "GetQuizTraduzioneFromDB";
-    int type;
+public class GetQuizChooseFromDB extends AsyncTask<String, Void, ArrayList<QuizChoose>> {
+    private ArrayList<QuizChoose> quizChooses;
+    private int type;
     private String requestBaseUrl = EnglishGameConstraint.HTTP_REQUEST_BASE_URL;
-    private String requestResource = "getQuizGapByType.php";
+    private String requestResource = "getQuizChooseByType.php";
 
 
-    public GetQuizTraduzioneFromDB(Context context, int type) {
+    public GetQuizChooseFromDB(int type) {
         this.type = type;
-        quizs = new ArrayList<Translation>();
-
+        quizChooses = new ArrayList<>();
     }
 
-    protected ArrayList<Translation> doInBackground(String... params) {
+    protected ArrayList<QuizChoose> doInBackground(String... params) {
         InputStream is = null;
         String result = "";
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
         nameValuePairs.add(new BasicNameValuePair("type", type + ""));
+        String TAG = "GetQuizChooseFromDB";
+
         try {
             HttpClient client = new DefaultHttpClient();
             HttpPost request = new HttpPost(requestBaseUrl + requestResource);
@@ -59,15 +57,13 @@ public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<T
             Log.e(TAG, e.getMessage());
         }
 
-			   
-		        /*converto la risposta in stringa*/
         if (is != null) {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
 
                 is.close();
@@ -77,29 +73,25 @@ public class GetQuizTraduzioneFromDB extends AsyncTask<String, Void, ArrayList<T
                 Log.e(TAG, e.getMessage());
             }
 
-            //parsing dei dati in formato json
             try {
                 JSONArray jArray = new JSONArray(result);
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
-                    String text = json_data.getString("question");
-                    String traduzione = json_data.getString("answer");
-                    Translation quizTraduzione = new Translation(text, traduzione);
-                    quizs.add(quizTraduzione);
+                    ObjectMapper mapper = new ObjectMapper();
+                    QuizChoose quizChoose = mapper.readValue(String.valueOf(json_data), QuizChoose.class);
+                    quizChooses.add(quizChoose);
                 }
-            } catch (JSONException e) {
-                Log.v(TAG, e.getMessage());
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
             }
 
-
-        } else {
-            Log.e(TAG,"Null response");
         }
-        return quizs;
+        return quizChooses;
+
     }
 
 
     @Override
-    protected void onPostExecute(ArrayList<Translation> result) {
+    protected void onPostExecute(ArrayList<QuizChoose> result) {
     } //fine onPost
 } //fine AsyncTask

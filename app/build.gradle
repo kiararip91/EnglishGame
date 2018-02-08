@@ -34,6 +34,11 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:11.8.0'
     //FireBase DataBase
     compile 'com.google.firebase:firebase-database:11.8.0'
+
+    //Jackson Json Parser
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
 }
 //firebase configuration
 apply plugin: 'com.google.gms.google-services'

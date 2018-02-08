@@ -109,7 +109,7 @@ public class MusicActivity extends Activity {
     public void setUpSong() {
         songTitleTextView.setText(song.getTitle() + " - " + song.getAuthor());
         ArrayList<String> alt = song.getAlternatives();
-        alt.add(song.getTranslation());
+        alt.add(song.getSolution());
         Collections.shuffle(alt);
         firstOptionButton.setText(alt.get(0));
         secondOptionButton.setText(alt.get(1));
@@ -120,7 +120,7 @@ public class MusicActivity extends Activity {
     public void next(View view) {
         final Button selectedButton = (Button) view;
         String buttonText = selectedButton.getText().toString();
-        if (buttonText.equals(song.getTranslation())) {
+        if (buttonText.equals(song.getSolution())) {
             selectedButton.setBackgroundColor(Color.GREEN);
             gameUtils.soundCorrect();
         } else {
