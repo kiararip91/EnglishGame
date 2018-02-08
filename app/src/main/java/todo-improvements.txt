@@ -3,6 +3,7 @@
 [FEBBRAIO 2018]
 
     URGENT/BUG
+    - Controlla mapping livelli
     - Layout Scroll Viene nascosto dal footer pubblicitario
     - Rendi dinamico recupero livelli
     - Db mapping dei livelli nei quiz

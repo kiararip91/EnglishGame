@@ -6,12 +6,12 @@ import com.chiararipanti.itranslate.util.SessionManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-// TODO: Cambiare sul db le categorie (?) Risolvi stringhe Parametrizzate
 
 /**
  * @author chiararipanti
@@ -122,46 +122,40 @@ public class MainGameSubjectActivity extends Activity {
     }
 
     public void goToGame(View view) {
+        int buttonId = view.getId();
+        int level = 0;
+
+        switch (buttonId){
+            case R.id.naive:
+                level = 1;
+                break;
+            case R.id.base:
+                level = 2;
+                break;
+            case R.id.intermediate:
+                level = 3;
+                break;
+            case R.id.expert:
+                level = 4;
+            case R.id.animal:
+                level = 5;
+            case R.id.life:
+                level = 6;
+            case R.id.food:
+                level = 7;
+                break;
+            case R.id.travel:
+                level = 8;
+                break;
+
+        }
         Button pushedButton = (Button) view;
-        String category  = pushedButton.getText().toString().toLowerCase().replace(" ", "_");
+        String levelName  = pushedButton.getText().toString().toLowerCase().replace(" ", "_");
         Intent gameIntentActivity = new Intent(getApplicationContext() , MainGameActivity.class);
         String CATEGORY_PARAM_NAME = "category";
-        gameIntentActivity.putExtra(CATEGORY_PARAM_NAME, category);
+        String CATEGORY_PARAM_LEVEL = "level";
+        gameIntentActivity.putExtra(CATEGORY_PARAM_NAME, levelName);
+        gameIntentActivity.putExtra("level", level+"");
         startActivity(gameIntentActivity);
     }
-
-    /*private String mapCategory(String englishCategory) {
-        String mappedCategory = null;
-
-        switch (englishCategory) {
-            case "expert":
-                mappedCategory = "esperto";
-                break;
-            case "intermediate":
-                mappedCategory = "intermedio";
-                break;
-            case "base":
-                mappedCategory = "base";
-                break;
-            case "naive":
-                mappedCategory = "principiante";
-                break;
-            case "life":
-                mappedCategory = "vita_quotidiana";
-                break;
-            case "travel":
-                mappedCategory = "viaggi";
-                break;
-            case "food":
-                mappedCategory = "cibo";
-                break;
-            case "animal":
-                mappedCategory = "animali";
-                break;
-
-            default:
-                mappedCategory = null;
-        }
-        return mappedCategory;
-    }*/
 }

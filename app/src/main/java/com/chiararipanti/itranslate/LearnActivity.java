@@ -40,6 +40,7 @@ public class LearnActivity extends Activity {
      * Declaring variables
      */
     String category;
+    int level;
     ArrayList<Word> words;
     int next;
     Word word;
@@ -76,6 +77,7 @@ public class LearnActivity extends Activity {
          */
 
         category = getIntent().getStringExtra("category");
+        level = Integer.parseInt(getIntent().getStringExtra("level"));
         String labelcategory = (Character.toUpperCase(category.charAt(0)) + category.substring(1)).replace("_", " ");
         next = 0;
 
@@ -121,7 +123,7 @@ public class LearnActivity extends Activity {
 
     public void getWords(){
         //attraverso l'asinctask memorizzo dieci vocaboli della categoria scelta
-        GetWordsFromDB getvocTask=new GetWordsFromDB(category);
+        GetWordsFromDB getvocTask=new GetWordsFromDB(level);
         try {
             getvocTask.execute();
             words = getvocTask.get();
@@ -184,18 +186,14 @@ public class LearnActivity extends Activity {
                     word = words.get(next);
                 else{
                     if(connectivityManager.check()){
-                        GetWordsFromDB getVocaboli=new GetWordsFromDB(category);
+                        GetWordsFromDB getVocaboli=new GetWordsFromDB(level);
                         getVocaboli.execute();
+
                         try {
                             words = getVocaboli.get();
                             next=0;
                             word = words.get(next);
-                        } catch (InterruptedException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                            alertDialog.showAlertDialog(LearnActivity.this, "OPS!", getString(R.string.errore), false);
-                        } catch (ExecutionException e) {
-                            // TODO Auto-generated catch block
+                        } catch (Exception e) {
                             e.printStackTrace();
                             alertDialog.showAlertDialog(LearnActivity.this, "OPS!", getString(R.string.errore), false);
                         }

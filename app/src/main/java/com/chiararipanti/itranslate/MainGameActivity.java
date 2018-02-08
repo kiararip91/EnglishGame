@@ -45,6 +45,7 @@ import android.widget.Toast;
 public class MainGameActivity extends Activity {
 
     private final String CATEGORY_PARAM_NAME = "category";
+    private final String CATEGORY_PARAM_VALUE = "level";
 
     /**
      * Layout Elements
@@ -99,6 +100,7 @@ public class MainGameActivity extends Activity {
 
     private ArrayList<String> selectedWord;
     private String category;
+    private int level;
     private AlertDialogManager alertDialog;
     private MyConnectivityManager connectivityManager;
     private ArrayList<Button> buttonArrayList;
@@ -113,6 +115,8 @@ public class MainGameActivity extends Activity {
         AlertDialogManager settingDialog = new AlertDialogManager();
         Intent intent = getIntent();
         category = intent.getStringExtra(CATEGORY_PARAM_NAME);
+
+        level = Integer.parseInt(intent.getStringExtra("level"));
         connectivityManager = new MyConnectivityManager(getApplicationContext());
 
         //DA CAPIRE
@@ -175,8 +179,6 @@ public class MainGameActivity extends Activity {
         gameOverLayout = findViewById(R.id.gameoverLayout);
         gameOverLayout.setVisibility(View.GONE);
 
-
-
         //Initialize Variables
         secondLineNeeded = false;
         helpsNumber = 0;
@@ -224,7 +226,7 @@ public class MainGameActivity extends Activity {
             startActivity(intent1);
         } else {
             this.index = 0;
-            GetWordsFromDB getvocTask = new GetWordsFromDB(category);
+            GetWordsFromDB getvocTask = new GetWordsFromDB(level);
             words = new ArrayList<>();
             try {
                 getvocTask.execute();

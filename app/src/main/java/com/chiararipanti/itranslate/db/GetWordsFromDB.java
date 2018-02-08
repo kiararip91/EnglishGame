@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
-    private String type;
+    private int level;
     private ArrayList<Word> words;
     private final String TAG = "GetwordsFromDB";
     private String language;
@@ -35,8 +35,8 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
     private String requestResource = "getWordsByLevel.php";
 
 
-    public GetWordsFromDB(String type) {
-        this.type = type;
+    public GetWordsFromDB(int level) {
+        this.level = level;
         words = new ArrayList<Word>();
 
     }
@@ -53,7 +53,7 @@ public class GetWordsFromDB extends AsyncTask<String, Void, ArrayList<Word>> {
         InputStream is = null;
         String result = "";
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("level", "1")); // FIXME
+        nameValuePairs.add(new BasicNameValuePair("level", level+""));
         Log.v(TAG, "language" + language);
         nameValuePairs.add(new BasicNameValuePair("language", language));
         try {

@@ -47,7 +47,7 @@
                         android:drawableTop="@drawable/principiante"
                         android:fontFamily="sans-serif-condensed"
                         android:gravity="center"
-                        android:onClick="principiante"
+                        android:onClick="goToLearn"
                         android:text="@string/principiante"
                         android:textSize="15sp" />
 
@@ -63,7 +63,7 @@
                         android:drawableTop="@drawable/base"
                         android:fontFamily="sans-serif-condensed"
                         android:gravity="center"
-                        android:onClick="base"
+                        android:onClick="goToLearn"
                         android:text="@string/base"
                         android:textSize="15sp"
                         android:layout_marginStart="5dp" />
@@ -86,7 +86,7 @@
                         android:drawableTop="@drawable/intermedio"
                         android:fontFamily="sans-serif-condensed"
                         android:gravity="center"
-                        android:onClick="intermedio"
+                        android:onClick="goToLearn"
                         android:text="@string/intermedio"
                         android:textSize="15sp"
                         android:layout_marginStart="5dp" />
@@ -101,7 +101,7 @@
                         android:drawableTop="@drawable/esperto"
                         android:fontFamily="sans-serif-condensed"
                         android:gravity="center"
-                        android:onClick="esperto"
+                        android:onClick="goToLearn"
                         android:text="@string/esperto"
                         android:textSize="15sp"
                         android:layout_marginStart="5dp" />
@@ -136,7 +136,7 @@
                         android:contentDescription="@string/animali"
                         android:drawableTop="@drawable/animali"
                         android:fontFamily="sans-serif-condensed"
-                        android:onClick="animali"
+                        android:onClick="goToLearn"
                         android:text="@string/animali"
                         android:textSize="13sp"
                         android:layout_marginStart="5dp" />
@@ -152,7 +152,7 @@
                         android:contentDescription="@string/viaggi"
                         android:drawableTop="@drawable/viaggi"
                         android:fontFamily="sans-serif-condensed"
-                        android:onClick="viaggi"
+                        android:onClick="goToLearn"
                         android:text="@string/viaggi"
                         android:textSize="13sp" />
                 </TableRow>
@@ -172,7 +172,7 @@
                         android:background="@drawable/shape7"
                         android:drawableTop="@drawable/vita"
                         android:fontFamily="sans-serif-condensed"
-                        android:onClick="vita"
+                        android:onClick="goToLearn"
                         android:text="@string/vita_quotidiana"
                         android:textSize="13sp"
                         android:layout_marginStart="5dp" />
@@ -187,7 +187,7 @@
                         android:contentDescription="@string/cibo"
                         android:drawableTop="@drawable/cibo"
                         android:fontFamily="sans-serif-condensed"
-                        android:onClick="cibo"
+                        android:onClick="goToLearn"
                         android:text="@string/cibo"
                         android:textSize="13sp"
                         android:layout_marginStart="5dp" />

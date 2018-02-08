@@ -34,6 +34,7 @@ public class TranslationActivity extends Activity {
      */
     EnglishGameUtility gameUtils;
     String category;
+    int level;
     ArrayList<Word> words;
     int next;
     Word word;
@@ -58,6 +59,7 @@ public class TranslationActivity extends Activity {
         connectivityManager = new MyConnectivityManager(getApplicationContext());
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
+        level = Integer.parseInt(intent.getStringExtra("level"));
         next = 0;
         helpTextView = findViewById(R.id.help);
         levelTextView = findViewById(R.id.level);
@@ -73,7 +75,7 @@ public class TranslationActivity extends Activity {
 
     public void getWords() {
         //attraverso l'asinctask memorizzo dieci words della category scelta
-        GetWordsFromDB getWordsTask = new GetWordsFromDB(category);
+        GetWordsFromDB getWordsTask = new GetWordsFromDB(level);
         try {
             getWordsTask.execute();
             words = getWordsTask.get();
@@ -133,7 +135,7 @@ public class TranslationActivity extends Activity {
             else {
 
                 if (connectivityManager.check()) {
-                    GetWordsFromDB getVocaboli = new GetWordsFromDB(category);
+                    GetWordsFromDB getVocaboli = new GetWordsFromDB(level);
                     getVocaboli.execute();
 
                     try {

@@ -62,118 +62,51 @@ public class LearnSubjectsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void principiante(View view) {
-        if (connectivityManager.check()) {
-            Intent destinationActivity;
-            if (action.equals("impara"))
-                destinationActivity = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                destinationActivity = new Intent(getApplicationContext(), TranslationActivity.class);
-            destinationActivity.putExtra("category", "principiante");
-            startActivity(destinationActivity);
-        } else
-            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
 
-    }
-
-    public void base(View view) {
+    public void goToLearn(View view) {
         if (connectivityManager.check()) {
 
-            Intent b;
-            if (action.equals("impara"))
-                b = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                b = new Intent(getApplicationContext(), TranslationActivity.class);
-            b.putExtra("category", "base");
-            startActivity(b);
-        } else
-            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
+            int buttonId = view.getId();
+            int level = 0;
 
-    }
+            switch (buttonId){
+                case R.id.naive:
+                    level = 1;
+                    break;
+                case R.id.base:
+                    level = 2;
+                    break;
+                case R.id.intermediate:
+                    level = 3;
+                    break;
+                case R.id.expert:
+                    level = 4;
+                case R.id.animal:
+                    level = 5;
+                case R.id.life:
+                    level = 6;
+                case R.id.food:
+                    level = 7;
+                    break;
+                case R.id.travel:
+                    level = 8;
+                    break;
 
-    public void intermedio(View view) {
-        if (connectivityManager.check()) {
+            }
 
-            Intent i;
-            if (action.equals("impara"))
-                i = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                i = new Intent(getApplicationContext(), TranslationActivity.class);
-            i.putExtra("category", "intermedio");
-            startActivity(i);
-        } else
-            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
+            Button pushedButton = (Button) view;
+            String levelName  = pushedButton.getText().toString().toLowerCase().replace(" ", "_");
 
-    }
-
-    public void esperto(View view) {
-        if (connectivityManager.check()) {
-
-            Intent e;
-            if (action.equals("impara"))
-                e = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("category", "esperto");
-            startActivity(e);
-        } else
-            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void cibo(View view) {
-        if (connectivityManager.check()) {
-
-            Intent e;
-            if (action.equals("impara"))
-                e = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("category", "cibo");
-            startActivity(e);
-        } else
-            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void viaggi(View view) {
-        if (connectivityManager.check()) {
-
-            Intent e;
-            if (action.equals("impara"))
-                e = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("category", "viaggi");
-            startActivity(e);
-        } else
-            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void vita(View view) {
-        if (connectivityManager.check()) {
-
-            Intent e;
-            if (action.equals("impara"))
-                e = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("category", "vita_quotidiana");
-            startActivity(e);
-        } else
-            Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
-    }
-
-    public void animali(View view) {
-        if (connectivityManager.check()) {
-            Intent e;
-            if (action.equals("impara"))
-                e = new Intent(getApplicationContext(), LearnActivity.class);
-            else
-                e = new Intent(getApplicationContext(), TranslationActivity.class);
-            e.putExtra("category", "animali");
-            startActivity(e);
+            Intent detinationIntent;
+            if (action.equals("impara")) {
+                detinationIntent = new Intent(getApplicationContext(), LearnActivity.class);
+            }
+            else {
+                detinationIntent = new Intent(getApplicationContext(), TranslationActivity.class);
+            }
+            detinationIntent.putExtra("category", levelName);
+            detinationIntent.putExtra("level", level + "");
+            startActivity(detinationIntent);
         } else
             Toast.makeText(getApplicationContext(), getString(R.string.attiva_connessione), Toast.LENGTH_SHORT).show();
     }
