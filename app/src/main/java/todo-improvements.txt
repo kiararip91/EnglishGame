@@ -4,7 +4,7 @@
 
     URGENT/BUG
     - Layout Scroll Viene nascosto dal footer pubblicitario
-    - Rendi dinamico recupero livelli e parsing risultati da json
+    - Rendi dinamico recupero livelli
     - Db mapping dei livelli nei quiz
 
     GENERAL
