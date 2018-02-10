@@ -1,3 +1,4 @@
 *******************     ENGLISH GAME     *******************
 
 [01-02-2018] Refactoring codice
+[10-02-2018] Migrazione a db Altervista dedicato, ottimizzazione codice
