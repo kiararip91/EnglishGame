@@ -137,10 +137,13 @@ public class MainGameSubjectActivity extends Activity {
                 break;
             case R.id.expert:
                 level = 4;
+                break;
             case R.id.animal:
                 level = 5;
+                break;
             case R.id.life:
                 level = 6;
+                break;
             case R.id.food:
                 level = 7;
                 break;

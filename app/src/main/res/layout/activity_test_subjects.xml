@@ -64,7 +64,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="verbs"/>
+                            android:onClick="goToTestChoose"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -83,7 +83,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="adjectives"/>
+                            android:onClick="goToTestChoose"/>
                     </LinearLayout>
                 </TableRow>
                 <TableRow
@@ -110,7 +110,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="question_words"/>
+                            android:onClick="goToTestChoose"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -129,7 +129,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="past_simple"/>
+                            android:onClick="goToTestChoose"/>
 
                     </LinearLayout>
                 </TableRow>
@@ -181,7 +181,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="regular_irregular_verbs"/>
+                            android:onClick="goToTestGap"/>
 
 
                     </LinearLayout>
@@ -202,7 +202,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="negative_forms"/>
+                            android:onClick="goToTestGap"/>
                     </LinearLayout>
                 </TableRow>
 
@@ -229,7 +229,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="some_any_much_many"/>
+                            android:onClick="goToTestGap"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -248,7 +248,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="articles"/>
+                            android:onClick="goToTestChoose"/>
 
                     </LinearLayout>
                 </TableRow>
@@ -299,7 +299,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="relative_pronouns"/> <!--fixme -->
+                            android:onClick="goToTestGap"/>
 
                         <TextView
                             android:id="@+id/record_prep"
@@ -367,7 +367,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="common_verbs"/>
+                            android:onClick="goToTestChoose"/>
 
                         <TextView
                             android:id="@+id/record_cv"
@@ -397,7 +397,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="modal_verbs"/>
+                            android:onClick="goToTestChoose"/>
                         <TextView
                             android:id="@+id/record_mv"
                             android:layout_width="match_parent"
@@ -456,7 +456,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="idioms"/>
+                            android:onClick="goToTestChoose"/>
 
                         <TextView
                             android:id="@+id/record_i"
@@ -486,7 +486,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="word_conversion"/>
+                            android:onClick="goToTestChoose"/>
 
                         <TextView
                             android:id="@+id/record_wc"
@@ -515,7 +515,7 @@
                         android:background="@drawable/shape7">
 
                         <Button
-                            android:id="@+id/on_pv"
+                            android:id="@+id/phrasal_verbs_on"
                             android:layout_width="match_parent"
                             android:background="@null"
                             android:layout_height="wrap_content"
@@ -524,7 +524,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="on_pv"/>
+                            android:onClick="goToTestChoose"/>
 
                         <TextView
                             android:id="@+id/record_opv"
@@ -545,7 +545,7 @@
                         android:layout_margin="3dp"
                         android:background="@drawable/shape7">
                         <Button
-                            android:id="@+id/out_pv"
+                            android:id="@+id/phrasal_verbs_out"
                             android:layout_width="match_parent"
                             android:background="@null"
                             android:layout_height="wrap_content"
@@ -554,7 +554,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="out_pv"/>
+                            android:onClick="goToTestChoose"/>
                         <TextView
                             android:id="@+id/record_outpv"
                             android:layout_width="match_parent"
@@ -613,7 +613,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="word_conversion_be"/>
+                            android:onClick="goToTestChoose"/>
 
                         <TextView
                             android:id="@+id/record_wcb"
@@ -643,7 +643,7 @@
                             android:textSize="14sp"
                             android:textColor="#000000"
                             android:gravity="center"
-                            android:onClick="antonyms_and_synonyms"/>
+                            android:onClick="goToTestChoose"/>
                         <TextView
                             android:id="@+id/record_aas"
                             android:layout_width="match_parent"

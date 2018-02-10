@@ -74,7 +74,6 @@ public class TranslationActivity extends Activity {
     }
 
     public void getWords() {
-        //attraverso l'asinctask memorizzo dieci words della category scelta
         GetWordsFromDB getWordsTask = new GetWordsFromDB(level);
         try {
             getWordsTask.execute();

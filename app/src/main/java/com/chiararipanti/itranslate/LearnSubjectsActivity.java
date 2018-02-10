@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-//TODO: fFai un unico metodo parametrizzato con intent e click bottone, Fai update db e passa interi invece di stringhe
 
 public class LearnSubjectsActivity extends Activity {
     Button naiveButton;

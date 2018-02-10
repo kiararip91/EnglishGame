@@ -34,7 +34,6 @@ import android.widget.Toast;
  * @author chiararipanti
  * date 04/05/2013
  */
-//FIXME: Va in eccezione, non ci sono parole recuperate
 public class LearnActivity extends Activity {
     /**
      * Declaring variables

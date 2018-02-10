@@ -37,7 +37,7 @@ public class GetQuizGapFromDB extends AsyncTask<String, Void, ArrayList<QuizGap>
     private String requestResource = "getQuizGapByType.php";
 
 
-    public GetQuizGapFromDB(Context context, int type) {
+    public GetQuizGapFromDB(int type) {
         this.type = type;
         quizGaps = new ArrayList<>();
 

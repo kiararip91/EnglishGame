@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.chiararipanti.itranslate.model.QuizChoose;
-import com.chiararipanti.itranslate.util.TestSession;
 import com.chiararipanti.itranslate.util.EnglishGameUtility;
 import com.chiararipanti.itranslate.db.GetQuizChooseFromDB;
 import com.chiararipanti.itranslate.util.MyConnectivityManager;
@@ -23,12 +22,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-//TODO: controlla variabili inutili, integra con fireBase
+//TODO: controlla variabili inutili
 /**
  * @author chiararipanti
  * date 04/05/2013
  */
-public class TestActivity extends Activity {
+public class TestChooseActivity extends Activity {
 
     /**
      * Declaring variables
@@ -61,12 +60,12 @@ public class TestActivity extends Activity {
         thirdOptionButton = findViewById(R.id.third_option);
         forthOptionButton = findViewById(R.id.forth_option);
         remainingProportionTextView = findViewById(R.id.remaining_proportion);
-        alertBuilder = new AlertDialog.Builder(TestActivity.this);
+        alertBuilder = new AlertDialog.Builder(TestChooseActivity.this);
         score = 0;
         connectivityManager=new MyConnectivityManager(getApplicationContext());
 
         Intent intent=getIntent();
-        tipoQuiz=intent.getIntExtra("quiz",0);
+        tipoQuiz = intent.getIntExtra("quiz",0);
         quizTot = 0;
         quizNow = 1;
 
@@ -153,7 +152,7 @@ public class TestActivity extends Activity {
                             .setMessage("Final SCORE: "+score)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent quizLevelIntent = new Intent(TestActivity.this, TestSubjectsActivity.class);
+                                    Intent quizLevelIntent = new Intent(TestChooseActivity.this, TestSubjectsActivity.class);
                                     startActivity(quizLevelIntent);
                                 }
                             });

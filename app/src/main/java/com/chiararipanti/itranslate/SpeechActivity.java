@@ -197,10 +197,10 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
                 speaks = getSentTask.get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                alertDialog.showAlertDialog(SpeechActivity.this, "OPS!", getString(R.string.errore), false);
+                alertDialog.showAlertDialog(getApplicationContext(), "OPS!", getString(R.string.errore), false);
             } catch (ExecutionException e) {
                 e.printStackTrace();
-                alertDialog.showAlertDialog(SpeechActivity.this, "OPS!", getString(R.string.errore), false);
+                alertDialog.showAlertDialog(getApplicationContext(), "OPS!", getString(R.string.errore), false);
             }
 
             speak = speaks.get(next);

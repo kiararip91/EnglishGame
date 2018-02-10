@@ -136,5 +136,7 @@
     <string name="show_sentence">Show Sentence</string>
     <string name="listen">Listen</string>
     <string name="gatto">Gatto</string>
+    <string name="category">Category</string>
+    <string name="wrong_answer">Wrong answer, try again!</string>
 
 </resources>
