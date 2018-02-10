@@ -6,8 +6,8 @@ android {
         applicationId "com.chiararipanti.itranslate"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 43
-        versionName "2.3"
+        versionCode 44
+        versionName "2.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
